@@ -1,0 +1,120 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+<!-- Customize your theme here. -->
+<item name="colorPrimary">@color/colorPrimary</item>
+<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+<item name="colorAccent">@color/colorAccent</item>
+<item name="windowActionBar">false</item>
+<item name="windowNoTitle">true</item>
+<item name="android:windowAnimationStyle">@style/costumActivityAnimation</item>
+</style>
+<style name="ToolbarColoredBackArrow" parent="AppTheme">
+<item name="android:textColorSecondary">@color/whiteTextColor</item>
+</style>
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colororange</item>
+        <item name="colorButtonNormal">@color/colorother</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+
+    <item name="windowActionBar">false</item>
+
+    <item name="windowNoTitle">true</item>
+
+</style>
+
+    <style parent="ThemeOverlay.AppCompat.Dark.ActionBar" name="AppTheme.AppBarOverlay"/>
+
+    <style parent="ThemeOverlay.AppCompat.Light" name="AppTheme.PopupOverlay"/>
+
+    <!--styles for profile-->
+
+
+
+    -<style name="AppTheme.ProfileTheme">
+
+    <item name="colorPrimaryDark">@color/profilePrimaryDark</item>
+
+    <item name="colorAccent">@color/profileAccentColor</item>
+
+    <item name="windowActionBar">false</item>
+
+    <item name="windowNoTitle">true</item>
+
+    <item name="android:textColor">@color/whiteTextColor</item>
+
+</style>
+
+
+    -<style parent="@android:style/TextAppearance" name="TransparentText">
+
+    <item name="android:textColor">#00000000</item>
+
+</style>
+
+
+    -<style name="parent">
+
+    <item name="android:layout_width">match_parent</item>
+
+    <item name="android:layout_height">wrap_content</item>
+
+</style>
+
+
+    -<style parent="parent" name="headerText">
+
+    <item name="android:textSize">@dimen/headerTextSize</item>
+
+    <item name="android:textColor">@color/blackTextColor</item>
+
+    <item name="android:textStyle">bold</item>
+
+</style>
+
+
+    -<style parent="TextAppearance.AppCompat.Medium.Inverse" name="textInputHintStyle">
+
+    <item name="android:textColorHint">@color/blackTextColor</item>
+
+    <item name="android:textColor">@color/blackTextColor</item>
+
+    <item name="android:textSize">17sp</item>
+
+    <item name="android:textStyle">bold</item>
+
+</style>
+
+
+    -<style name="viewParent">
+
+    <item name="android:layout_width">wrap_content</item>
+
+    <item name="android:layout_height">wrap_content</item>
+
+</style>
+
+
+    -<style parent="parent" name="profileDetailsLayout">
+
+    <item name="android:layout_marginTop">20dp</item>
+
+</style>
+    <style name="costumActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+
+
+
+
+</resources>
+
+

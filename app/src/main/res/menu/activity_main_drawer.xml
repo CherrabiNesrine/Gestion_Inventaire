@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/Home"
+            android:title="Home"
+            android:icon="@mipmap/maison"/>
+        <item
+            android:id="@+id/profile"
+            android:title="Profile"
+            android:icon="@drawable/u"/>
+        <item
+            android:id="@+id/Produit"
+            android:title="Add a product"
+            android:icon="@mipmap/pro"/>
+        <item
+            android:id="@+id/Inventaire"
+            android:title="Inventory"
+            android:icon="@mipmap/invent"/>
+        <item
+            android:id="@+id/Magazins"
+            android:title="Magazins"
+            android:icon="@mipmap/house"
+            />
+        <item
+            android:id="@+id/Apropos"
+            android:title="About"
+            android:icon="@mipmap/abt"
+            />
+        <item
+        android:id="@+id/logout"
+        android:title="logout"
+        android:icon="@mipmap/logout" />
+    </group>
+
+
+
+</menu>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.logg">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.Camera" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="inventory management"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Miseajour" />
+        <activity android:name=".Photo" />
+        <activity android:name=".Trash" />
+        <activity android:name=".ViewlistP" />
+        <activity android:name=".Date" />
+        <activity android:name=".BottomNav" />
+        <activity android:name=".Rest" />
+        <activity android:name=".Raw" />
+        <activity android:name=".Factory" />
+        <activity android:name=".AjtProduit31" />
+        <activity android:name=".Ajoutsuc" />
+        <activity android:name=".ajtproduit2" />
+        <activity android:name=".AjtProduit" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".DashboardActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Rapport" />
+        <activity
+            android:name=".EditProfile"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".MagazinActivity" />
+        <activity android:name=".InventoryActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SidebarMenu" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+    </application>
+
+</manifest>
