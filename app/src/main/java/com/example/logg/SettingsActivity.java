@@ -22,5 +22,5 @@ public class SettingsActivity extends SidebarMenu {
         View contentView = inflater.inflate(R.layout.activity_settings, null, false);
         drawer.addView(contentView, 0);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Settings");
+        actionBar.setTitle("setting");
     }}

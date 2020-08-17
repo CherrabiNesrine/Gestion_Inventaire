@@ -10,10 +10,15 @@
 <item name="windowActionBar">false</item>
 <item name="windowNoTitle">true</item>
 <item name="android:windowAnimationStyle">@style/costumActivityAnimation</item>
-</style>
+    <item name="android:actionModeBackground">@color/colorPrimary</item></style>
+
 <style name="ToolbarColoredBackArrow" parent="AppTheme">
 <item name="android:textColorSecondary">@color/whiteTextColor</item>
 </style>
+
+    <style name="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" parent="AppTheme">
+        <item name="android:color">@color/accepted</item>
+    </style>
     <style name="MyButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/colororange</item>
         <item name="colorButtonNormal">@color/colorother</item>
@@ -112,6 +117,9 @@
     </style>
 
 
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/erreur</item>
+    </style>
 
 
 

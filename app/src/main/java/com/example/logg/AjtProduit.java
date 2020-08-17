@@ -3,26 +3,19 @@ package com.example.logg;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Vibrator;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,7 +24,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -41,11 +33,9 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
-
-import android.hardware.Camera;
-import android.hardware.Camera.Parameters;
 
 import static java.lang.Integer.parseInt;
 
@@ -59,9 +49,12 @@ public class AjtProduit extends SidebarMenu {
     TextView textView;
     Button Next;
     BarcodeDetector barcodeDetector;
-    DataBaseHalperP db;
+    DataBaseM db;
     String code;
     Cursor cursor=null;
+    String nomm="";
+    String typee="";
+    String unitt="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +67,34 @@ public class AjtProduit extends SidebarMenu {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("add product");
 
+
+
+
+        Intent intent = getIntent();
+//recupriate the pervious page attribute
+        if (intent != null) {
+
+            if (intent.hasExtra("Nom")){
+                nomm = intent.getStringExtra("Nom");
+
+            }
+            if (intent.hasExtra("type")) {
+                typee = intent.getStringExtra("type");
+
+            }
+            if (intent.hasExtra("unit")) {
+                unitt = intent.getStringExtra("unit");
+
+            }
+        }
+Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).show();
+
         surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
         textView = (TextView) findViewById(R.id.textView);
         Next = (Button) findViewById(R.id.Nextbtn);
         navigationView = (BottomNavigationView) findViewById(R.id.Bottom_nav);
         navigationView.setSelectedItemId(R.id.nav_add);
-        db = new DataBaseHalperP(this);
+        db = new DataBaseM(this);
         ActivityCompat.requestPermissions(AjtProduit.this, new String[]{Manifest.permission.CAMERA}, Camera_Request);
 
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.ALL_FORMATS).build();
@@ -148,13 +163,17 @@ public class AjtProduit extends SidebarMenu {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_view: {
-                        startActivity(new Intent(AjtProduit.this, ViewlistP.class));
+                        Intent intent = new Intent (AjtProduit.this,ViewlistP.class);
+                        intent.putExtra("Nom",nomm);
+                        startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     }
 
                     case R.id.nav_trash: {
-                        startActivity(new Intent(AjtProduit.this, Trash.class));
+                        Intent intent = new Intent (AjtProduit.this,Trash.class);
+                        intent.putExtra("Nom",nomm);
+                        startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     }
@@ -218,7 +237,7 @@ public class AjtProduit extends SidebarMenu {
                                     nv = nv + Qntt;
                                     ContentValues values = new ContentValues();
                                     values.put("quantite", nv);
-                                    db.Update(values, "ID=?", new String[]{code});
+                                    db.Update(DataBaseM.Table_name,values, "ID=?", new String[]{code});
                                     dialog.dismiss();
                                     Intent intent = new Intent(AjtProduit.this,ViewlistP.class);
                                     intent.putExtra("hello", textView.getText().toString());
@@ -230,10 +249,15 @@ public class AjtProduit extends SidebarMenu {
                                     nv = nv + Qntt;
                                     ContentValues values = new ContentValues();
                                     values.put("quantite", nv);
-                                    db.Update(values, "ID=?", new String[]{code});
+                                    db.Update(DataBaseM.Table_name,values, "ID=?", new String[]{code});
                                     dialog.dismiss();
                                     Intent intent = new Intent(AjtProduit.this,ViewlistP.class);
                                     intent.putExtra("hello", textView.getText().toString());
+                                    intent.putExtra("Nom", nomm);
+                                    intent.putExtra("type",typee);
+                                    intent.putExtra("unit",unitt);
+                                    Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
+
                                     startActivity(intent);
                                 }
 
@@ -245,6 +269,10 @@ public class AjtProduit extends SidebarMenu {
                     else{
                         Intent intent = new Intent(AjtProduit.this, ajtproduit2.class);
                         intent.putExtra("hello", textView.getText().toString());
+                        intent.putExtra("Nom", nomm);
+                        intent.putExtra("type",typee);
+                        intent.putExtra("unit",unitt);
+                        Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
                         startActivity(intent);
                     }
 
@@ -254,6 +282,11 @@ public class AjtProduit extends SidebarMenu {
                 else {
                     Intent intent = new Intent(AjtProduit.this, ajtproduit2.class);
                     intent.putExtra("hello", textView.getText().toString());
+                    intent.putExtra("Nom", nomm);
+                    intent.putExtra("type",typee);
+                    intent.putExtra("unit",unitt);
+                    Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
+
                     startActivity(intent);
                 }
 

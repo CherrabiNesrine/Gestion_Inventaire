@@ -1,4 +1,4 @@
-package com.example.logg;
+/*package com.example.logg;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
     private Context mContext;
@@ -20,21 +21,23 @@ public class GridAdapter extends BaseAdapter {
     private final ArrayList<String> Itcode;
     private final ArrayList<byte[]> imageId;
 
+
     public GridAdapter(Context c,  ArrayList<String> Itnom , ArrayList<String> Itcode ,ArrayList<byte[]> imageId) {
         mContext = c;
         this.Itnom = Itnom;
         this.Itcode=Itcode;
         this.imageId = imageId;
+
     }
 
     @Override
     public int getCount() {
-        return Itnom.size();
+        return mApps.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return Itnom.get(position);
+        return mApps.get(position);
     }
 
     @Override
@@ -44,27 +47,13 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        /*View grid;
 
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
-            grid = inflater.inflate(R.layout.grid, null);
-            TextView nom = (TextView) grid.findViewById(R.id.tnom);
-            TextView code = (TextView) grid.findViewById(R.id.tcode);
-            ImageView imageView = (ImageView) grid.findViewById(R.id.imv);
-            nom.setText(Itnom[position]);
-            nom.setText(Itcode[position]);
-            imageView.setImageResource(imageId[position]);
-        } else {
-            grid = convertView;
-        }
-        return grid;*/
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid, null);
         }
+
 
         TextView nom= (TextView) convertView.findViewById(R.id.tnom);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imv);
@@ -76,8 +65,32 @@ public class GridAdapter extends BaseAdapter {
         imageView .setImageBitmap(bmp);
 
 
+
+        ViewlistP.CheckableLayout l;
+        ImageView i;
+
+        if (convertView == null) {
+            i = new ImageView(MainActivity.this);
+            i.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            i.setLayoutParams(new ViewGroup.LayoutParams(50, 50));
+            l = new CheckableLayout(MainActivity.this);
+            l.setLayoutParams(new GridView.LayoutParams(
+                    GridView.LayoutParams.WRAP_CONTENT,
+                    GridView.LayoutParams.WRAP_CONTENT));
+            l.addView(i);
+        } else {
+            l = (CheckableLayout) convertView;
+            i = (ImageView) l.getChildAt(0);
+        }
+
+        ResolveInfo info = mApps.get(position);
+        i.setImageDrawable(info.activityInfo.loadIcon(getPackageManager()));
+
+
         return convertView;
 
 
     }
 }
+*/
+

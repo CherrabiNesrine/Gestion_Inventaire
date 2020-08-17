@@ -31,17 +31,51 @@
         <item>rags </item>
         <item>Others</item>
     </string-array>
-    <string-array name="Mesure">
-        <item>Package</item>
-        <item>box </item>
-        <item>Inch </item>
-        <item>Kit</item>
-    </string-array>
     <string-array name="coins">
         <item>Algerian dinar </item>
         <item>euro</item>
         <item>dollar</item>
     </string-array>
+    <string-array name="unit">
+        <item>ea</item>
+        <item>dz</item>
+        <item>kg</item>
+        <item>m</item>
+        <item>sqm</item>
+        <item>rm</item>
+        <item>pk</item>
+        <item>bx</item>
+        <item>cs</item>
+    </string-array>
+
+    <string-array name="categorie">
+        <item>Consumable</item>
+        <item>Not consumable</item>
+        <item>Spare parts</item>
+        <item>Raw materials</item>
+    </string-array>
+    <string-array name="statujur">
+        <item>EI</item>
+        <item>EIRL</item>
+        <item>EURL</item>
+        <item>SA</item>
+        <item>SELA</item>
+        <item>SARL</item>
+        <item>SCI</item>
+        <item>SASU</item>
+        <item>SELARL</item>
+        <item>SCM</item>
+    </string-array>
+    <string-array name="Secteur">
+        <item>primary activity sectors</item>
+        <item>secondary activity sectors</item>
+        <item>tertiary activity sectors</item>
+    </string-array>
+
+    <string name="sales_text"><b>Sales Informasion :</b> </string>
+    <string name="ONe_text"><b>Do you know someOne there? :</b></string>
+    <string name="purchasing_text"><b>Purchasing Info :</b></string>
+    <string name="Autre_text"><b>Product\'s Information :</b> </string>
     <string name="ask_text">do you need it ?</string>
     <string name="ask_title">ask</string>
     <string name="negative_text">there is an error</string>
@@ -60,4 +94,7 @@
     <string name="letters">this field must contain only letters</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="NO"><font color='#FF8500'>NO</font></string>
+    <string name="OK"><font color='#67B8CF'>NO</font></string>
+
 </resources>

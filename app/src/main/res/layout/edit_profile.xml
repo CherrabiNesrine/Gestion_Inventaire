@@ -144,26 +144,8 @@
             android:cursorVisible="false"
             />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Job"
-            android:textAllCaps="true"
-            android:textColor="#3879e0"
-            android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/job"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textColor="#FFA500"
-            android:paddingLeft="10dp"
-            android:focusable="false"
-            android:cursorVisible="false"/>
+
 
         <TextView
 

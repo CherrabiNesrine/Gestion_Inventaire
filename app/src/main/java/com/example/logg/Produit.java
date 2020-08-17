@@ -2,27 +2,116 @@ package com.example.logg;
 
 import android.text.Editable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Produit {
-    private String Code,name,factory,description,categorie,sous,matiere;
-    private int quantite ;
-    private double price;
+    private String Code,name,factory,description,categorie,sous,mesure,typePr,fournisseur,client,coin,coins,matiere;
+    private int quantite ,qttmin;
+    private double price,prixS;
     private Date Exp =new Date();
     private Date Fab=new Date();
+    private Date Ent=new Date();
+    private Date dateModif= new Date();
+    private Date dateDel;
     private byte[] image;
-    public Produit(){
-        Code=name=factory=description=matiere="";
+    public Produit() {
+        Code=name=factory=description=mesure=typePr=categorie=sous=fournisseur=client=coins=coin=matiere="";
         quantite=123;
+        qttmin=0;
         Fab.setYear(2000);
         Fab.setMonth(01);
         Fab.setDate(01);
-
+        Ent.setYear(2000);
+        Ent.setMonth(01);
+        Ent.setDate(01);
         Exp.setYear(2000);
         Exp.setMonth(01);
         Exp.setDate(01);
+         dateDel = new Date();
         price=0;
+        prixS=0;
 
+    }
+
+    public Date getDateDel() {
+        return dateDel;
+    }
+
+    public Date getDateModif() {
+        return dateModif;
+    }
+
+    public void setDateDel(Date dateDel) {
+        this.dateDel = dateDel;
+    }
+
+    public void setDateModif(Date dateModif) {
+        this.dateModif = dateModif;
+    }
+
+    public int getQttmin() {
+        return qttmin;
+    }
+
+    public void setQttmin(int qttmin) {
+        this.qttmin = qttmin;
+    }
+
+    public double getPrixS() {
+        return prixS;
+    }
+
+    public String getCoins() {
+        return coins;
+    }
+
+    public String getMatiere() {
+        return matiere;
+    }
+
+    public void setCoins(String coins) {
+        this.coins = coins;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+    public void setPrixS(double prixS) {
+        this.prixS = prixS;
+    }
+
+    public Date getEnt() {
+        return Ent;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public String getFournisseur() {
+        return fournisseur;
+    }
+
+    public String getTypePr() {
+        return typePr;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public void setEnt(Date ent) {
+        Ent = ent;
+    }
+
+    public void setFournisseur(String fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public void setTypePr(String typePr) {
+        this.typePr = typePr;
     }
 
     public byte[] getImage() {
@@ -33,28 +122,18 @@ public class Produit {
         this.image = image;
     }
 
-   /* public String getCoin() {
+   public String getCoin() {
         return coin;
     }
 
     public void setCoin(String coin) {
         this.coin = coin;
     }
-
-
-
-    public String getMesure() {
-        return mesure;
-    }
-
-    public void setMesure(String mesure) {
-        this.mesure = mesure;
-    }*/
-   public String getMatiere(){
-       return matiere;
+   public String getmesure(){
+       return mesure;
    }
-    public void setMatiere(String matiere) {
-        this.matiere = matiere;
+    public void setmesure(String mesure) {
+        this.mesure = mesure;
     }
 
     public String getCategorie() {

@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         android:elevation="4dp"
+
         >
 
         <LinearLayout
@@ -41,14 +42,14 @@
 
                 <ImageView
                     android:id="@+id/help"
-                    android:layout_width="358dp"
-                    android:layout_height="113dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="166dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_gravity="center"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ic_help" />
+                    android:src="@drawable/ic_info" />
                 <TextView
                     android:id="@+id/messageer"
                     android:layout_width="match_parent"
@@ -114,3 +115,4 @@
 
 
 </RelativeLayout>
+

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.logg.SQLiteHelper;
+import com.example.logg.DataBaseM;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,14 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox checkBox;
     Boolean EditTextEmptyHolder;
     SQLiteDatabase sqLiteDatabaseObj;
-    SQLiteHelper sqLiteHelper;
+    DataBaseM db;
     Cursor cursor;
     String TempPassword = "NOT_FOUND" ;
     public static  String User = "";
     public static String Id  = "";
     public static String Nom  = "";
     public static String Prenom  = "";
-    public static String Job  = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         user = (EditText)findViewById(R.id.eduser);
         Password = (EditText)findViewById(R.id.edpass);
         checkBox =(CheckBox)findViewById(R.id.checkBox);
-        sqLiteHelper = new SQLiteHelper(this);
+        db= new DataBaseM(this);
 
         SharedPreferences preferences=getSharedPreferences("checkBox",MODE_PRIVATE);
         String check=preferences.getString("remember","");
@@ -53,14 +52,16 @@ public class LoginActivity extends AppCompatActivity {
         String pass=preferences.getString("password","");
 
 
+
+        db.QueryData();
+
          if(check.equals("true")){
              user.setText(userr);
              Password.setText(pass);
+             sqLiteDatabaseObj = db.getReadableDatabase();
 
-             sqLiteDatabaseObj = sqLiteHelper.getReadableDatabase();
 
-
-             cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_4_username+ "=?", new String[]{userr}, null, null, null);
+             cursor = sqLiteDatabaseObj.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_4_username+ "=?", new String[]{userr}, null, null, null);
 
              while (cursor.moveToNext()) {
 
@@ -69,19 +70,17 @@ public class LoginActivity extends AppCompatActivity {
                      cursor.moveToFirst();
 
 
-                     TempPassword = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Password));
-                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                     TempPassword = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_3_Password));
+                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 
-                     User=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_username));
+                     User=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_4_username));
                      intent.putExtra("user", User);
-                     Id=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID));
+                     Id=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_ID));
                      intent.putExtra("id", Id);
-                     Nom=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name));
+                     Nom=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_1_Name));
                      intent.putExtra("nom", Nom);
-                     Prenom=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Prenom));
+                     Prenom=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_2_Prenom));
                      intent.putExtra("prenom", Prenom);
-                     Job=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_job));
-                     intent.putExtra("job", Job);
 
                      startActivity(intent);
 
@@ -104,7 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
                     Toast.makeText(getApplicationContext(),"checked",Toast.LENGTH_LONG).show();
 
-                }else if(!buttonView.isChecked()){
+                }
+                else if(!buttonView.isChecked()){
                     SharedPreferences preferences= getSharedPreferences("checkBox",MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.putString("remember","false");
@@ -145,10 +145,10 @@ public class LoginActivity extends AppCompatActivity {
     public void LoginFunction(){
 
         if(EditTextEmptyHolder) {
-            sqLiteDatabaseObj = sqLiteHelper.getReadableDatabase();
+            sqLiteDatabaseObj = db.getReadableDatabase();
 
 
-            cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_4_username+ "=?", new String[]{UsernameHolder}, null, null, null);
+            cursor = sqLiteDatabaseObj.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_4_username+ "=?", new String[]{UsernameHolder}, null, null, null);
 
             while (cursor.moveToNext()) {
 
@@ -157,19 +157,17 @@ public class LoginActivity extends AppCompatActivity {
                     cursor.moveToFirst();
 
 
-                    TempPassword = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Password));
-                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                    TempPassword = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_3_Password));
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 
-                    User=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_username));
+                    User=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_4_username));
                     intent.putExtra("user", User);
-                    Id=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID));
+                    Id=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_ID));
                     intent.putExtra("id", Id);
-                    Nom=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name));
+                    Nom=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_1_Name));
                     intent.putExtra("nom", Nom);
-                    Prenom=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Prenom));
+                    Prenom=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_2_Prenom));
                     intent.putExtra("prenom", Prenom);
-                    Job=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_job));
-                    intent.putExtra("job", Job);
 
                     startActivity(intent);
 

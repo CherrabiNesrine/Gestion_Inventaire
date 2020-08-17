@@ -1,6 +1,7 @@
 package com.example.logg;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,12 +10,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +35,7 @@ import static com.example.logg.LoginActivity.Id;
 public class SidebarMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
 
-    DrawerLayout drawer;String myname="",myprenom="";SQLiteHelper sqLiteHelper;byte[] profileimg=null;
+    DrawerLayout drawer;String myname="",myprenom="";DataBaseM db;byte[] profileimg=null;
     SQLiteDatabase sqLiteDatabaseObj;
     TextView nameheader;
     @Override
@@ -43,15 +49,16 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         nameheader=(TextView)findViewById(R.id.headername);
         Cursor cursor;
-        sqLiteHelper = new SQLiteHelper(this);
-        sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
-        cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
+        db = new DataBaseM(this);
+        db.QueryData();
+        sqLiteDatabaseObj = db.getWritableDatabase();
+        cursor = sqLiteDatabaseObj.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
         while (cursor.moveToNext()) {
             if (cursor.isFirst()) {
                 cursor.moveToFirst();
-                myname = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name));
-                myprenom=cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Prenom));
-                profileimg = cursor.getBlob(cursor.getColumnIndex(SQLiteHelper.KEY_IMG));
+                myname = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_1_Name));
+                myprenom=cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_2_Prenom));
+                profileimg = cursor.getBlob(cursor.getColumnIndex(DataBaseM.KEY_IMG));
             }
         }
 
@@ -88,6 +95,9 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         {photo.setImageBitmap(getImage(profileimg));}
 
     }
+
+
+
     protected void replaceContentLayout(int sourceId, int destinationId) {
         View contentLayout = findViewById(destinationId);
 
@@ -109,6 +119,12 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -126,9 +142,24 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }else if (id == R.id.Produit) {
-            Toast.makeText(getApplicationContext(), "Add a product", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, AjtProduit.class);
-            startActivity(intent);
+            final AlertDialog.Builder magalrt = new AlertDialog.Builder(SidebarMenu.this);
+            final View vmag= LayoutInflater.from(SidebarMenu.this).inflate(R.layout.magw,null);
+            TextView message=(TextView)vmag.findViewById(R.id.qntttmag);
+            Button nacc=(Button)vmag.findViewById(R.id.btn_okkmag);
+            message.setText("please you should first add or select a wherehouse ");
+            magalrt.setView(vmag);
+            final AlertDialog dialog = magalrt.create();
+            dialog.show();
+            nacc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Add a product", Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(SidebarMenu.this, MagazinActivity.class));
+                }
+            });
+
         } else if (id == R.id.Inventaire) {
             Toast.makeText(getApplicationContext(), "Inventory", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, InventoryActivity.class);
@@ -136,10 +167,14 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         } else if (id == R.id.Magazins) {
             Toast.makeText(getApplicationContext(), "Magazins", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MagazinActivity.class);
+            intent.putExtra("check","care");
             startActivity(intent);
         } else if (id == R.id.Apropos) {
             Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, AboutActivity.class);
+            intent.putExtra("check","care");
+            startActivity(intent);
+
             startActivity(intent);
 
         }

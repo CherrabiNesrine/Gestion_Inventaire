@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.logg">
 
@@ -21,12 +22,7 @@
         <activity android:name=".Photo" />
         <activity android:name=".Trash" />
         <activity android:name=".ViewlistP" />
-        <activity android:name=".Date" />
         <activity android:name=".BottomNav" />
-        <activity android:name=".Rest" />
-        <activity android:name=".Raw" />
-        <activity android:name=".Factory" />
-        <activity android:name=".AjtProduit31" />
         <activity android:name=".Ajoutsuc" />
         <activity android:name=".ajtproduit2" />
         <activity android:name=".AjtProduit" />

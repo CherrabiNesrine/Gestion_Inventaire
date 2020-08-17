@@ -1,4 +1,4 @@
-package com.example.logg;
+/*package com.example.logg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,21 +32,22 @@ import java.util.regex.Pattern;
 
 
 public class Factory extends SidebarMenu {
-    EditText entreprise,addres,phone,email;
+    EditText entreprise,addres,phone,email,site;
+    EditText NomP,Prenom,phoneNum,job;
+    Spinner type;
     Button txtv;
     FactoryE E=new FactoryE();
-
+    DataBaseFact db;
     BottomNavigationView navigationView;
     Produit p = new Produit();
     byte[] bytes=new byte[0];
     private boolean entrepriseIsEmpty=true;
-    SQLiteOpenHelper openHelper;
-    SQLiteDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
+       /* Intent intent = getIntent();
 //recupriate the pervious page attribute
         if (intent != null) {
             String code = "";
@@ -76,6 +78,8 @@ public class Factory extends SidebarMenu {
             p.setPrice(intent.getDoubleExtra("prix", 0));
 
         }
+
+
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
@@ -83,13 +87,16 @@ public class Factory extends SidebarMenu {
         drawer.addView(contentView, 0);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Add product");
-
         txtv=(Button)findViewById(R.id.txtv);
-        openHelper=new DataBaseFact(this);
         entreprise=(EditText)findViewById(R.id.entreprise);
         addres=(EditText)findViewById(R.id.address);
         phone=(EditText)findViewById(R.id.phone);
         email=(EditText)findViewById(R.id.email);
+        site=(EditText)findViewById(R.id.site);
+
+        phoneNum=(EditText)findViewById(R.id.onePhone);
+        Prenom=(EditText)findViewById(R.id.onePrenom);
+        NomP=(EditText)findViewById(R.id.OneNom);
         navigationView = (BottomNavigationView) findViewById(R.id.Bottom_nav);
         navigationView.setSelectedItemId(R.id.nav_add);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -104,6 +111,8 @@ public class Factory extends SidebarMenu {
                 return false;
             }
         });
+        db=new DataBaseFact(this);
+        db.QueryData();
 
         entreprise.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,16 +150,19 @@ public class Factory extends SidebarMenu {
                     if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                         email.setError("please enter a valid email address");
 
-                    } else {
+                    }
+                    else {
                         p.setFactory(E.getName());
                         E.setAdress(addres.getText().toString());
                         E.setName(entreprise.getText().toString());
                         E.setEmail(email.getText().toString());
                         E.setPhone(phone.getText().toString());
-                        db = openHelper.getWritableDatabase();
-                        insertData(E.getName(), E.getEmail(), E.getPhone(), E.getAdress());
+                        E.setSite(site.getText().toString());
+                        E.setJob(job.getText().toString());
+                        db.QueryData();
+                        db.InsertDataFirst(E.getName(),E.getEmail(),E.getPhone(),E.getAdress(),E.getSite(),E.getNom(),E.getPrenom(),E.getJob(),E.getPhone_num(),E.getFactlogo(),E.getType());
 
-                        Intent intent = new Intent(Factory.this, AjtProduit31.class);
+                      /*  Intent intent = new Intent(Factory.this, AjtProduit31.class);
 
                         intent.putExtra("Nom", p.getName());
                         intent.putExtra("Quentite", p.getQuantite());
@@ -162,6 +174,7 @@ public class Factory extends SidebarMenu {
 
                         intent.putExtra("img",bytes);
                         startActivity(intent);
+
                     }
                 }
                 else{
@@ -190,7 +203,7 @@ public class Factory extends SidebarMenu {
 
     }
 
-    public void insertData(String entreprise,String email,String phone,String address) {
+  /*  public void insertData(String entreprise,String email,String phone,String address) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DataBaseFact.col_1, entreprise);
         contentValues.put(DataBaseFact.col_2, email);
@@ -202,3 +215,4 @@ public class Factory extends SidebarMenu {
     }
 
 }
+*/

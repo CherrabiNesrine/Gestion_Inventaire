@@ -27,12 +27,12 @@ public class DashboardActivity extends SidebarMenu{
 
 
     static String UserHolder,PrenomHolder,NameHolder,IdHolder,JobHolder,Passholder;
-    TextView user,nom,prenom,id,job;
+    TextView user,nom,prenom,id;
     Button LogOUT,edit ;
-ImageView image;SQLiteHelper sqLiteHelper;   SQLiteDatabase sqLiteDatabaseObj;
+ImageView image;DataBaseM dta;   SQLiteDatabase sqLiteDatabaseObj;
 
 
-    Button btnScanBarcode;String TempPassword = "", ID = "", Usr = "", Nom = "", Prenom = "", Job = "", password = "";byte[] profileimg=null;
+    Button btnScanBarcode;String TempPassword = "", ID = "", Usr = "", Nom = "", Prenom = "", password = "";byte[] profileimg=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +48,15 @@ ImageView image;SQLiteHelper sqLiteHelper;   SQLiteDatabase sqLiteDatabaseObj;
         prenom = (TextView)findViewById(R.id.textView3);
         image = (ImageView)findViewById(R.id.img);
         id = (TextView)findViewById(R.id.textView4);
-        job= (TextView)findViewById(R.id.textView5);
         LogOUT = (Button)findViewById(R.id.logout);
         edit = (Button)findViewById(R.id.editbutton);
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
         Intent intent = getIntent();
         Cursor cursor;
-        sqLiteHelper = new SQLiteHelper(this);
-        sqLiteDatabaseObj = sqLiteHelper.getReadableDatabase();
-        cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
+        dta = new DataBaseM(this);
+        dta.QueryData();
+        sqLiteDatabaseObj = dta.getReadableDatabase();
+        cursor = sqLiteDatabaseObj.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
 
         while (cursor.moveToNext()) {
 
@@ -66,21 +66,20 @@ ImageView image;SQLiteHelper sqLiteHelper;   SQLiteDatabase sqLiteDatabaseObj;
                 cursor.moveToFirst();
 
 
-                TempPassword = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Password));
+                TempPassword = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_3_Password));
 
-                Usr = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_username));
+                Usr = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_4_username));
 
-                ID = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID));
+                ID = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_ID));
 
-                Nom = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name));
+                Nom = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_1_Name));
 
-                Prenom = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Prenom));
+                Prenom = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_2_Prenom));
 
-                Job = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_job));
 
-                password = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Password));
+                password = cursor.getString(cursor.getColumnIndex(DataBaseM.Table_Column_3_Password));
 
-                profileimg = cursor.getBlob(cursor.getColumnIndex(SQLiteHelper.KEY_IMG));
+                profileimg = cursor.getBlob(cursor.getColumnIndex(DataBaseM.KEY_IMG));
 
                 cursor.close();
 
@@ -89,11 +88,11 @@ ImageView image;SQLiteHelper sqLiteHelper;   SQLiteDatabase sqLiteDatabaseObj;
         }
         if(profileimg !=null || intent.hasExtra("image"))
         {image.setImageBitmap(getImage(profileimg));}
-        User us = new User(ID, Nom, Prenom, password, Usr, Job);
+        User us = new User(ID, Nom, Prenom, password, Usr);
         user.setText(String.valueOf(us.getUserName()));
         nom.setText(String.valueOf(us.getName())+" "+String.valueOf(us.getPrenom()));
         id.setText(String.valueOf(us.getId()));
-        job.setText(String.valueOf(us.getJob()));
+
 
 
         LogOUT.setOnClickListener(new View.OnClickListener() {

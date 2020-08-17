@@ -27,14 +27,14 @@ import static com.example.logg.LoginActivity.Id;
 public class EditProfile extends SidebarMenu {
 
     SQLiteDatabase DB;
-    EditText id, password, Name, prenom, Username, job;boolean isNameValid,isPasswordValid,isPrenomValid,isUserValid,isIdValid;
+    EditText id, password, Name, prenom, Username;boolean isNameValid,isPasswordValid,isPrenomValid,isUserValid,isIdValid;
     Button Register,Cancel;
-    static String NameH, PasswordH, PrenomH, UsernameH, IdH, JobH;byte[] profileimg=null;
+    static String NameH, PasswordH, PrenomH, UsernameH, IdH;byte[] profileimg=null;
     SQLiteDatabase sqLiteDatabaseObj;
-    SQLiteHelper sqLiteHelper;
+    DataBaseM db;
     ImageButton Img;
     byte[] imagee = null;
-    String TempPass = "", ident = "", userr = "", Nm = "", Prenm = "", Jb = "";
+    String TempPass = "", ident = "", userr = "", Nm = "", Prenm = "";
 
 
 
@@ -56,13 +56,13 @@ public class EditProfile extends SidebarMenu {
         Name = (EditText) findViewById(R.id.lastname);
         prenom = (EditText) findViewById(R.id.firstname);
         id = (EditText) findViewById(R.id.ID);
-        job = (EditText) findViewById(R.id.job);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Intent intent = getIntent();
         Cursor cursor;
-        sqLiteHelper = new SQLiteHelper(this);
-        sqLiteDatabaseObj = sqLiteHelper.getReadableDatabase();
-        cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
+        db = new DataBaseM(this);
+        sqLiteDatabaseObj = db.getReadableDatabase();
+        db.QueryData();
+        cursor = sqLiteDatabaseObj.query(db.TABLE_NAME, null, " " + db.Table_Column_ID + "=?", new String[]{Id}, null, null, null);
 
         while (cursor.moveToNext()) {
 
@@ -71,19 +71,18 @@ public class EditProfile extends SidebarMenu {
 
                 cursor.moveToFirst();
 
-                profileimg = cursor.getBlob(cursor.getColumnIndex(SQLiteHelper.KEY_IMG));
+                profileimg = cursor.getBlob(cursor.getColumnIndex(db.KEY_IMG));
 
-                userr = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_username));
+                userr = cursor.getString(cursor.getColumnIndex(db.Table_Column_4_username));
 
-                ident = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID));
+                ident = cursor.getString(cursor.getColumnIndex(db.Table_Column_ID));
 
-                Nm = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name));
+                Nm = cursor.getString(cursor.getColumnIndex(db.Table_Column_1_Name));
 
-                Prenm = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Prenom));
+                Prenm = cursor.getString(cursor.getColumnIndex(db.Table_Column_2_Prenom));
 
-                Jb = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_job));
 
-                TempPass = cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Password));
+                TempPass = cursor.getString(cursor.getColumnIndex(db.Table_Column_3_Password));
 
 
                 cursor.close();
@@ -94,11 +93,10 @@ public class EditProfile extends SidebarMenu {
         if(profileimg !=null || intent.hasExtra("image"))
         {Img.setImageBitmap(getImage(profileimg));}
 
-        User us = new User(ident, Nm, Prenm, TempPass,userr, Jb);
+        User us = new User(ident, Nm, Prenm, TempPass,userr);
         Username.setText(us.getUserName());
         Name.setText(us.getName());
         id.setText(us.getId());
-        job.setText(us.getJob());
         password.setText(us.getPassword());
         prenom.setText(us.getPrenom());
 
@@ -130,14 +128,13 @@ public class EditProfile extends SidebarMenu {
                 PasswordH = password.getText().toString();
                 IdH = id.getText().toString();
                 UsernameH = Username.getText().toString();
-                JobH = job.getText().toString();
                 int a = SetValidation();
                 if (a == 1) {
                     if (imagee != null) {
                         imagee = getBytes(bitmap);
-                        sqLiteHelper.updateProfile(IdH, NameH, PrenomH, PasswordH, UsernameH, imagee);
+                        db.updateProfile(IdH, NameH, PrenomH, PasswordH, UsernameH, imagee);
                     } else {
-                        sqLiteHelper.updateProfile1(IdH, NameH, PrenomH, PasswordH, UsernameH);
+                        db.updateProfile1(IdH, NameH, PrenomH, PasswordH, UsernameH);
                     }
                     Intent intent = new Intent(EditProfile.this, DashboardActivity.class);
                     startActivity(intent);

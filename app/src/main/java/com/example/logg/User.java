@@ -6,29 +6,25 @@ public class User {
         private String name;
         private String prenom;
         private String username;
-        private String Job;
         private String password;
         private byte[] image;
 
 
-        public User(String id, String name , String prenom, String password, String username, String Job, byte[] image) {
+        public User(String id, String name , String prenom, String password, String username,  byte[] image) {
             this.id = id;
             this.name = name;
             this.prenom = prenom;
             this.password = password;
             this.username = username;
-            this.Job = Job;
             this.image = image;
         }
 
-        public User(String id, String name , String prenom, String password, String username, String Job) {
+        public User(String id, String name , String prenom, String password, String username) {
             this.id = id;
             this.name = name;
             this.prenom = prenom;
             this.password = password;
             this.username = username;
-            this.Job = Job;
-
         }
 
 
@@ -74,13 +70,7 @@ public class User {
         this.username = username;
     }
 
-        public String getJob() {
-        return Job;
-    }
-
-        public void setJob(String Job) {
-        this.Job = Job;
-    }
+    
 
         public byte[] getImage() {
             return image;

@@ -1,18 +1,23 @@
 package com.example.logg;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 
 
 public class HomeActivity extends SidebarMenu {
-RelativeLayout magazin ,product,settings,inventory,logout,about;
+RelativeLayout magazin ,product,settings,inventory,logout,about,Commande,depense;
 static String UserHoldr,PrenomHoldr,NameHoldr,IdHoldr,JobHoldr,Passholdr;
 byte[] image = null;
 
@@ -33,6 +38,8 @@ byte[] image = null;
         settings=(RelativeLayout) findViewById(R.id.Settings);
         logout=(RelativeLayout)findViewById(R.id.logout);
         about=(RelativeLayout)findViewById(R.id.about);
+        Commande=(RelativeLayout)findViewById(R.id.Commande);
+        depense=(RelativeLayout)findViewById(R.id.depense);
         Intent intent = getIntent();
         UserHoldr = intent.getStringExtra("user");
         PrenomHoldr = intent.getStringExtra("prenom");
@@ -46,8 +53,13 @@ byte[] image = null;
         magazin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(HomeActivity.this,"stores", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(HomeActivity.this, MagazinActivity.class));
+
+                Intent intent = new Intent(HomeActivity.this, MagazinActivity.class);
+                intent.putExtra("check","care");
+                startActivity(intent);
+
 
             }
         });
@@ -64,11 +76,30 @@ byte[] image = null;
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(HomeActivity.this,"Add a product", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(HomeActivity.this, AjtProduit.class));
+                final AlertDialog.Builder magalrt = new AlertDialog.Builder(HomeActivity.this);
+                final View vmag= LayoutInflater.from(HomeActivity.this).inflate(R.layout.magw,null);
+                TextView message=(TextView)vmag.findViewById(R.id.qntttmag);
+                Button nacc=(Button)vmag.findViewById(R.id.btn_okkmag);
+                message.setText("please you should first add or select a wherehouse ");
+                magalrt.setView(vmag);
+                final AlertDialog dialog = magalrt.create();
+                dialog.show();
+               nacc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        Toast.makeText(HomeActivity.this,"Add a product", Toast.LENGTH_LONG).show();
+
+                        startActivity(new Intent(HomeActivity.this, MagazinActivity.class));
+                    }
+                });
+
+
 
             }
         });
+
+
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +111,15 @@ byte[] image = null;
             }
         });
 
+        depense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(HomeActivity.this,"", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+
+
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +142,9 @@ byte[] image = null;
 
             }
         });
+
+
+
 
 
 

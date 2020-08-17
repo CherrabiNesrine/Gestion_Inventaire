@@ -30,13 +30,12 @@ public class RegisterActivity extends AppCompatActivity  {
     EditText id, Password, Name ,Prenom,Username ;
     Button Register;
     TextView login;String temp = "";
-    String NameHolder, PasswordHolder,PrenomHolder,UsernameHolder,IdHolder,JobHolder;
+    String NameHolder, PasswordHolder,PrenomHolder,UsernameHolder,IdHolder;
     Boolean EditTextEmptyHolder;
     SQLiteDatabase sqLiteDatabaseObj,sqLiteDatabaseObjt;
     String SQLiteDataBaseQueryHolder ;
-    SQLiteHelper sqLiteHelper;
+    DataBaseM db;
     Cursor cursor;Cursor cur;
-    RadioButton rbt,rbg,r;
     RadioGroup grb;
     String F_Result = "Not_Found";
     boolean isNameValid,isPasswordValid,isPrenomValid,isUserValid,isIdValid;
@@ -51,12 +50,9 @@ public class RegisterActivity extends AppCompatActivity  {
         Name = (EditText)findViewById(R.id.nom);
         Prenom= (EditText)findViewById(R.id.prenom);
         id= (EditText)findViewById(R.id.hhh);
-        rbt=(RadioButton) findViewById(R.id.rbt);
-        rbg=(RadioButton) findViewById(R.id.rbg);
-        grb=(RadioGroup) findViewById(R.id.grb);
-        grb.check(R.id.rbg);
 
-        sqLiteHelper = new SQLiteHelper(this);
+
+        db = new DataBaseM(this);
 
 
 
@@ -66,8 +62,7 @@ public class RegisterActivity extends AppCompatActivity  {
                 int a=SetValidation();
                 if (a==1)
                 {
-                    SQLiteDataBaseBuild();
-                    SQLiteTableBuild();
+                    db.QueryData();
                     CheckEditTextStatus();
                     CheckFinalResult();
                     EmptyEditTextAfterDataInsert();}
@@ -171,21 +166,22 @@ public class RegisterActivity extends AppCompatActivity  {
         return (b);
     }
 
-    public void SQLiteDataBaseBuild(){
+    /*public void SQLiteDataBaseBuild(){
 
-        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        sqLiteDatabaseObj = openOrCreateDatabase(DataBaseM.DATABASE_NAME, Context.MODE_PRIVATE, null);
 
     }
     public void SQLiteTableBuild() {
 
-        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SQLiteHelper.TABLE_NAME + "(" + SQLiteHelper.Table_Column_ID + " INTEGER PRIMARY KEY, " + SQLiteHelper.Table_Column_1_Name + " VARCHAR, " + SQLiteHelper.Table_Column_2_Prenom + " VARCHAR, " + SQLiteHelper.Table_Column_3_Password + " VARCHAR, " + SQLiteHelper.Table_Column_4_username + " VARCHAR," + SQLiteHelper.Table_Column_5_job + " VARCHAR,"+SQLiteHelper.KEY_IMG+"blob);");
+        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + DataBaseM.TABLE_NAME + "(" + DataBaseM.Table_Column_ID + " INTEGER PRIMARY KEY, " + DataBaseM.Table_Column_1_Name + " VARCHAR, " + DataBaseM.Table_Column_2_Prenom + " VARCHAR, " + DataBaseM.Table_Column_3_Password + " VARCHAR, " + DataBaseM.Table_Column_4_username + " VARCHAR," + DataBaseM.Table_Column_5_job + " VARCHAR,"+DataBaseM.KEY_IMG+"blob);");
 
     }
+*/
 
     public void InsertDataIntoSQLiteDatabase(){
         if(EditTextEmptyHolder == true)
         {
-            SQLiteDataBaseQueryHolder = "INSERT INTO "+SQLiteHelper.TABLE_NAME+" (id,nom,prenom,password,username,job,image) VALUES( '"+IdHolder+"','"+NameHolder+"', '"+PrenomHolder+"', '"+PasswordHolder+"', '"+UsernameHolder+"','"+JobHolder+"','"+temp+"');";
+            SQLiteDataBaseQueryHolder = "INSERT INTO "+DataBaseM.TABLE_NAME+" (id,nom,prenom,password,username,image) VALUES( '"+IdHolder+"','"+NameHolder+"', '"+PrenomHolder+"', '"+PasswordHolder+"', '"+UsernameHolder+"','"+temp+"');";
             sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
             sqLiteDatabaseObj.close();
             Toast.makeText(RegisterActivity.this,"sign up réussi !", Toast.LENGTH_LONG).show();
@@ -218,15 +214,11 @@ public class RegisterActivity extends AppCompatActivity  {
         PasswordHolder = Password.getText().toString();
         IdHolder = id.getText().toString();
         UsernameHolder = Username.getText().toString();
-        int radioButtonID = grb.getCheckedRadioButtonId();
-        View radioButton = grb.findViewById(radioButtonID);
-        int idx = grb.indexOfChild(radioButton);
-        r = (RadioButton) grb.getChildAt(idx);
-        JobHolder = r.getText().toString().trim();
 
 
 
-        if(TextUtils.isEmpty(NameHolder) || TextUtils.isEmpty(IdHolder) || TextUtils.isEmpty(PasswordHolder) || TextUtils.isEmpty(UsernameHolder)|| TextUtils.isEmpty(PrenomHolder )|| grb.getCheckedRadioButtonId() == -1){
+
+        if(TextUtils.isEmpty(NameHolder) || TextUtils.isEmpty(IdHolder) || TextUtils.isEmpty(PasswordHolder) || TextUtils.isEmpty(UsernameHolder)|| TextUtils.isEmpty(PrenomHolder )){
 
             EditTextEmptyHolder = false ;
 
@@ -237,9 +229,9 @@ public class RegisterActivity extends AppCompatActivity  {
         }
     }
     public String CheckingUsernameAlreadyExistsOrNot(){
-        sqLiteDatabaseObjt = sqLiteHelper.getWritableDatabase();
+        sqLiteDatabaseObjt = db.getWritableDatabase();
 
-        cur = sqLiteDatabaseObjt.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_4_username + "=?", new String[]{UsernameHolder}, null, null, null);
+        cur = sqLiteDatabaseObjt.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_4_username + "=?", new String[]{UsernameHolder}, null, null, null);
 
         while (cur.moveToNext()) {
 
@@ -256,8 +248,8 @@ public class RegisterActivity extends AppCompatActivity  {
     }
 
     public String CheckingidAlreadyExistsOrNot(){
-        sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
-        cursor = sqLiteDatabaseObj.query(SQLiteHelper.TABLE_NAME, null, " " + SQLiteHelper.Table_Column_ID + "=?", new String[]{IdHolder}, null, null, null);
+        sqLiteDatabaseObj = db.getWritableDatabase();
+        cursor = sqLiteDatabaseObj.query(DataBaseM.TABLE_NAME, null, " " + DataBaseM.Table_Column_ID + "=?", new String[]{IdHolder}, null, null, null);
 
         while (cursor.moveToNext()) {
 
