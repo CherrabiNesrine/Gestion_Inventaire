@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/contin"
+        android:layout_height="160dp"
         android:layout_margin="10dp"
-        android:backgroundTint="#f5f5f5"
+        android:background="@drawable/contin"
 
-        android:layout_height="160dp">
+        android:backgroundTint="#f5f5f5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/Ma"
@@ -29,10 +33,10 @@
             android:backgroundTint="@color/required"
             android:gravity="center"
             android:text="M"
-            android:textStyle="bold"
-            android:textSize="14dp"
             android:textAlignment="center"
             android:textColor="#fff"
+            android:textSize="14dp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,10 +67,8 @@
                 android:layout_width="130dp"
                 android:layout_height="20dp"
                 android:background="@null"
-                android:clickable="false"
-                android:enabled="false"
-                android:focusable="false"
                 android:text="fact name"
+                android:focusable="false"
                 android:textColor="#808080"
                 android:textSize="14sp"
                 android:typeface="serif"
@@ -97,8 +99,6 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
                 android:background="@null"
-                android:clickable="false"
-                android:enabled="false"
                 android:focusable="false"
                 android:text="fact name"
                 android:textColor="#808080"
@@ -129,8 +129,7 @@
                 android:layout_width="110dp"
                 android:layout_height="23dp"
                 android:background="@null"
-                android:clickable="false"
-                android:enabled="false"
+
                 android:focusable="false"
                 android:text="fact name"
                 android:textColor="#808080"
@@ -148,9 +147,9 @@
                 android:layout_width="90dp"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/colorvertbleu"
-                android:textColor="#fff"
-                android:focusable="false"
                 android:text="Edit"
+                android:focusable="false"
+                android:textColor="#fff"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -164,9 +163,9 @@
                 android:layout_width="90dp"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/required"
-                android:textColor="#fff"
-                android:text="Delete"
                 android:focusable="false"
+                android:text="Delete"
+                android:textColor="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.931"
@@ -176,4 +175,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

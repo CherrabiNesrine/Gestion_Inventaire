@@ -89,6 +89,11 @@ public class AjtProduit extends SidebarMenu {
         }
 Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).show();
 
+
+
+
+
+
         surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
         textView = (TextView) findViewById(R.id.textView);
         Next = (Button) findViewById(R.id.Nextbtn);
@@ -272,7 +277,7 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
                         intent.putExtra("Nom", nomm);
                         intent.putExtra("type",typee);
                         intent.putExtra("unit",unitt);
-                        Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
+
                         startActivity(intent);
                     }
 
@@ -285,7 +290,7 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
                     intent.putExtra("Nom", nomm);
                     intent.putExtra("type",typee);
                     intent.putExtra("unit",unitt);
-                    Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
+
 
                     startActivity(intent);
                 }

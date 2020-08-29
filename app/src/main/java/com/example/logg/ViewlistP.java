@@ -197,7 +197,8 @@ public class ViewlistP extends SidebarMenu{
 
         public boolean onActionItemClicked(final ActionMode mode, MenuItem item) {
             switch (item.getItemId()){
-                case R.id.action_trach: {  final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ViewlistP.this);
+                case R.id.action_trach: {
+                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ViewlistP.this);
                     final View view = LayoutInflater.from(ViewlistP.this).inflate(R.layout.del, null);
                     TextView title = (TextView) view.findViewById(R.id.titledel);
                     TextView message = (TextView) view.findViewById(R.id.messageerdel);
@@ -216,7 +217,7 @@ public class ViewlistP extends SidebarMenu{
                             values.put("dateDel",sdf.format(d));
                             for(int i =0;i<DelItem.size();i++){
                                db.Update("prod",values, "ID=?", new String[]{DelItem.get(i)});
-                                }
+                            }
 
                             dialog.dismiss();
                             ViewlistP.adpter.notifyDataSetChanged();

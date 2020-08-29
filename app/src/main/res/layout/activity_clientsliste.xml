@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".factoriesList">
+    tools:context=".clientsliste">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Bottom_nav"
@@ -22,35 +22,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/fourn_nav" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <ListView
+        android:id="@+id/lstClient"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:fillViewport="true"
-        android:paddingBottom="50dp"
-        android:isScrollContainer="true"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        >
 
-        <ListView
-            android:id="@+id/lstfact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#fff"></ListView>
-
-    </ScrollView>
-
-
-
-
-
-
-
+    </ListView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

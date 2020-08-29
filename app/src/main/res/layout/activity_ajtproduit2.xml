@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/contin"
         android:backgroundTint="#F0F0F0"
-        android:fillViewport="false"
+        android:fillViewport="true"
         android:isScrollContainer="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.429">
 
-<LinearLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -327,6 +327,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
+                    android:fitsSystemWindows="true"
                     app:errorIconTint="@color/colorPrimary"
                     tools:layout_editor_absoluteX="-30dp"
                     tools:layout_editor_absoluteY="502dp">
@@ -342,11 +343,18 @@
                         android:drawableTint="@color/colorPrimary"
                         android:editable="false"
                         android:hint="Supplier"
+                        android:dropDownHeight="match_parent"
                         android:inputType="text"
                         android:padding="10dp"
                         android:typeface="serif" />
                 </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical">
 
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cnst1"
@@ -467,7 +475,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:fitsSystemWindows="true"
                     app:errorEnabled="true"
                     app:errorIconTint="@color/colorPrimary"
                     tools:layout_editor_absoluteX="-30dp"
@@ -484,11 +492,18 @@
                         android:drawableTint="@color/colorPrimary"
                         android:editable="false"
                         android:hint="Custumer"
+                        android:dropDownHeight="match_parent"
                         android:inputType="text"
                         android:padding="10dp"
                         android:typeface="serif" />
                 </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical">
 
+                </LinearLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cnst4"
                     android:layout_width="match_parent"
@@ -632,7 +647,6 @@
                             android:layout_height="52dp"
                             android:layout_gravity="center"
                             android:backgroundTint="#fff"
-                            android:elevation="4dp"
                             android:text="yes"
                             android:typeface="serif" />
 
@@ -642,7 +656,6 @@
                             android:layout_height="52dp"
                             android:layout_gravity="center"
                             android:backgroundTint="#fff"
-                            android:elevation="4dp"
                             android:text="No"
                             android:typeface="serif" />
                     </RadioGroup>
@@ -661,9 +674,7 @@
                         android:id="@+id/Souscategorie"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_margin="10dp"
-
                         android:completionThreshold="1"
                         android:drawableRight="@drawable/ic_grid"
                         android:drawablePadding="18dp"
@@ -772,6 +783,7 @@
                         android:gravity="center"
                         android:paddingRight="15dp"
                         android:text="ADD"
+                        android:textSize="16sp"
                         android:textColor="#fff"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

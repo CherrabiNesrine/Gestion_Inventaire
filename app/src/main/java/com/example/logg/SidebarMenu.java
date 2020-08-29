@@ -142,24 +142,10 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }else if (id == R.id.Produit) {
-            final AlertDialog.Builder magalrt = new AlertDialog.Builder(SidebarMenu.this);
-            final View vmag= LayoutInflater.from(SidebarMenu.this).inflate(R.layout.magw,null);
-            TextView message=(TextView)vmag.findViewById(R.id.qntttmag);
-            Button nacc=(Button)vmag.findViewById(R.id.btn_okkmag);
-            message.setText("please you should first add or select a wherehouse ");
-            magalrt.setView(vmag);
-            final AlertDialog dialog = magalrt.create();
-            dialog.show();
-            nacc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    Toast.makeText(getApplicationContext(),"Add a product", Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(SidebarMenu.this, MagazinActivity.class));
-                }
-            });
-
+            Toast.makeText(getApplicationContext(), "Product", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MagazinActivity.class);
+            intent.putExtra("show","show");
+            startActivity(intent);
         } else if (id == R.id.Inventaire) {
             Toast.makeText(getApplicationContext(), "Inventory", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, InventoryActivity.class);
@@ -181,6 +167,12 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         else if (id == R.id.logout) {
             Toast.makeText(getApplicationContext(), "See you soon", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+        }
+        else if (id == R.id.fact) {
+            Toast.makeText(getApplicationContext(), "Operators", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,factoriesList.class);
             startActivity(intent);
 
         }

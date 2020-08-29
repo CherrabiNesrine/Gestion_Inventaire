@@ -13,7 +13,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -60,6 +62,7 @@ import java.util.Date;
 import static android.R.layout.simple_list_item_1;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import static java.lang.Math.floor;
 
 public class ajtproduit2 extends SidebarMenu {
     EditText nom, qntete, prix, prixS, Exp, FAB, qttmin, desc;
@@ -69,7 +72,7 @@ public class ajtproduit2 extends SidebarMenu {
     LinearLayout lay1, lay2, lay3, lay4;
     ConstraintLayout cnst1, cnst2, cnst3, cnst4;
     Button opba, opba2, opba3;
-    FactoryE Fact= new FactoryE();
+    FactoryE Fact = new FactoryE();
     AutoCompleteTextView Unit, coins, scoins, Categorie, Scategorie, supplier, customer;
     final Calendar myCalendar1 = Calendar.getInstance();
     final Calendar myCalendar = Calendar.getInstance();
@@ -78,11 +81,14 @@ public class ajtproduit2 extends SidebarMenu {
     Produit p = new Produit();
     RadioGroup rgt, RGd;
     final ArrayList<String> llist = new ArrayList<String>();
+    final ArrayList<String> llistC = new ArrayList<String>();
     String nomm = "";
     private String Code;
-boolean djaz=false;
+    boolean djaz = false;
     ImageView image;
     final int REQUEST_CODE_GALLERY = 999;
+    String typee = "";
+    String unitt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +98,7 @@ boolean djaz=false;
         //reception of code from the pervius activity
         if (intent != null) {
             String codee = "";
-            String typee = "";
-            String unitt = "";
+
             if (intent.hasExtra("hello")) {
                 codee = intent.getStringExtra("hello");
             }
@@ -213,275 +218,7 @@ boolean djaz=false;
 
                 } else if (supplier.getText().toString().isEmpty()) {
                     tip2.setError("this field can not be blank ");
-                }
-                else if(supplier.getText().toString().equals("add a new provider ")){
-
-                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                    final View view= LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory,null);
-                    final LinearLayout layy0,layy1,layy2,layy3,layy4,layy5;
-                    Button nxt1,nxt2,nxt3,nxt4,startad2,startad,bk1,bk2,bk3,bk4;
-                    final EditText oneNom , oneprenom,oneJob,oneAdress,OnTlf,oneEmail,facebook,LinkedIn,Twitter,entreprise,nif,rg,compaddres ,comtlf,compEmail,site,fax;
-                    final AutoCompleteTextView  secteur,taille,statujur;
-                    final ImageView photop,logo;
-                    layy0 = (LinearLayout)view.findViewById(R.id.layy0);
-                    layy1 = (LinearLayout)view.findViewById(R.id.layy1);
-                    layy2 = (LinearLayout)view.findViewById(R.id.layy2);
-                    layy3 = (LinearLayout)view.findViewById(R.id.layy3);
-                    layy4 = (LinearLayout)view.findViewById(R.id.layy4);
-                    layy5 = (LinearLayout)view.findViewById(R.id.layy5);
-
-                    startad=(Button)view.findViewById(R.id.startad);
-                    startad2=(Button)view.findViewById(R.id.startad2);
-                    nxt1=(Button)view.findViewById(R.id.nxt1);
-                    nxt2=(Button)view.findViewById(R.id.nxt2);
-                    nxt3=(Button)view.findViewById(R.id.nxt3);
-                    nxt4=(Button)view.findViewById(R.id.nxt4);
-
-                    bk1=(Button)view.findViewById(R.id.bk1);
-                    bk2=(Button)view.findViewById(R.id.bk2);
-                    bk3=(Button)view.findViewById(R.id.bk3);
-                    bk4=(Button)view.findViewById(R.id.bk4);
-
-                    oneNom=(EditText)view.findViewById(R.id.OneNom);
-                    oneprenom=(EditText)view.findViewById(R.id.onePrenom);
-                    oneJob=(EditText)view.findViewById(R.id.oneJob);
-                    oneAdress=(EditText)view.findViewById(R.id.oneAdress);
-                    OnTlf=(EditText)view.findViewById(R.id.OnTlf);
-                    oneEmail=(EditText)view.findViewById(R.id.oneEmail);
-                    facebook=(EditText)view.findViewById(R.id.facebook);
-                    LinkedIn=(EditText)view.findViewById(R.id.LinkedIn);
-                    Twitter=(EditText)view.findViewById(R.id.Twitter);
-                    entreprise=(EditText)view.findViewById(R.id.entreprise);
-                    nif=(EditText)view.findViewById(R.id.nif);
-                    rg=(EditText)view.findViewById(R.id.rg);
-                    compaddres=(EditText)view.findViewById(R.id.CompAdrs);
-                    comtlf=(EditText)view.findViewById(R.id.CompTlf);
-                    compEmail=(EditText)view.findViewById(R.id.compEmail);
-                    site=(EditText)view.findViewById(R.id.site);
-                    fax=(EditText)view.findViewById(R.id.Fax);
-
-                    secteur=(AutoCompleteTextView)findViewById(R.id.secteur);
-                    taille=(AutoCompleteTextView)findViewById(R.id.taille);
-                    statujur=(AutoCompleteTextView)findViewById(R.id.statusjuridique);
-
-
-                    photop=(ImageView)view.findViewById(R.id.photoP);
-                    logo=(ImageView)view.findViewById(R.id.logo);
-
-
-                    photop.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                            final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                            TextView title = (TextView) view.findViewById(R.id.ertitle);
-                            TextView message = (TextView) view.findViewById(R.id.messageer);
-                            Button acc = (Button) view.findViewById(R.id.btn_acc);
-                            Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                            ImageView img = (ImageView) view.findViewById(R.id.help);
-                            title.setText("OPEN");
-                            img.setImageResource(R.drawable.ic_action_cameraa);
-                            message.setText("do you want to open camera or gallery  ");
-                            dateAlt.setView(view);
-                            acc.setText("CAMERA");
-                            nacc.setText("GALLERY ");
-                            final AlertDialog dialog = dateAlt.create();
-                            acc.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                                Manifest.permission.CAMERA}, 100);
-
-                                    }
-                                    dialog.dismiss();
-
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent, 100);
-
-                                }
-                            });
-                            nacc.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                    ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                                }
-                            });
-                            dialog.show();
-
-                            return false;
-                        }
-                    });
-                    logo.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                            final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                            TextView title = (TextView) view.findViewById(R.id.ertitle);
-                            TextView message = (TextView) view.findViewById(R.id.messageer);
-                            Button acc = (Button) view.findViewById(R.id.btn_acc);
-                            Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                            ImageView img = (ImageView) view.findViewById(R.id.help);
-                            title.setText("OPEN");
-                            img.setImageResource(R.drawable.ic_action_cameraa);
-                            message.setText("do you want to open camera or gallery  ");
-                            dateAlt.setView(view);
-                            acc.setText("CAMERA");
-                            nacc.setText("GALLERY ");
-                            final AlertDialog dialog = dateAlt.create();
-                            acc.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                                Manifest.permission.CAMERA}, 100);
-
-                                    }
-                                    dialog.dismiss();
-
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent, 100);
-
-                                }
-                            });
-                            nacc.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                    ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                                }
-                            });
-                            dialog.show();
-
-                            return false;
-                        }
-                    });
-
-
-
-                    startad.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy0.setVisibility(View.GONE);
-                            layy1.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    nxt1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy1.setVisibility(View.GONE);
-                            layy2.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    nxt2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy2.setVisibility(View.VISIBLE);
-                            if (djaz==true){
-                                layy4.setVisibility(View.VISIBLE);
-                            }
-                            else{
-                                layy3.setVisibility(View.VISIBLE);
-                                djaz=true;
-                            }
-
-                        }
-                    });
-                    startad2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy3.setVisibility(view.GONE);
-                            layy4.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    nxt3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy4.setVisibility(View.GONE);
-                            layy5.setVisibility(View.VISIBLE);
-
-                        }
-                    });
-                    nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
-                        @Override
-                        public void onClick(View view) {
-
-                            Fact.setName(oneNom.getText().toString());
-                            Fact.setPrenom(oneprenom.getText().toString());
-                            Fact.setPhone(OnTlf.getText().toString());
-                            Fact.setJob(oneJob.getText().toString());
-                            Fact.setAdress(oneAdress.getText().toString());
-                            Fact.setEmail(oneEmail.getText().toString());
-                            Fact.setFacebook(facebook.getText().toString());
-                            Fact.setLinkedIn(LinkedIn.getText().toString());
-                            Fact.setTwitter(Twitter.getText().toString());
-                            Fact.setNom(entreprise.getText().toString());
-                            Fact.setNif(nif.getText().toString());
-                            Fact.setRg(rg.getText().toString());
-                            Fact.setAddress(compaddres.getText().toString());
-                            Fact.setPhone_num(comtlf.getText().toString());
-                            Fact.setComEmail(compEmail.getText().toString());
-                            Fact.setSite(site.getText().toString());
-                            Fact.setFax(fax.getText().toString());
-                            Fact.setStatujur(statujur.getText().toString());
-                            Fact.setSecteur(secteur.getText().toString());
-                            Fact.setTaille(taille.getText().toString());
-
-                            Fact.setImage(Imageviewtobyte(photop));
-                            Fact.setFactlogo(Imageviewtobyte(logo));
-                            db.QueryData();
-                            db.InsertDataEntreprise(Fact.getNif(),Fact.getNom(),Fact.getRg(),Fact.getSecteur(),Fact.getTaille(),Fact.getStatujur(),Fact.getComEmail(),Fact.getPhone_num(),Fact.getAddress(),Fact.getSite(),Fact.getFax(),Fact.getFactlogo());
-                            db.InsertDataOperateur(Fact.getName(),Fact.getPrenom(),Fact.getNif(),Fact.getNom(),Fact.getJob(),Fact.getPhone(),Fact.getEmail(),Fact.getAdress(),Fact.getLinkedIn(),Fact.getFacebook(),Fact.getTwitter(),Fact.getImage());
-                            db.InsertDataFounisseur(Fact.getName(),Fact.getPrenom());
-
-                        }
-                    });
-                    bk1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy1.setVisibility(View.GONE);
-                            layy0.setVisibility(View.VISIBLE);
-
-                        }
-                    });
-                    bk2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy2.setVisibility(View.GONE);
-                            layy1.setVisibility(View.VISIBLE);
-
-                        }
-                    });
-                    bk3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy4.setVisibility(View.GONE);
-                            layy2.setVisibility(View.VISIBLE);
-
-                        }
-                    });
-                    bk4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            layy5.setVisibility(View.GONE);
-                            layy4.setVisibility(View.VISIBLE);
-
-                        }
-                    });
-                    dateAlt.setView(view);
-                    final AlertDialog dialog2 = dateAlt.create();
-
-                    dialog2.show();
-                    ArrayAdapter<String> dataAda= new ArrayAdapter<String>(ajtproduit2.this, android.R.layout.simple_dropdown_item_1line, llist);
-                    //ArrayAdapter<String> dataAda = ArrayAdapter.createFromResource(getApplicationContext(),llist,simple_list_item_1 );
-                    dataAda.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    supplier.setAdapter(dataAda);
-
-                }
-                else {
+                } else {
                     tip1.setError(null);
                     tip2.setError(null);
                     lay1.setVisibility(View.GONE);
@@ -500,13 +237,10 @@ boolean djaz=false;
 
                 } else if (customer.getText().toString().isEmpty()) {
                     tip2.setError("this field can not be blank ");
-                }else if (customer.getText().toString().equals("")){
+                } else if (customer.getText().toString().equals("")) {
 
 
-
-
-                }
-                else {
+                } else {
                     lay2.setVisibility(View.GONE);
                     lay3.setVisibility(View.VISIBLE);
                     cnst4.setVisibility(View.GONE);
@@ -775,566 +509,18 @@ boolean djaz=false;
 
 
         db.QueryData();
-
-        supplier.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
-                if(supplier.getText().toString().equals("add a new provider ")){
-
-                        final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                        final View view= LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory,null);
-                        final LinearLayout layy0,layy1,layy2,layy3,layy4,layy5;
-                        Button nxt1,nxt2,nxt3,nxt4,startad2,startad,bk1,bk2,bk3,bk4;
-                        final EditText oneNom , oneprenom,oneJob,oneAdress,OnTlf,oneEmail,facebook,LinkedIn,Twitter,entreprise,nif,rg,compaddres ,comtlf,compEmail,site,fax;
-                        final AutoCompleteTextView  secteur,taille,statujur;
-                        final ImageView photop,logo;
-                        layy0 = (LinearLayout)view.findViewById(R.id.layy0);
-                        layy1 = (LinearLayout)view.findViewById(R.id.layy1);
-                        layy2 = (LinearLayout)view.findViewById(R.id.layy2);
-                        layy3 = (LinearLayout)view.findViewById(R.id.layy3);
-                        layy4 = (LinearLayout)view.findViewById(R.id.layy4);
-                        layy5 = (LinearLayout)view.findViewById(R.id.layy5);
-
-                        startad=(Button)view.findViewById(R.id.startad);
-                        startad2=(Button)view.findViewById(R.id.startad2);
-                        nxt1=(Button)view.findViewById(R.id.nxt1);
-                        nxt2=(Button)view.findViewById(R.id.nxt2);
-                        nxt3=(Button)view.findViewById(R.id.nxt3);
-                        nxt4=(Button)view.findViewById(R.id.nxt4);
-
-                        bk1=(Button)view.findViewById(R.id.bk1);
-                        bk2=(Button)view.findViewById(R.id.bk2);
-                        bk3=(Button)view.findViewById(R.id.bk3);
-                        bk4=(Button)view.findViewById(R.id.bk4);
-
-                        oneNom=(EditText)view.findViewById(R.id.OneNom);
-                        oneprenom=(EditText)view.findViewById(R.id.onePrenom);
-                        oneJob=(EditText)view.findViewById(R.id.oneJob);
-                        oneAdress=(EditText)view.findViewById(R.id.oneAdress);
-                        OnTlf=(EditText)view.findViewById(R.id.OnTlf);
-                        oneEmail=(EditText)view.findViewById(R.id.oneEmail);
-                        facebook=(EditText)view.findViewById(R.id.facebook);
-                        LinkedIn=(EditText)view.findViewById(R.id.LinkedIn);
-                        Twitter=(EditText)view.findViewById(R.id.Twitter);
-                        entreprise=(EditText)view.findViewById(R.id.entreprise);
-                        nif=(EditText)view.findViewById(R.id.nif);
-                        rg=(EditText)view.findViewById(R.id.rg);
-                        compaddres=(EditText)view.findViewById(R.id.CompAdrs);
-                        comtlf=(EditText)view.findViewById(R.id.CompTlf);
-                        compEmail=(EditText)view.findViewById(R.id.compEmail);
-                        site=(EditText)view.findViewById(R.id.site);
-                        fax=(EditText)view.findViewById(R.id.Fax);
-
-                        secteur=(AutoCompleteTextView)findViewById(R.id.secteur);
-                        taille=(AutoCompleteTextView)findViewById(R.id.taille);
-                        statujur=(AutoCompleteTextView)findViewById(R.id.statusjuridique);
-
-
-                        photop=(ImageView)view.findViewById(R.id.photoP);
-                        logo=(ImageView)view.findViewById(R.id.logo);
-
-
-                        photop.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                                final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                                TextView title = (TextView) view.findViewById(R.id.ertitle);
-                                TextView message = (TextView) view.findViewById(R.id.messageer);
-                                Button acc = (Button) view.findViewById(R.id.btn_acc);
-                                Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                                ImageView img = (ImageView) view.findViewById(R.id.help);
-                                title.setText("OPEN");
-                                img.setImageResource(R.drawable.ic_action_cameraa);
-                                message.setText("do you want to open camera or gallery  ");
-                                dateAlt.setView(view);
-                                acc.setText("CAMERA");
-                                nacc.setText("GALLERY ");
-                                final AlertDialog dialog = dateAlt.create();
-                                acc.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                            ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                                    Manifest.permission.CAMERA}, 100);
-
-                                        }
-                                        dialog.dismiss();
-
-                                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        startActivityForResult(intent, 100);
-
-                                    }
-                                });
-                                nacc.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.dismiss();
-                                        ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                                    }
-                                });
-                                dialog.show();
-
-                                return false;
-                            }
-                        });
-                        logo.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                                final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                                TextView title = (TextView) view.findViewById(R.id.ertitle);
-                                TextView message = (TextView) view.findViewById(R.id.messageer);
-                                Button acc = (Button) view.findViewById(R.id.btn_acc);
-                                Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                                ImageView img = (ImageView) view.findViewById(R.id.help);
-                                title.setText("OPEN");
-                                img.setImageResource(R.drawable.ic_action_cameraa);
-                                message.setText("do you want to open camera or gallery  ");
-                                dateAlt.setView(view);
-                                acc.setText("CAMERA");
-                                nacc.setText("GALLERY ");
-                                final AlertDialog dialog = dateAlt.create();
-                                acc.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                            ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                                    Manifest.permission.CAMERA}, 100);
-
-                                        }
-                                        dialog.dismiss();
-
-                                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        startActivityForResult(intent, 100);
-
-                                    }
-                                });
-                                nacc.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.dismiss();
-                                        ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                                    }
-                                });
-                                dialog.show();
-
-                                return false;
-                            }
-                        });
-
-
-
-                        startad.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy0.setVisibility(View.GONE);
-                                layy1.setVisibility(View.VISIBLE);
-                            }
-                        });
-                        nxt1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy1.setVisibility(View.GONE);
-                                layy2.setVisibility(View.VISIBLE);
-                            }
-                        });
-                        nxt2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy2.setVisibility(View.VISIBLE);
-                                if (djaz==true){
-                                    layy4.setVisibility(View.VISIBLE);
-                                }
-                                else{
-                                    layy3.setVisibility(View.VISIBLE);
-                                    djaz=true;
-                                }
-
-                            }
-                        });
-                        startad2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy3.setVisibility(view.GONE);
-                                layy4.setVisibility(View.VISIBLE);
-                            }
-                        });
-                        nxt3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy4.setVisibility(View.GONE);
-                                layy5.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-                        nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
-                            @Override
-                            public void onClick(View view) {
-
-                                Fact.setName(oneNom.getText().toString());
-                                Fact.setPrenom(oneprenom.getText().toString());
-                                Fact.setPhone(OnTlf.getText().toString());
-                                Fact.setJob(oneJob.getText().toString());
-                                Fact.setAdress(oneAdress.getText().toString());
-                                Fact.setEmail(oneEmail.getText().toString());
-                                Fact.setFacebook(facebook.getText().toString());
-                                Fact.setLinkedIn(LinkedIn.getText().toString());
-                                Fact.setTwitter(Twitter.getText().toString());
-                                Fact.setNom(entreprise.getText().toString());
-                                Fact.setNif(nif.getText().toString());
-                                Fact.setRg(rg.getText().toString());
-                                Fact.setAddress(compaddres.getText().toString());
-                                Fact.setPhone_num(comtlf.getText().toString());
-                                Fact.setComEmail(compEmail.getText().toString());
-                                Fact.setSite(site.getText().toString());
-                                Fact.setFax(fax.getText().toString());
-                                Fact.setStatujur(statujur.getText().toString());
-                                Fact.setSecteur(secteur.getText().toString());
-                                Fact.setTaille(taille.getText().toString());
-
-                                Fact.setImage(Imageviewtobyte(photop));
-                                Fact.setFactlogo(Imageviewtobyte(logo));
-                                db.QueryData();
-                                db.InsertDataEntreprise(Fact.getNif(),Fact.getNom(),Fact.getRg(),Fact.getSecteur(),Fact.getTaille(),Fact.getStatujur(),Fact.getComEmail(),Fact.getPhone_num(),Fact.getAddress(),Fact.getSite(),Fact.getFax(),Fact.getFactlogo());
-                                db.InsertDataOperateur(Fact.getName(),Fact.getPrenom(),Fact.getNif(),Fact.getNom(),Fact.getJob(),Fact.getPhone(),Fact.getEmail(),Fact.getAdress(),Fact.getLinkedIn(),Fact.getFacebook(),Fact.getTwitter(),Fact.getImage());
-                                db.InsertDataFounisseur(Fact.getName(),Fact.getPrenom());
-
-                            }
-                        });
-                        bk1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy1.setVisibility(View.GONE);
-                                layy0.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-                        bk2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy2.setVisibility(View.GONE);
-                                layy1.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-                        bk3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy4.setVisibility(View.GONE);
-                                layy2.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-                        bk4.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                layy5.setVisibility(View.GONE);
-                                layy4.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-                        dateAlt.setView(view);
-                        final AlertDialog dialog2 = dateAlt.create();
-
-                        dialog2.show();
-
-
-
-                    ArrayAdapter<String> dataAda= new ArrayAdapter<String>(ajtproduit2.this, android.R.layout.simple_dropdown_item_1line, llist);
-                    //ArrayAdapter<String> dataAda = ArrayAdapter.createFromResource(getApplicationContext(),llist,simple_list_item_1 );
-                    dataAda.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    supplier.setAdapter(dataAda);
-
-                }
-            }
-        });
-
-supplier.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view1) {
-        Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM fournisseur")};
+        Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR ")};
         if (cursor[0] != null) {
             while (cursor[0].moveToNext()) {
-                String NOm = cursor[0].getColumnName(1);
-                String Prenom = cursor[0].getColumnName(2);
+                String NOm = cursor[0].getString(0);
+                String Prenom = cursor[0].getString(1);
                 llist.add(NOm + " " + Prenom);
             }
         }
-        else {
-            final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-            final View view= LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory,null);
-            final LinearLayout layy0,layy1,layy2,layy3,layy4,layy5;
-            Button nxt1,nxt2,nxt3,nxt4,startad2,startad,bk1,bk2,bk3,bk4;
-            final EditText oneNom , oneprenom,oneJob,oneAdress,OnTlf,oneEmail,facebook,LinkedIn,Twitter,entreprise,nif,rg,compaddres ,comtlf,compEmail,site,fax;
-            final AutoCompleteTextView  secteur,taille,statujur;
-            final ImageView photop,logo;
-            layy0 = (LinearLayout)view.findViewById(R.id.layy0);
-            layy1 = (LinearLayout)view.findViewById(R.id.layy1);
-            layy2 = (LinearLayout)view.findViewById(R.id.layy2);
-            layy3 = (LinearLayout)view.findViewById(R.id.layy3);
-            layy4 = (LinearLayout)view.findViewById(R.id.layy4);
-            layy5 = (LinearLayout)view.findViewById(R.id.layy5);
-
-            startad=(Button)view.findViewById(R.id.startad);
-            startad2=(Button)view.findViewById(R.id.startad2);
-            nxt1=(Button)view.findViewById(R.id.nxt1);
-            nxt2=(Button)view.findViewById(R.id.nxt2);
-            nxt3=(Button)view.findViewById(R.id.nxt3);
-            nxt4=(Button)view.findViewById(R.id.nxt4);
-
-            bk1=(Button)view.findViewById(R.id.bk1);
-            bk2=(Button)view.findViewById(R.id.bk2);
-            bk3=(Button)view.findViewById(R.id.bk3);
-            bk4=(Button)view.findViewById(R.id.bk4);
-
-            oneNom=(EditText)view.findViewById(R.id.OneNom);
-            oneprenom=(EditText)view.findViewById(R.id.onePrenom);
-            oneJob=(EditText)view.findViewById(R.id.oneJob);
-            oneAdress=(EditText)view.findViewById(R.id.oneAdress);
-            OnTlf=(EditText)view.findViewById(R.id.OnTlf);
-            oneEmail=(EditText)view.findViewById(R.id.oneEmail);
-            facebook=(EditText)view.findViewById(R.id.facebook);
-            LinkedIn=(EditText)view.findViewById(R.id.LinkedIn);
-            Twitter=(EditText)view.findViewById(R.id.Twitter);
-            entreprise=(EditText)view.findViewById(R.id.entreprise);
-            nif=(EditText)view.findViewById(R.id.nif);
-            rg=(EditText)view.findViewById(R.id.rg);
-            compaddres=(EditText)view.findViewById(R.id.CompAdrs);
-            comtlf=(EditText)view.findViewById(R.id.CompTlf);
-            compEmail=(EditText)view.findViewById(R.id.compEmail);
-            site=(EditText)view.findViewById(R.id.site);
-            fax=(EditText)view.findViewById(R.id.Fax);
-
-            secteur=(AutoCompleteTextView)findViewById(R.id.secteur);
-            taille=(AutoCompleteTextView)findViewById(R.id.taille);
-            statujur=(AutoCompleteTextView)findViewById(R.id.statusjuridique);
-
-
-            photop=(ImageView)view.findViewById(R.id.photoP);
-            logo=(ImageView)view.findViewById(R.id.logo);
-
-
-            photop.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                    final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                    TextView title = (TextView) view.findViewById(R.id.ertitle);
-                    TextView message = (TextView) view.findViewById(R.id.messageer);
-                    Button acc = (Button) view.findViewById(R.id.btn_acc);
-                    Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
-                    title.setText("OPEN");
-                    img.setImageResource(R.drawable.ic_action_cameraa);
-                    message.setText("do you want to open camera or gallery  ");
-                    dateAlt.setView(view);
-                    acc.setText("CAMERA");
-                    nacc.setText("GALLERY ");
-                    final AlertDialog dialog = dateAlt.create();
-                    acc.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                        Manifest.permission.CAMERA}, 100);
-
-                            }
-                            dialog.dismiss();
-
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, 100);
-
-                        }
-                    });
-                    nacc.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                        }
-                    });
-                    dialog.show();
-
-                    return false;
-                }
-            });
-            logo.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
-                    final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.ipic_ask, null);
-                    TextView title = (TextView) view.findViewById(R.id.ertitle);
-                    TextView message = (TextView) view.findViewById(R.id.messageer);
-                    Button acc = (Button) view.findViewById(R.id.btn_acc);
-                    Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
-                    title.setText("OPEN");
-                    img.setImageResource(R.drawable.ic_action_cameraa);
-                    message.setText("do you want to open camera or gallery  ");
-                    dateAlt.setView(view);
-                    acc.setText("CAMERA");
-                    nacc.setText("GALLERY ");
-                    final AlertDialog dialog = dateAlt.create();
-                    acc.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (ContextCompat.checkSelfPermission(ajtproduit2.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{
-                                        Manifest.permission.CAMERA}, 100);
-
-                            }
-                            dialog.dismiss();
-
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, 100);
-
-                        }
-                    });
-                    nacc.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            ActivityCompat.requestPermissions(ajtproduit2.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
-                        }
-                    });
-                    dialog.show();
-
-                    return false;
-                }
-            });
-
-
-
-            startad.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy0.setVisibility(View.GONE);
-                    layy1.setVisibility(View.VISIBLE);
-                }
-            });
-            nxt1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy1.setVisibility(View.GONE);
-                    layy2.setVisibility(View.VISIBLE);
-                }
-            });
-            nxt2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy2.setVisibility(View.VISIBLE);
-                    if (djaz==true){
-                        layy4.setVisibility(View.VISIBLE);
-                    }
-                    else{
-                        layy3.setVisibility(View.VISIBLE);
-                        djaz=true;
-                    }
-
-                }
-            });
-            startad2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy3.setVisibility(view.GONE);
-                    layy4.setVisibility(View.VISIBLE);
-                }
-            });
-            nxt3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy4.setVisibility(View.GONE);
-                    layy5.setVisibility(View.VISIBLE);
-
-                }
-            });
-            nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
-                @Override
-                public void onClick(View view) {
-
-                    Fact.setName(oneNom.getText().toString());
-                    Fact.setPrenom(oneprenom.getText().toString());
-                    Fact.setPhone(OnTlf.getText().toString());
-                    Fact.setJob(oneJob.getText().toString());
-                    Fact.setAdress(oneAdress.getText().toString());
-                    Fact.setEmail(oneEmail.getText().toString());
-                    Fact.setFacebook(facebook.getText().toString());
-                    Fact.setLinkedIn(LinkedIn.getText().toString());
-                    Fact.setTwitter(Twitter.getText().toString());
-                    Fact.setNom(entreprise.getText().toString());
-                    Fact.setNif(nif.getText().toString());
-                    Fact.setRg(rg.getText().toString());
-                    Fact.setAddress(compaddres.getText().toString());
-                    Fact.setPhone_num(comtlf.getText().toString());
-                    Fact.setComEmail(compEmail.getText().toString());
-                    Fact.setSite(site.getText().toString());
-                    Fact.setFax(fax.getText().toString());
-                    Fact.setStatujur(statujur.getText().toString());
-                    Fact.setSecteur(secteur.getText().toString());
-                    Fact.setTaille(taille.getText().toString());
-
-                    Fact.setImage(Imageviewtobyte(photop));
-                    Fact.setFactlogo(Imageviewtobyte(logo));
-                    db.QueryData();
-                    db.InsertDataEntreprise(Fact.getNif(),Fact.getNom(),Fact.getRg(),Fact.getSecteur(),Fact.getTaille(),Fact.getStatujur(),Fact.getComEmail(),Fact.getPhone_num(),Fact.getAddress(),Fact.getSite(),Fact.getFax(),Fact.getFactlogo());
-                    db.InsertDataOperateur(Fact.getName(),Fact.getPrenom(),Fact.getNif(),Fact.getNom(),Fact.getJob(),Fact.getPhone(),Fact.getEmail(),Fact.getAdress(),Fact.getLinkedIn(),Fact.getFacebook(),Fact.getTwitter(),Fact.getImage());
-                    db.InsertDataFounisseur(Fact.getName(),Fact.getPrenom());
-
-                }
-            });
-            bk1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy1.setVisibility(View.GONE);
-                    layy0.setVisibility(View.VISIBLE);
-
-                }
-            });
-            bk2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy2.setVisibility(View.GONE);
-                    layy1.setVisibility(View.VISIBLE);
-
-                }
-            });
-            bk3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy4.setVisibility(View.GONE);
-                    layy2.setVisibility(View.VISIBLE);
-
-                }
-            });
-            bk4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    layy5.setVisibility(View.GONE);
-                    layy4.setVisibility(View.VISIBLE);
-
-                }
-            });
-            dateAlt.setView(view);
-            final AlertDialog dialog2 = dateAlt.create();
-
-            dialog2.show();
-
-        }
-
-        ArrayAdapter<String> dataAda= new ArrayAdapter<String>(ajtproduit2.this, android.R.layout.simple_dropdown_item_1line, llist);
+        final ArrayAdapter<String> dataAda = new ArrayAdapter<String>(ajtproduit2.this, android.R.layout.simple_dropdown_item_1line, llist);
         //ArrayAdapter<String> dataAda = ArrayAdapter.createFromResource(getApplicationContext(),llist,simple_list_item_1 );
         dataAda.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         supplier.setAdapter(dataAda);
-    }
-});
-
-
-
         supplier.setThreshold(1);
         supplier.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -1345,6 +531,80 @@ supplier.setOnClickListener(new View.OnClickListener() {
         });
 
 
+        supplier.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, final View view1, int i, long l) {
+                if (supplier.getText().toString().equals("add a new provider ")) {
+
+                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
+                    final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory, null);
+                    final LinearLayout layy0, layy1, layy2, layy3, layy4, layy5;
+                    Button nxt1, nxt2, nxt3, nxt4, startad2, startad, bk1, bk2, bk3, bk4;
+                    final EditText oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
+                    final AutoCompleteTextView secteur, taille, statujur;
+                    final TextInputLayout in1, in2, in3, in4, in5, in6, in7, in8, in9, in10;
+                    TextView operaComp, opera;
+                    layy0 = (LinearLayout) view.findViewById(R.id.layy0);
+                    layy1 = (LinearLayout) view.findViewById(R.id.layy1);
+                    layy2 = (LinearLayout) view.findViewById(R.id.layy2);
+                    layy3 = (LinearLayout) view.findViewById(R.id.layy3);
+                    layy4 = (LinearLayout) view.findViewById(R.id.layy4);
+                    layy5 = (LinearLayout) view.findViewById(R.id.layy5);
+                    startad = (Button) view.findViewById(R.id.startad);
+                    startad2 = (Button) view.findViewById(R.id.startad2);
+                    nxt1 = (Button) view.findViewById(R.id.nxt1);
+                    nxt2 = (Button) view.findViewById(R.id.nxt2);
+                    nxt3 = (Button) view.findViewById(R.id.nxt3);
+                    nxt4 = (Button) view.findViewById(R.id.nxt4);
+
+                    bk1 = (Button) view.findViewById(R.id.bk1);
+                    bk2 = (Button) view.findViewById(R.id.bk2);
+                    bk3 = (Button) view.findViewById(R.id.bk3);
+                    bk4 = (Button) view.findViewById(R.id.bk4);
+                    in1 = (TextInputLayout) view.findViewById(R.id.in1);
+                    in2 = (TextInputLayout) view.findViewById(R.id.in2);
+                    in3 = (TextInputLayout) view.findViewById(R.id.in3);
+                    in4 = (TextInputLayout) view.findViewById(R.id.in4);
+                    in5 = (TextInputLayout) view.findViewById(R.id.in5);
+                    in6 = (TextInputLayout) view.findViewById(R.id.in6);
+                    in7 = (TextInputLayout) view.findViewById(R.id.in7);
+                    in8 = (TextInputLayout) view.findViewById(R.id.in8);
+                    in9 = (TextInputLayout) view.findViewById(R.id.in9);
+                    in10 = (TextInputLayout) view.findViewById(R.id.in10);
+
+                    oneNom = (EditText) view.findViewById(R.id.OneNom);
+                    oneprenom = (EditText) view.findViewById(R.id.onePrenom);
+                    oneJob = (EditText) view.findViewById(R.id.oneJob);
+                    oneAdress = (EditText) view.findViewById(R.id.oneAdress);
+                    OnTlf = (EditText) view.findViewById(R.id.OnTlf);
+                    oneEmail = (EditText) view.findViewById(R.id.oneEmail);
+                    facebook = (EditText) view.findViewById(R.id.facebook);
+                    LinkedIn = (EditText) view.findViewById(R.id.LinkedIn);
+                    Twitter = (EditText) view.findViewById(R.id.Twitter);
+                    entreprise = (EditText) view.findViewById(R.id.entreprise);
+                    nif = (EditText) view.findViewById(R.id.nif);
+                    rg = (EditText) view.findViewById(R.id.rg);
+                    compaddres = (EditText) view.findViewById(R.id.CompAdrs);
+                    comtlf = (EditText) view.findViewById(R.id.CompTlf);
+                    compEmail = (EditText) view.findViewById(R.id.compEmail);
+                    site = (EditText) view.findViewById(R.id.site);
+                    fax = (EditText) view.findViewById(R.id.Fax);
+
+                    secteur = (AutoCompleteTextView) view.findViewById(R.id.secteur);
+                    taille = (AutoCompleteTextView) view.findViewById(R.id.taille);
+                    statujur = (AutoCompleteTextView) view.findViewById(R.id.statusjuridique);
+
+                    dateAlt.setView(view);
+                    final AlertDialog dialog2 = dateAlt.create();
+
+                    dialog2.show();
+                    Snackbar.make(view, "Every time you meet * means the field can not be blank  ", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    opera = (TextView) view.findViewById(R.id.opera);
+                    operaComp = (TextView) view.findViewById(R.id.operaCom);
+                    opera.setText("Let's add a new Provider ! ");
+                    operaComp.setText("Time for Provider's company !");
 
 
 
@@ -1352,35 +612,1163 @@ supplier.setOnClickListener(new View.OnClickListener() {
 
 
 
+                    oneNom.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneNom.getText().toString().trim().equalsIgnoreCase("")) {
+                                in1.setError("This field can not be blank");
+
+                            } else {
+                                in1.setError(null);
+                            }
+
+                        }
+                    });
+                    oneprenom.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneprenom.getText().toString().trim().equalsIgnoreCase("")) {
+                                in2.setError("This field can not be blank");
+
+                            } else {
+                                in2.setError(null);
+                            }
+
+                        }
+                    });
+                    oneEmail.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneEmail.getText().toString().trim().equalsIgnoreCase("")) {
+                                in4.setError("This field can not be blank");
+
+                            } else {
+                                in4.setError(null);
+                            }
+                            if (isEmailValid(oneEmail.getText().toString()) == false) {
+                                in4.setError("email should be like : exp@exp.exp ");
+                            }
+
+                        }
+                    });
+                    OnTlf.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (OnTlf.getText().toString().length() != 10) {
+                                in3.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in3.setError(null);
+                            }
+
+                        }
+                    });
+                    entreprise.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (entreprise.getText().toString().trim().equalsIgnoreCase("")) {
+                                in5.setError("This field can not be blank");
+
+                            } else {
+                                in5.setError(null);
+                            }
+
+                        }
+                    });
+                    nif.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (nif.getText().toString().length() != 13) {
+                                in6.setError("NIF should have 13 numbers ");
+
+                            } else {
+                                in6.setError(null);
+                            }
+
+                        }
+                    });
+                    rg.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (rg.getText().toString().length() != 14) {
+                                in7.setError("NIF should have 14 numbers ");
+
+                            } else {
+                                in7.setError(null);
+                            }
+
+                        }
+                    });
+                    comtlf.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (comtlf.getText().toString().length() != 10) {
+                                in9.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in9.setError(null);
+                            }
+
+                        }
+                    });
+                    compaddres.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (compaddres.getText().toString().length() != 10) {
+                                in8.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in8.setError(null);
+                            }
+
+                        }
+                    });
+                    compEmail.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (compEmail.getText().toString().length() != 10) {
+                                in10.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in10.setError(null);
+                            }
+
+                        }
+                    });
+
+
+                    startad.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view2) {
+                            layy0.setVisibility(View.GONE);
+                            layy1.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    nxt1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view2) {
+
+                            if (oneNom.getText().toString().isEmpty()) {
+                                in1.setError("this field can not be blank ");
+                            }
+
+                            if (oneprenom.getText().toString().isEmpty()) {
+                                in2.setError("this field can not be blank ");
+                            } else if (!oneNom.getText().toString().isEmpty() && !oneprenom.getText().toString().isEmpty()) {
+                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp=" + oneNom.getText().toString() + " and prenomOp =" + "'" + oneprenom.getText().toString() + "'")};
+                                if (cursor[0] != null) {
+                                    customer.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
+                                    dialog2.dismiss();
+                                    Toast.makeText(getApplicationContext(), "this person  Already  exists ", Toast.LENGTH_LONG).show();
+
+                                }
+                                else {
+                                    layy1.setVisibility(View.GONE);
+                                    layy2.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    });
+                    nxt2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (OnTlf.getText().toString().isEmpty()) {
+                                in3.setError("this field can not be blank ");
+                            } else if (OnTlf.getText().toString().length() != 10) {
+                                in3.setError("your Number should have 10 numbers  ");
+                            }
+                            if (oneEmail.getText().toString().isEmpty()) {
+                                in4.setError("this field can not be blank ");
+                            } else if (isEmailValid(oneEmail.getText().toString()) == false) {
+                                in4.setError("email should be like : exp@exp.exp ");
+                            } else {
+                                layy2.setVisibility(View.GONE);
+                                if (djaz == true) {
+
+                                    layy4.setVisibility(View.VISIBLE);
+                                } else {
+                                    layy3.setVisibility(View.VISIBLE);
+                                    djaz = true;
+                                }
+                            }
+
+                        }
+                    });
+                    startad2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy3.setVisibility(view.GONE);
+                            layy4.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    nxt3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy4.setVisibility(View.GONE);
+                            layy5.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
+                        @Override
+                        public void onClick(View view) {
+                            if (comtlf.getText().toString().isEmpty()) {
+                                in9.setError("this field can not be blank ");
+                            } else if (comtlf.getText().toString().length() != 10) {
+                                in9.setError("your Number should have 10 numbers  ");
+                            }
+                            if (compEmail.getText().toString().isEmpty()) {
+                                in10.setError("this field can not be blank ");
+                            } else if (isEmailValid(compEmail.getText().toString()) == false) {
+                                in10.setError("email should be like : exp@exp.exp ");
+                            } else if (compaddres.getText().toString().isEmpty()) {
+                                in8.setError("this field can not be blank ");
+                            } else {
+                                dialog2.dismiss();
+                                byte[] by1 = Imageviewtobyte(image);
+                                byte[] by2 = Imageviewtobyte(image);
+                                Fact.setJob(oneJob.getText().toString());
+                                Fact.setAdress(oneAdress.getText().toString());
+                                Fact.setFacebook(facebook.getText().toString());
+                                Fact.setLinkedIn(LinkedIn.getText().toString());
+                                Fact.setTwitter(Twitter.getText().toString());
+                                if (oneEmail.getText().toString().isEmpty()) {
+                                    oneEmail.setError("please it can not be blank");
+
+
+                                } else {
+                                    oneEmail.setError(null);
+                                    Fact.setEmail(oneEmail.getText().toString());
+
+
+                                }
+                                if (OnTlf.getText().toString().isEmpty()) {
+                                    OnTlf.setError("please it can not be blank");
+
+
+                                } else {
+                                    OnTlf.setError(null);
+                                    Fact.setPhone(OnTlf.getText().toString());
+                                }
+                                if (oneNom.getText().toString().isEmpty()) {
+                                    oneNom.setError("please it can not be blank");
+
+
+                                } else {
+                                    oneNom.setError(null);
+                                    Fact.setName(oneNom.getText().toString());
+
+                                }
+                                if (oneprenom.getText().toString().isEmpty()) {
+                                    oneprenom.setError("please it can not be blank");
+
+
+                                } else {
+                                    oneprenom.setError(null);
+                                    Fact.setPrenom(oneprenom.getText().toString());
+
+                                }
+                                if (entreprise.getText().toString().isEmpty()) {
+                                    entreprise.setError("please it can not be blank");
+                                } else {
+                                    entreprise.setError(null);
+                                    Fact.setNom(entreprise.getText().toString());
+
+                                }
+                                if (nif.getText().toString().toString().isEmpty()) {
+                                    nif.setError("please it can not be blank ");
+                                } else if (nif.getText().toString().length() != 13) {
+                                    nif.setError("NIF must have 13 letters  ");
+                                } else {
+                                    nif.setError(null);
+                                    Fact.setNif(nif.getText().toString());
+
+                                }
+                                if (rg.getText().toString().isEmpty()) {
+                                    rg.setError("please it can not be blank ");
+                                } else {
+                                    rg.setError(null);
+                                    Fact.setRg(rg.getText().toString());
+                                }
+                                if (compaddres.getText().toString().isEmpty()) {
+                                    compaddres.setError(" address");
+                                } else {
+                                    compaddres.setError(null);
+                                    Fact.setAddress(compaddres.getText().toString());
+                                }
+                                if (comtlf.getText().toString().isEmpty()) {
+                                    comtlf.setError("please you should know the companu address");
+                                } else {
+                                    comtlf.setError(null);
+                                    Fact.setPhone_num(comtlf.getText().toString());
+                                }
+                                if (compEmail.getText().toString().isEmpty()) {
+                                    compEmail.setError("please you should know the companu address");
+                                } else {
+                                    compEmail.setError(null);
+                                    Fact.setComEmail(compEmail.getText().toString());
+
+                                }
+
+
+                                Fact.setSite(site.getText().toString());
+                                Fact.setFax(fax.getText().toString());
+                                Fact.setStatujur(statujur.getText().toString());
+                                Fact.setSecteur(secteur.getText().toString());
+                                Fact.setTaille(taille.getText().toString());
+                                Fact.setImage(by1);
+                                Fact.setFactlogo(by2);
+                                db.QueryData();
+                                db.InsertDataEntreprise(Fact.getNif(), Fact.getNom(), Fact.getRg(), Fact.getSecteur(), Fact.getTaille(), Fact.getStatujur(), Fact.getComEmail(), Fact.getPhone_num(), Fact.getAddress(), Fact.getSite(), Fact.getFax(), Fact.getFactlogo());
+                                db.InsertDataOperateur(Fact.getName(), Fact.getPrenom(), Fact.getNif(), Fact.getNom(), Fact.getJob(), Fact.getPhone(), Fact.getEmail(), Fact.getAdress(), Fact.getLinkedIn(), Fact.getFacebook(), Fact.getTwitter(), Fact.getImage());
+                                db.InsertDataFounisseur(Fact.getName(), Fact.getPrenom());
+                                supplier.setText(Fact.getName() + " " + Fact.getPrenom());
+                            }
+                        }
+                    });
+                    bk1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy1.setVisibility(View.GONE);
+                            layy0.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy2.setVisibility(View.GONE);
+                            layy1.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy4.setVisibility(View.GONE);
+                            layy2.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy5.setVisibility(View.GONE);
+                            layy4.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte = ArrayAdapter.createFromResource(getApplicationContext(), R.array.statujur, simple_list_item_1);
+                    dataAdapte.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    statujur.setAdapter(dataAdapte);
+                    statujur.setThreshold(1);
+                    statujur.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            statujur.showDropDown();
+                            return false;
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte1 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.Secteur, simple_list_item_1);
+                    dataAdapte1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    secteur.setAdapter(dataAdapte1);
+                    secteur.setThreshold(1);
+                    secteur.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            secteur.showDropDown();
+                            return false;
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte2 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.size, simple_list_item_1);
+                    dataAdapte2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    taille.setAdapter(dataAdapte2);
+                    taille.setThreshold(1);
+                    taille.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            taille.showDropDown();
+                            return false;
+                        }
+                    });
+
+
+                    dataAda.notifyDataSetChanged();
+
+
+                }
+            }
+        });
 
 
 
+        db.QueryData();
+        llistC.add("add  a new cusomer ");
+        Cursor[] cursor2 = new Cursor[]{db.getData("SELECT * FROM OPERATEUR")};
+        if (cursor2[0] != null) {
+            while (cursor2[0].moveToNext()) {
+                String NOm = cursor2[0].getString(0);
+                String Prenom = cursor2[0].getString(1);
+                llistC.add(NOm + " " + Prenom);
+            }
+        }
+        final ArrayAdapter<String> dataAdaC = new ArrayAdapter<String>(ajtproduit2.this, android.R.layout.simple_dropdown_item_1line, llist);
+        //ArrayAdapter<String> dataAda = ArrayAdapter.createFromResource(getApplicationContext(),llist,simple_list_item_1 );
+        dataAdaC.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        customer.setAdapter(dataAdaC);
+        customer.setThreshold(1);
+        customer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                customer.showDropDown();
+                return false;
+            }
+        });
+
+
+        customer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+                if (customer.getText().toString().equals("add a new provider ")) {
+
+                    final AlertDialog.Builder dateAlt = new AlertDialog.Builder(ajtproduit2.this);
+                    final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory, null);
+                    final LinearLayout layy0, layy1, layy2, layy3, layy4, layy5;
+                    Button nxt1, nxt2, nxt3, nxt4, startad2, startad, bk1, bk2, bk3, bk4;
+                    final EditText tauxred, oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
+                    final AutoCompleteTextView secteur, taille, statujur;
+                    final TextInputLayout in1, in2, in3, in4, in5, in6, in7, in8, in9, in10,taux;
+                    final RadioGroup RGC;
+                    TextView operaComp, opera;
+                    layy0 = (LinearLayout) view.findViewById(R.id.layy0);
+                    layy1 = (LinearLayout) view.findViewById(R.id.layy1);
+                    layy2 = (LinearLayout) view.findViewById(R.id.layy2);
+                    layy3 = (LinearLayout) view.findViewById(R.id.layy3);
+                    layy4 = (LinearLayout) view.findViewById(R.id.layy4);
+                    layy5 = (LinearLayout) view.findViewById(R.id.layy5);
+                    startad = (Button) view.findViewById(R.id.startad);
+                    startad2 = (Button) view.findViewById(R.id.startad2);
+                    nxt1 = (Button) view.findViewById(R.id.nxt1);
+                    nxt2 = (Button) view.findViewById(R.id.nxt2);
+                    nxt3 = (Button) view.findViewById(R.id.nxt3);
+                    nxt4 = (Button) view.findViewById(R.id.nxt4);
+                    in1 = (TextInputLayout) view.findViewById(R.id.in1);
+                    in2 = (TextInputLayout) view.findViewById(R.id.in2);
+                    in3 = (TextInputLayout) view.findViewById(R.id.in3);
+                    in4 = (TextInputLayout) view.findViewById(R.id.in4);
+                    in5 = (TextInputLayout) view.findViewById(R.id.in5);
+                    in6 = (TextInputLayout) view.findViewById(R.id.in6);
+                    in7 = (TextInputLayout) view.findViewById(R.id.in7);
+                    in8 = (TextInputLayout) view.findViewById(R.id.in8);
+                    in9 = (TextInputLayout) view.findViewById(R.id.in9);
+                    in10 = (TextInputLayout) view.findViewById(R.id.in10);
+                    taux = (TextInputLayout) view.findViewById(R.id.taux);
+                    final LinearLayout conss1 = (LinearLayout) view.findViewById(R.id.lil);
+                    tauxred = (EditText) view.findViewById(R.id.tauxred);
+
+                    RGC = (RadioGroup) view.findViewById(R.id.rgc);
+
+                    bk1 = (Button) view.findViewById(R.id.bk1);
+                    bk2 = (Button) view.findViewById(R.id.bk2);
+                    bk3 = (Button) view.findViewById(R.id.bk3);
+                    bk4 = (Button) view.findViewById(R.id.bk4);
+
+                    oneNom = (EditText) view.findViewById(R.id.OneNom);
+                    oneprenom = (EditText) view.findViewById(R.id.onePrenom);
+                    oneJob = (EditText) view.findViewById(R.id.oneJob);
+                    oneAdress = (EditText) view.findViewById(R.id.oneAdress);
+                    OnTlf = (EditText) view.findViewById(R.id.OnTlf);
+                    oneEmail = (EditText) view.findViewById(R.id.oneEmail);
+                    facebook = (EditText) view.findViewById(R.id.facebook);
+                    LinkedIn = (EditText) view.findViewById(R.id.LinkedIn);
+                    Twitter = (EditText) view.findViewById(R.id.Twitter);
+                    entreprise = (EditText) view.findViewById(R.id.entreprise);
+                    nif = (EditText) view.findViewById(R.id.nif);
+                    rg = (EditText) view.findViewById(R.id.rg);
+                    compaddres = (EditText) view.findViewById(R.id.CompAdrs);
+                    comtlf = (EditText) view.findViewById(R.id.CompTlf);
+                    compEmail = (EditText) view.findViewById(R.id.compEmail);
+                    site = (EditText) view.findViewById(R.id.site);
+                    fax = (EditText) view.findViewById(R.id.Fax);
+
+                    secteur = (AutoCompleteTextView) view.findViewById(R.id.secteur);
+                    taille = (AutoCompleteTextView) view.findViewById(R.id.taille);
+                    statujur = (AutoCompleteTextView) view.findViewById(R.id.statusjuridique);
+
+                    dateAlt.setView(view);
+                    final AlertDialog dialog2 = dateAlt.create();
+
+                    dialog2.show();
+                    Snackbar.make(view, "Every time you meet * means : that field can not be blank  ", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    opera = (TextView) view.findViewById(R.id.opera);
+                    operaComp = (TextView) view.findViewById(R.id.operaCom);
+                    opera.setText("Let's add a new consumer ! ");
+                    operaComp.setText("Time for consumer's company !");
 
 
 
+                    RGC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            int i;
+                            i = RGC.getCheckedRadioButtonId();
+                            RadioButton catt = (RadioButton) findViewById(i);
+                            Fact.setType(catt.getText().toString());
 
 
+                        }
+                    });
+                    oneNom.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneNom.getText().toString().trim().equalsIgnoreCase("")) {
+                                in1.setError("This field can not be blank");
+
+                            } else {
+                                in1.setError(null);
+                            }
+
+                        }
+                    });
+                    oneprenom.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneprenom.getText().toString().trim().equalsIgnoreCase("")) {
+                                in2.setError("This field can not be blank");
+
+                            } else {
+                                in2.setError(null);
+                            }
+
+                        }
+                    });
+                    oneEmail.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (oneEmail.getText().toString().trim().equalsIgnoreCase("")) {
+                                in4.setError("This field can not be blank");
+
+                            } else {
+                                in4.setError(null);
+                            }
+                            if (isEmailValid(oneEmail.getText().toString()) == false) {
+                                in4.setError("email should be like : exp@exp.exp ");
+                            }
+
+                        }
+                    });
+                        OnTlf.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (OnTlf.getText().toString().length() != 10) {
+                                in3.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in3.setError(null);
+                            }
+
+                        }
+                    });
+
+                    entreprise.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (entreprise.getText().toString().trim().equalsIgnoreCase("")) {
+                                in5.setError("This field can not be blank");
+
+                            } else {
+                                in5.setError(null);
+                            }
+
+                        }
+                    });
+                    nif.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (nif.getText().toString().length() != 13) {
+                                in6.setError("NIF should have 13 numbers ");
+
+                            } else {
+                                in6.setError(null);
+                            }
+
+                        }
+                    });
+                    rg.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (rg.getText().toString().length() != 14) {
+                                in7.setError("NIF should have 14 numbers ");
+
+                            } else {
+                                in7.setError(null);
+                            }
+
+                        }
+                    });
+                    comtlf.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (comtlf.getText().toString().length() != 10) {
+                                in9.setError("your Number should have 10 numbers  ");
+
+                            } else {
+                                in9.setError(null);
+                            }
+
+                        }
+                    });
+                    compaddres.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (compaddres.getText().toString().isEmpty()) {
+                                in8.setError("This field can not be blank   ");
+
+                            } else {
+                                in8.setError(null);
+                            }
+
+                        }
+                    });
+                    compEmail.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if (isEmailValid(compEmail.getText().toString())==false) {
+                                in10.setError("email should be like : exp@exp.exp  ");
+
+                            } else {
+                                in10.setError(null);
+                            }
+
+                        }
+                    });
+                    tauxred.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            int x = (int) floor(parseDouble(tauxred.getText().toString()));
+                            String x2= ""+x;
+                            if(x2.trim().length()>2){
+                                taux.setError("this should be a percentage exemple : 00.00");
+                            }
+                            else{
+                                taux.setError(null);
+                            }
+
+                        }
+                    });
+                    startad.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view2) {
+                            layy0.setVisibility(View.GONE);
+                            layy1.setVisibility(View.VISIBLE);
+                            conss1.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    nxt1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view2) {
+
+                            if (oneNom.getText().toString().isEmpty()) {
+                                in1.setError("this field can not be blank ");
+                            }
+
+                            if (oneprenom.getText().toString().isEmpty()) {
+                                in2.setError("this field can not be blank ");
+                            } else if (!oneNom.getText().toString().isEmpty() && !oneprenom.getText().toString().isEmpty()) {
+                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp=" + oneNom.getText().toString() + " and prenomOp =" + "'" + oneprenom.getText().toString() + "'")};
+                                if (cursor[0] != null) {
+                                    customer.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
+                                    dialog2.dismiss();
+                                    Toast.makeText(getApplicationContext(), "this person  Already  exists ", Toast.LENGTH_LONG).show();
+
+                                } else {
 
 
+                                    layy1.setVisibility(View.GONE);
+                                    layy2.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    });
+                    nxt2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            if (OnTlf.getText().toString().isEmpty()) {
+                                in3.setError("this field can not be blank ");
+                            } else if (OnTlf.getText().toString().length() != 10) {
+                                in3.setError("your Number should have 10 numbers  ");
+                            }
+                            if (oneEmail.getText().toString().isEmpty()) {
+                                in4.setError("this field can not be blank ");
+                            } else if (isEmailValid(oneEmail.getText().toString()) == false) {
+                                in4.setError("email should be like : exp@exp.exp ");
+                            } else {
+                                layy2.setVisibility(View.GONE);
+                                if (djaz == true) {
+
+                                    layy4.setVisibility(View.VISIBLE);
+                                } else {
+                                    layy3.setVisibility(View.VISIBLE);
+                                    djaz = true;
+                                }
+                            }
 
 
+                        }
+                    });
+                    startad2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
 
+                            layy3.setVisibility(view.GONE);
+                            layy4.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    nxt3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (entreprise.getText().toString().isEmpty()) {
+                                in5.setError("this field can not be blank ");
+                            } else if (nif.getText().toString().length() != 13) {
+                                in5.setError("NIF should have 13 numbers ");
+                            }
+                            if (rg.getText().toString().isEmpty()) {
+                                in6.setError("this field can not be blank ");
+                            } else {
+                                layy4.setVisibility(View.GONE);
+                                layy5.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                    });
+                    nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
+                        @Override
+                        public void onClick(View view) {
 
 
+                            if (comtlf.getText().toString().isEmpty()) {
+                                in9.setError("this field can not be blank ");
+                            } else if (comtlf.getText().toString().length() != 10) {
+                                in9.setError("your Number should have 10 numbers  ");
+                            }
+                            if (compEmail.getText().toString().isEmpty()) {
+                                in10.setError("this field can not be blank ");
+                            } else if (isEmailValid(compEmail.getText().toString()) == false) {
+                                in10.setError("email should be like : exp@exp.exp ");
+                            } else if (compaddres.getText().toString().isEmpty()) {
+                                in8.setError("this field can not be blank ");
+                            } else {
 
 
+                                dialog2.dismiss();
+
+                                byte[] by1 = Imageviewtobyte(image);
+                                byte[] by2 = Imageviewtobyte(image);
+                                Fact.setJob(oneJob.getText().toString());
+                                Fact.setAdress(oneAdress.getText().toString());
+                                Fact.setFacebook(facebook.getText().toString());
+                                Fact.setLinkedIn(LinkedIn.getText().toString());
+                                Fact.setTwitter(Twitter.getText().toString());
+                                if (oneEmail.getText().toString().isEmpty()) {
+                                    oneEmail.setError("please it can not be blank");
 
 
+                                } else {
+                                    oneEmail.setError(null);
+                                    Fact.setEmail(oneEmail.getText().toString());
 
-/*supplier.setOnTouchListener(new View.OnTouchListener() {
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        Intent intent = new Intent(ajtproduit2.this, factoriesList.class);
-        startActivity(intent);
-        return false;
-    }
-});*/
+
+                                }
+                                if (OnTlf.getText().toString().isEmpty()) {
+                                    OnTlf.setError("please it can not be blank");
+
+
+                                } else {
+                                    OnTlf.setError(null);
+                                    Fact.setPhone(OnTlf.getText().toString());
+                                }
+                                if (oneNom.getText().toString().isEmpty()) {
+                                    oneNom.setError("please it can not be blank");
+
+
+                                } else {
+                                    oneNom.setError(null);
+                                    Fact.setName(oneNom.getText().toString());
+
+                                }
+                                if (oneprenom.getText().toString().isEmpty()) {
+                                    oneprenom.setError("please it can not be blank");
+
+
+                                } else {
+                                    oneprenom.setError(null);
+                                    Fact.setPrenom(oneprenom.getText().toString());
+
+                                }
+                                if (entreprise.getText().toString().isEmpty()) {
+                                    entreprise.setError("please it can not be blank");
+                                } else {
+                                    entreprise.setError(null);
+                                    Fact.setNom(entreprise.getText().toString());
+
+                                }
+                                if (nif.getText().toString().toString().isEmpty()) {
+                                    nif.setError("please it can not be blank ");
+                                } else if (nif.getText().toString().length() != 13) {
+                                    nif.setError("NIF must have 13 letters  ");
+                                } else {
+                                    nif.setError(null);
+                                    Fact.setNif(nif.getText().toString());
+
+                                }
+                                if (rg.getText().toString().isEmpty()) {
+                                    rg.setError("please it can not be blank ");
+                                } else {
+                                    rg.setError(null);
+                                    Fact.setRg(rg.getText().toString());
+                                }
+                                if (compaddres.getText().toString().isEmpty()) {
+                                    compaddres.setError("please it can not be blank ");
+                                } else {
+                                    compaddres.setError(null);
+                                    Fact.setAddress(compaddres.getText().toString());
+                                }
+                                if (comtlf.getText().toString().isEmpty()) {
+                                    comtlf.setError("please you should know the companu address");
+                                } else {
+                                    comtlf.setError(null);
+                                    Fact.setPhone_num(comtlf.getText().toString());
+                                }
+                                if (compEmail.getText().toString().isEmpty()) {
+                                    compEmail.setError("please you should know the companu address");
+                                } else {
+                                    compEmail.setError(null);
+                                    Fact.setComEmail(compEmail.getText().toString());
+
+                                }
+                                RGC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                    @Override
+                                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                        int i;
+                                        i = RGC.getCheckedRadioButtonId();
+                                        RadioButton TYYP = (RadioButton) findViewById(i);
+                                        Fact.setType(TYYP.getText().toString());
+
+
+                                    }
+                                });
+                                Fact.setReduction(parseDouble(tauxred.getText().toString()));
+                                Fact.setSite(site.getText().toString());
+                                Fact.setFax(fax.getText().toString());
+                                Fact.setStatujur(statujur.getText().toString());
+                                Fact.setSecteur(secteur.getText().toString());
+                                Fact.setTaille(taille.getText().toString());
+                                Fact.setImage(by1);
+                                Fact.setFactlogo(by2);
+                                db.QueryData();
+                                db.InsertDataEntreprise(Fact.getNif(), Fact.getNom(), Fact.getRg(), Fact.getSecteur(), Fact.getTaille(), Fact.getStatujur(), Fact.getComEmail(), Fact.getPhone_num(), Fact.getAddress(), Fact.getSite(), Fact.getFax(), Fact.getFactlogo());
+                                db.InsertDataOperateur(Fact.getName(), Fact.getPrenom(), Fact.getNif(), Fact.getNom(), Fact.getJob(), Fact.getPhone(), Fact.getEmail(), Fact.getAdress(), Fact.getLinkedIn(), Fact.getFacebook(), Fact.getTwitter(), Fact.getImage());
+                                db.InsertDataClient(Fact.getReduction(), Fact.getName(), Fact.getPrenom(), Fact.getType());
+                                customer.setText(Fact.getName() + " " + Fact.getPrenom());
+
+                            }
+                        }
+                    });
+                    bk1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy1.setVisibility(View.GONE);
+                            layy0.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy2.setVisibility(View.GONE);
+                            layy1.setVisibility(View.VISIBLE);
+                            conss1.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy4.setVisibility(View.GONE);
+                            layy2.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                    bk4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            layy5.setVisibility(View.GONE);
+                            layy4.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte = ArrayAdapter.createFromResource(getApplicationContext(), R.array.statujur, simple_list_item_1);
+                    dataAdapte.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    statujur.setAdapter(dataAdapte);
+                    statujur.setThreshold(1);
+                    statujur.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            statujur.showDropDown();
+                            return false;
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte1 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.Secteur, simple_list_item_1);
+                    dataAdapte1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    secteur.setAdapter(dataAdapte1);
+                    secteur.setThreshold(1);
+                    secteur.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            secteur.showDropDown();
+                            return false;
+                        }
+                    });
+
+                    ArrayAdapter<CharSequence> dataAdapte2 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.size, simple_list_item_1);
+                    dataAdapte2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    taille.setAdapter(dataAdapte2);
+                    taille.setThreshold(1);
+                    taille.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            taille.showDropDown();
+                            return false;
+                        }
+                    });
+
+
+                    dataAda.notifyDataSetChanged();
+
+
+                }
+            }
+        });
+
 
         image.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -1651,5 +2039,9 @@ supplier.setOnClickListener(new View.OnClickListener() {
             }
         }
 
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

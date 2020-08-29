@@ -76,24 +76,10 @@ byte[] image = null;
             @Override
             public void onClick(View view) {
 
-                final AlertDialog.Builder magalrt = new AlertDialog.Builder(HomeActivity.this);
-                final View vmag= LayoutInflater.from(HomeActivity.this).inflate(R.layout.magw,null);
-                TextView message=(TextView)vmag.findViewById(R.id.qntttmag);
-                Button nacc=(Button)vmag.findViewById(R.id.btn_okkmag);
-                message.setText("please you should first add or select a wherehouse ");
-                magalrt.setView(vmag);
-                final AlertDialog dialog = magalrt.create();
-                dialog.show();
-               nacc.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        Toast.makeText(HomeActivity.this,"Add a product", Toast.LENGTH_LONG).show();
-
-                        startActivity(new Intent(HomeActivity.this, MagazinActivity.class));
-                    }
-                });
-
+                Toast.makeText(getApplicationContext(), "Product", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, MagazinActivity.class);
+                intent.putExtra("show","show");
+                startActivity(intent);
 
 
             }

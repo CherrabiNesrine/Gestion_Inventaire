@@ -71,6 +71,10 @@
         <item>secondary activity sectors</item>
         <item>tertiary activity sectors</item>
     </string-array>
+    <string-array name="size">
+        <item>PME</item>
+        <item>PMI</item>
+    </string-array>
 
     <string name="sales_text"><b>Sales Informasion :</b> </string>
     <string name="ONe_text"><b>Do you know someOne there? :</b></string>

@@ -80,23 +80,22 @@ public class DataBaseM extends SQLiteOpenHelper {
 //-----------------------------------------------------------------------------------------
 
     public DataBaseM(@Nullable Context context) {
-        super(context,DataBase_name, null, 11);
+        super(context,DataBase_name, null, 17);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
 
     }
     public void QueryData(){
-
         SQLiteDatabase db  = getWritableDatabase();
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Entreprise+"(NIF varchar(13)PRIMARY KEY,Nom varchar(20),RG varchar(20),secteur varchar(50),taille integer ,statujur varchar(60),email varchar,tlf varchar,Address varchar,Site varchar,Fax varchar, image BLOG)");
         db.execSQL("CREATE TABLE IF NOT EXISTS mag (nomMAg varchar PRIMARY KEY ,typemag varchar,mesuremag varchar)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + Table_Column_ID + " INTEGER PRIMARY KEY, " + Table_Column_1_Name + " VARCHAR, " + Table_Column_2_Prenom + " VARCHAR, " + Table_Column_3_Password + " VARCHAR  ," + Table_Column_4_username + " VARCHAR ," + KEY_IMG + " blob)");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name+"(ID varchar(14)PRIMARY KEY,Nom varchar(20),dateF Date ,datE Date , categorie varchar,sousCategorie varchar,matiere varchar,quantite number,prix number,typePr varchar,DateENtr Date,coin varchar,coins varchar,unit varchar,pricS number,discription text,fournisseur varchar,client varchar,idmag varchar,QNTT number,dateDel date,image BLOG, FOREIGN KEY (idmag) REFERENCES "+Table_name_Magasin+"(nomMAg) )");
-        db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"(nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(13) ,entreprise varchar(20) not null,job varchar,typCon varchar,TelOperateur varchar(14),email varchar2,address varchar2,Linkedin varchar,facebook varchar2,twitter varchar,logoImg BLOG,Primary key (nomOp,prenomOp ),Foreign key (matrFiscal) references "+Table_name_Entreprise+"(NIF),Foreign Key (entreprise) references "+Table_name_Entreprise+"(Nom))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_COM+"(idcom integer PRIMARY KEY AUTOINCREMENT,QntCom number,datCom date,codePR varchar(13),idop integer,FOREIGN KEY (codePR) REFERENCES "+Table_name+"(ID))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_client+"(idclient integer PRIMARY KEY AUTOINCREMENT,reduction number(2,2),Nom varchar(12), Prenom varchar(12),type varchar,FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp) )");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_FOU+"(idFour integer PRIMARY KEY AUTOINCREMENT,Nom varchar(12),Prenom varchar(12),FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp"+"),FOREIGN KEY (prenomOp) references "+Table_name_O+"(prenomOp)"+")");
+        db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"( nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(13) ,entreprise varchar(20) not null,job varchar,TelOperateur varchar(14),email varchar2,address varchar2,Linkedin varchar,facebook varchar2,twitter varchar,logoImg BLOG,Primary key (nomOp,prenomOp ),Foreign key (matrFiscal) references "+Table_name_Entreprise+"(NIF),Foreign Key (entreprise) references "+Table_name_Entreprise+"(Nom))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_COM+"(idcom integer PRIMARY KEY AUTOINCREMENT,QntCom number,datCom date,idop integer,codePR varchar(13),FOREIGN KEY (codePR) REFERENCES "+Table_name+"(ID))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_client+"(idclient integer PRIMARY KEY AUTOINCREMENT,reduction number(2,2),Nom varchar(12), Prenom varchar(12),type varchar,FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp) ,FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_FOU+"(idFour integer PRIMARY KEY AUTOINCREMENT,Nom varchar(12),Prenom varchar(12),FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp"+"),FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp)"+")");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Facture+"(idFact integer PRIMARY KEY AUTOINCREMENT ,DateFact date,Prix number,TVA number,HT number,terms varchar2,typeP String,com integer,FOREIGN KEY (com) REFERENCES "+Table_name_COM+"(idcom))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_factAchat+"(idfAchat integer PRIMARY KEY AUTOINCREMENT ,idca integer ,FOREIGN KEY (idca) REFERENCES "+Table_name_comAchat+"(idCA))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_factVente+"(idfVente integer PRIMARY KEY AUTOINCREMENT ,idcv integer ,FOREIGN KEY (idcv) REFERENCES "+Table_name_comVente+"(idCV))");
@@ -289,21 +288,21 @@ public class DataBaseM extends SQLiteOpenHelper {
     }
     public void InsertDataOperateur( String NomOP, String prenomOP,String matfisc,String entreprise,String job,String telOpera,String email,String address,String linkedin,String facebook,String twitter, byte[] logo){
         SQLiteDatabase db= getWritableDatabase();
-        String sql="INSERT INTO "+Table_name_O+" VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql="INSERT INTO "+Table_name_O+" VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         SQLiteStatement statement= db.compileStatement(sql);
         statement.clearBindings();
-        statement.bindString(2,NomOP);
-        statement.bindString(3,prenomOP);
-        statement.bindString(4,matfisc);
-        statement.bindString(5,entreprise);
-        statement.bindString(6,job);
-        statement.bindString(7,telOpera);
-        statement.bindString(8,email);
-        statement.bindString(9,address);
-        statement.bindString(10,linkedin);
-        statement.bindString(11,facebook);
-        statement.bindString(12,twitter);
-        statement.bindBlob(13,logo);
+        statement.bindString(1,NomOP);
+        statement.bindString(2,prenomOP);
+        statement.bindString(3,matfisc);
+        statement.bindString(4,entreprise);
+        statement.bindString(5,job);
+        statement.bindString(6,telOpera);
+        statement.bindString(7,email);
+        statement.bindString(8,address);
+        statement.bindString(9,linkedin);
+        statement.bindString(10,facebook);
+        statement.bindString(11,twitter);
+        statement.bindBlob(12,logo);
 
         statement.executeInsert();
 
@@ -382,7 +381,7 @@ public class DataBaseM extends SQLiteOpenHelper {
     }
     public void InsertDataClient(Double reduction ,String Nom ,String Prenom,String type){
         SQLiteDatabase db= getWritableDatabase();
-        String sql="INSERT INTO "+Table_name_client+" VALUES ( NULL, ?, ?, ?)";
+        String sql="INSERT INTO "+Table_name_client+" VALUES ( Null,?, ?, ?, ?)";
         SQLiteStatement statement= db.compileStatement(sql);
         statement.clearBindings();
         statement.bindDouble(1,reduction);
@@ -476,10 +475,16 @@ public class DataBaseM extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Magasin+"(nomMAg varchar PRIMARY KEY ,typemag varchar,mesuremag varchar)");
 */
         db.execSQL("DROP TABLE IF EXISTS "+Table_name_O);
+        db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"(nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(13) ,entreprise varchar(20) not null,job varchar,TelOperateur varchar(14),email varchar2,address varchar2,Linkedin varchar,facebook varchar2,twitter varchar,logoImg BLOG,Primary key (nomOp,prenomOp ),Foreign key (matrFiscal) references "+Table_name_Entreprise+"(NIF),Foreign Key (entreprise) references "+Table_name_Entreprise+"(Nom))");
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_FOU);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_FOU+"(idFour integer PRIMARY KEY AUTOINCREMENT,Nom varchar(12),Prenom varchar(12),FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp"+"),FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp)"+")");
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_client);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_client+"(idclient integer PRIMARY KEY AUTOINCREMENT,reduction number(2,2),Nom varchar(12), Prenom varchar(12),type varchar,FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp) ,FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp))");
 
-        /*db.execSQL("DROP TABLE IF EXISTS "+Table_name_O);
-        db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"(idOp varchar(13)Primary key,nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(20) ,entreprise varchar(20) not null,TelOperateur varchar(14),email varchar2,address varchar2,Fax varchar,Site varchar2,logoImg BLOG)");
-        d*/
+
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_Entreprise);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Entreprise+"(NIF varchar(13)PRIMARY KEY,Nom varchar(20),RG varchar(20),secteur varchar(50),taille integer ,statujur varchar(60),email varchar,tlf varchar,Address varchar,Site varchar,Fax varchar, image BLOG)");
+
     }
 }
 

@@ -189,7 +189,6 @@ public class Miseajour extends SidebarMenu {
             byte[] bytess = cursor[0].getBlob(21);
 
             if(!exp.equals("01/01/2000")&& !fab.equals("01/01/2000")){
-             lin2.setVisibility(View.VISIBLE);
              Exp.setText(exp);
              FAB.setText(fab);
             }
@@ -676,6 +675,7 @@ public class Miseajour extends SidebarMenu {
                 values.put("pricS",prixS.getText().toString());
                 values.put("dateF",FAB.getText().toString());
                 values.put("datE",Exp.getText().toString());
+                values.put("image",Imageviewtobyte(mag));
                 db.Update("prod",values, "ID=?", new String[]{code});
                 if(operation==true && operationM == true){
                     db.InsertDataHistorique(code,Integer.parseInt(dqntt.getText().toString()),p.getDateModif(),"+");

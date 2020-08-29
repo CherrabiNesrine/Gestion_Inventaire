@@ -3,7 +3,9 @@ package com.example.logg;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -27,11 +31,11 @@ public class magAdap extends BaseAdapter {
     private final ArrayList<String> MTYPE;
     private final ArrayList<String> MUNIT;
 
-    public magAdap(Context c,  ArrayList<String> Mnom , ArrayList<String> Mtype ,ArrayList<String> MUNIT) {
+    public magAdap(Context c, ArrayList<String> Mnom, ArrayList<String> Mtype, ArrayList<String> MUNIT) {
         mContext = c;
-        this.Mnom=Mnom;
-        this.MTYPE=Mtype;
-        this.MUNIT=MUNIT;
+        this.Mnom = Mnom;
+        this.MTYPE = Mtype;
+        this.MUNIT = MUNIT;
 
     }
 
@@ -52,22 +56,6 @@ public class magAdap extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        /*View grid;
-
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
-            grid = inflater.inflate(R.layout.grid, null);
-            TextView nom = (TextView) grid.findViewById(R.id.tnom);
-            TextView code = (TextView) grid.findViewById(R.id.tcode);
-            ImageView imageView = (ImageView) grid.findViewById(R.id.imv);
-            nom.setText(Itnom[position]);
-            nom.setText(Itcode[position]);
-            imageView.setImageResource(imageId[position]);
-        } else {
-            grid = convertView;
-        }
-        return grid;*/
 
 
         LayoutInflater inflater = (LayoutInflater) mContext
@@ -77,76 +65,152 @@ public class magAdap extends BaseAdapter {
             convertView = inflater.inflate(R.layout.maglistview, null);
         }
 
-        final EditText nom= (EditText) convertView.findViewById(R.id.Mname);
-        final EditText type= (EditText) convertView.findViewById(R.id.Mtype);
-        final EditText unit=  (EditText) convertView.findViewById(R.id.MUnit);
+        final EditText nom = (EditText) convertView.findViewById(R.id.Mname);
+        final EditText type = (EditText) convertView.findViewById(R.id.Mtype);
+        final EditText unit = (EditText) convertView.findViewById(R.id.MUnit);
         final TextView txt = (TextView) convertView.findViewById(R.id.Ma);
         nom.setText(Mnom.get(position));
         type.setText(MTYPE.get(position));
         unit.setText(MUNIT.get(position));
         final String NOOm = Mnom.get(position);
-        char harf= NOOm.charAt(0);
-        harf=Character.toUpperCase(harf);
-        txt.setText(""+harf+"");
+        char harf = NOOm.charAt(0);
+        harf = Character.toUpperCase(harf);
+        txt.setText("" + harf + "");
 
-        Button magdel=(Button)convertView.findViewById(R.id.magdel);
-        final Button magedi=(Button)convertView.findViewById(R.id.magedi);
+        final Button magdel = (Button) convertView.findViewById(R.id.magdel);
+        final Button magedi = (Button) convertView.findViewById(R.id.magedi);
 
         /*Bitmap bmp= BitmapFactory.decodeByteArray(imageId.get(position),0,imageId.get(position).length);
         imageView .setImageBitmap(bmp);*/
         magdel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               DataBaseM db = new DataBaseM(mContext);
-                Cursor cursor = db.getData("SELECT * FROM prod where idmag = '"+NOOm+"'");
-                if (cursor.moveToNext()){
-                    Toast.makeText(mContext,"No sorry we can't their is products in this warehouse ",Toast.LENGTH_LONG).show();
+                magdel.setFocusableInTouchMode(true);magdel.setFocusable(true);
+                Toast.makeText(mContext, "lol ", Toast.LENGTH_LONG).show();
+
+                DataBaseM db = new DataBaseM(mContext);
+                db.QueryData();
+                Cursor cursor = db.getData("SELECT * FROM prod where idmag ='" +Mnom.get(position)+"'");
+                Toast.makeText(mContext, NOOm +"kch", Toast.LENGTH_LONG).show();
+
+                if (((cursor != null) && (cursor.getCount() > 0))) {
+
+                    Toast.makeText(mContext, "No sorry we can't their is products in this warehouse ", Toast.LENGTH_LONG).show();
+                    magdel.setFocusableInTouchMode(false);magdel.setFocusable(false);
+
+                }
+                else{
+
+
+                    Toast.makeText(mContext, "lol we can  ", Toast.LENGTH_LONG).show();
+
+
+
+
+                    final AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                    alertDialog.setTitle("Alert Dialog");
+                    alertDialog.setMessage("do you really want to delete this warehouse 0_0 ");
+                    //alertDialog.setIcon(R.drawable.welcome);
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(mContext, "You clicked on OK", Toast.LENGTH_SHORT).show();
+
+                            DataBaseM db =new DataBaseM(mContext);
+                            db.Delete("mag","nomMAg=?",new String[]{Mnom.get(position)});
+
+                            magdel.setFocusableInTouchMode(false);magdel.setFocusable(false);
+
+                        }
+                    });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(mContext, "here we are ", Toast.LENGTH_SHORT).show();
+
+                            alertDialog.dismiss();
+
+                        }
+
+                    });
+                    alertDialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                        @SuppressLint("ResourceAsColor")
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(R.color.required);
+                        }
+                    });
+
+
+                    alertDialog.show();
+
+
+
+
+
+
+
                 }
 
 
             }
         });
+
         magedi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean b=true;
-                if(magedi.getText().toString().equals("OK")&& b==true){
+                magedi.setFocusable(true);
+                magedi.setFocusableInTouchMode(true);
+                Toast.makeText(mContext, "this2", Toast.LENGTH_LONG).show();
+
+                if (magedi.getText().toString().equals("OK")) {
+                    Toast.makeText(mContext, "this2" + magedi.getText().toString(), Toast.LENGTH_SHORT).show();
                     DataBaseM db = new DataBaseM(mContext);
-                    String NOOm2 =nom.getText().toString();
-                    char harf= NOOm2.charAt(0);
-                    harf=Character.toUpperCase(harf);
-                    txt.setText(""+harf+"");
+                    db.QueryData();
+                    String NOOm2 = nom.getText().toString();
+                    char harf = NOOm2.charAt(0);
+                    harf = Character.toUpperCase(harf);
+                    txt.setText("" + harf + "");
                     ContentValues values = new ContentValues();
-                    values.put("nomMAg",nom.getText().toString());
-                    values.put("typemag",type.getText().toString());
-                    values.put("mesuremag",unit.getText().toString());
+                    values.put("nomMAg", nom.getText().toString());
+                    values.put("typemag", type.getText().toString());
+                    values.put("mesuremag", unit.getText().toString());
 
-                    db.Update("mag",values, "nomMAg=?", new String[]{nom.getText().toString()});
+                    db.Update("mag", values, "nomMAg=?", new String[]{nom.getText().toString()});
+                    Toast.makeText(mContext, "Edited", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(mContext,"Edited",Toast.LENGTH_SHORT).show();
-                    magedi.setFocusable(true);
                     magedi.setText("Edit");
-b=false;
+                    magedi.setFocusable(false);
+                    nom.setFocusable(false);
+                    type.setFocusable(false);
+                    unit.setFocusable(false);
+
                 }
-                if(magedi.getText().toString().equals("Edit")&& b==false) {
-                    magedi.setFocusable(true);
-                    magedi.setText("OK") ;
-                    nom.setEnabled(true);
+                else if  (magedi.getText().toString().equals("Edit")) {
+                    Toast.makeText(mContext, "this", Toast.LENGTH_SHORT).show();
+                    nom.setFocusable(true);
                     nom.setFocusableInTouchMode(true);
+                    nom.setCursorVisible(true);
+                    magedi.setText("OK");
+                    nom.setEnabled(true);
+                    nom.setCursorVisible(true);
 
-                    nom.setClickable(true);
-                    type.setEnabled(true);
+                     magedi.setFocusable(true);
+                    magedi.setFocusableInTouchMode(true);
+
+
+                    type.setCursorVisible(true);
+                    unit.setCursorVisible(true);
+
+                    type.setFocusable(true);
                     type.setFocusableInTouchMode(true);
+                    unit.setFocusableInTouchMode(true);
+                    unit.setFocusable(true);
+                    Toast.makeText(mContext, "will be edited ", Toast.LENGTH_SHORT).show();
 
-                    type.setClickable(true);
-                    unit.setEnabled(true);
-                    unit.setClickable(true);
-                    Toast.makeText(mContext,"will be edited ",Toast.LENGTH_SHORT).show();
 
-                          b=false;
+                } else {
+                    Toast.makeText(mContext, "lollo ", Toast.LENGTH_LONG).show();
 
                 }
-
 
             }
         });

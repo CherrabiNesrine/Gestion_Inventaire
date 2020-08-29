@@ -3,7 +3,9 @@ package com.example.logg;
 public class FactoryE {
     private String email,adress,name,prenom,type,phone,facebook,LinkedIn,twitter,comEmail,statujur,secteur,taille,Nif,Rg,Address,Nom,Prenom,phone_num,job,Fax,Site;
     private byte[] factlogo,image;
+    private double reduction;
     FactoryE(){
+        reduction=0.0;
         email=adress=prenom=name=phone=Nom=Prenom=type=job=facebook=LinkedIn=twitter=comEmail=statujur=secteur=taille=Nif=Rg=Address=phone_num=Fax=Site="";
     }
     public String getComEmail() {
@@ -12,6 +14,14 @@ public class FactoryE {
 
     public String getType() {
         return type;
+    }
+
+    public double getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(double reduction) {
+        this.reduction = reduction;
     }
 
     public void setType(String type) {

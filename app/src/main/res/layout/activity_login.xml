@@ -28,69 +28,79 @@
         android:layout_width="264dp"
         android:layout_height="181dp"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         app:srcCompat="@mipmap/login1" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/u"
-        app:startIconTint="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eduser"
-            android:layout_width="321dp"
-            android:layout_height="48dp"
-            android:background="@null"
-            android:elevation="2dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/u"
+            app:startIconTint="@color/colorPrimary"
 
-            android:hint="username"
-            android:inputType="textPersonName"
-            android:paddingLeft="18dp"
-            android:drawablePadding="1dp"
-            android:textColor="#3879c0"
-            android:textColorHint="#d3d3d3"
-            android:textStyle="bold"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/eduser"
+                android:layout_width="321dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:elevation="2dp"
 
-             />
+                android:hint="username"
+                android:inputType="textPersonName"
+                android:paddingLeft="18dp"
+                android:drawablePadding="1dp"
+                android:textColor="#3879c0"
+                android:textColorHint="#d3d3d3"
+                android:textStyle="bold"
 
-    </com.google.android.material.textfield.TextInputLayout>
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:counterMaxLength="6"
-        app:passwordToggleTint="@color/colorPrimary"
-        app:startIconDrawable="@drawable/lock"
-        app:startIconTint="@color/colorPrimary">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edpass"
-            android:layout_width="321dp"
-            android:layout_height="48dp"
-            android:background="@null"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:textColor="#3879c0"
-            android:textColorHint="#d3d3d3"
-            android:textStyle="bold"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:counterMaxLength="6"
+            app:passwordToggleTint="@color/colorPrimary"
+            app:startIconDrawable="@drawable/lock"
+            app:startIconTint="@color/colorPrimary">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edpass"
+                android:layout_width="321dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:textColor="#3879c0"
+                android:textColorHint="#d3d3d3"
+                android:textStyle="bold"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/sig"
-        android:layout_width="293dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="12dp"
         android:text="you don't have an account ? please Register"
         android:textColor="#3879c0"
         android:textSize="15dp"
@@ -103,6 +113,7 @@
         android:gravity="center"
         android:text="Remember me "
         android:textStyle="bold"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,10 +126,10 @@
     <Button
         android:id="@+id/btnlog"
         android:layout_width="119dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/shape"
+
         android:backgroundTint="#FFA500"
         android:elevation="4dp"
         android:gravity="center"
@@ -130,6 +141,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.893" />
+
+
 
 
 </LinearLayout>

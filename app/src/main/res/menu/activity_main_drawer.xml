@@ -24,6 +24,10 @@
             android:icon="@mipmap/house"
             />
         <item
+            android:id="@+id/fact"
+            android:title="Operators "
+            android:icon="@drawable/ic_usercs" />
+        <item
             android:id="@+id/Apropos"
             android:title="About"
             android:icon="@mipmap/abt"

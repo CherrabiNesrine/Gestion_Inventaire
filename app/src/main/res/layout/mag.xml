@@ -6,35 +6,27 @@
     android:layout_marginRight="5dp"
     android:layout_gravity="center"
     android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:elevation="4dp"
 
-        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/nv"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="New warehouse :"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="30sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:elevation="4dp"
-                android:outlineProvider="paddedBounds"
+                android:layout_below="@+id/nv"
+
                 android:backgroundTint="#fff"
                 android:orientation="vertical">
 
@@ -53,10 +45,10 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nomMAG"
-                        android:layout_width="304dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
                         android:drawableRight="@drawable/ic_boxes"
-                        android:drawablePadding="18dp"
+                        android:drawablePadding="20dp"
                         android:drawableTint="@color/colorPrimary"
                         android:layout_gravity="center"
                         android:inputType="text"
@@ -70,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Unit"
+
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +74,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/mesure"
-                        android:layout_width="304dp"
+                        android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:layout_gravity="center"
                         android:completionThreshold="1"
@@ -107,8 +100,8 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/tyP"
-                        android:layout_width="304dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
                         android:layout_gravity="center"
                         android:drawableRight="@drawable/ic_grid"
                         android:drawableTint="@color/colorPrimary"
@@ -122,15 +115,15 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-            android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
                     android:elevation="4dp"
                     android:text="ok"
                     android:textColor="#fff" />
 
             </LinearLayout>
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+
 
 
 
