@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/background"
     tools:context=".FactInfo">
 
 
@@ -29,6 +30,13 @@
                 android:orientation="vertical">
 
 
+
+                <ImageView
+                    android:id="@+id/hello"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="center"
+                    android:src="@mipmap/mag" />
                 <TextView
                     android:id="@+id/edtO"
                     android:layout_width="40dp"
@@ -80,13 +88,6 @@
                     android:layout_marginTop="30dp"
                     android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
                     android:drawableTint="@color/colorvertbleu" />
-
-                <ImageView
-                    android:id="@+id/hello"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="center"
-                    android:src="@mipmap/mag" />
 
 
                 <TextView
@@ -214,7 +215,7 @@
                     android:enabled="false"
                     android:hint="Fiscal identification number "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -234,7 +235,7 @@
                     android:enabled="false"
                     android:hint="Trade register "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -254,7 +255,7 @@
                    android:enabled="false"
                     android:hint="Factory size"
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -274,7 +275,7 @@
                    android:enabled="false"
                     android:hint="Activity Sector"
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -294,7 +295,7 @@
                    android:enabled="false"
                     android:hint="Address "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -314,7 +315,7 @@
                    android:enabled="false"
                     android:hint="Phone number "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -334,7 +335,7 @@
                    android:enabled="false"
                     android:hint="Site "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -354,7 +355,7 @@
                    android:enabled="false"
                     android:hint="Email "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 
@@ -374,7 +375,7 @@
                    android:enabled="false"
                     android:hint="Fax "
                     android:padding="18dp"
-                    android:textColor="#d3d3d3"
+                    
                     android:textStyle="bold" />
 
 

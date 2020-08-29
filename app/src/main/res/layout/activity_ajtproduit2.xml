@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/background"
     tools:context=".ajtproduit2">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/contin"
+
         android:backgroundTint="#F0F0F0"
         android:fillViewport="true"
         android:isScrollContainer="true"
@@ -48,12 +49,14 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#fff"
             android:layout_margin="20dp"
+            android:elevation="4dp"
             android:background="@drawable/contin"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/contin"
+
                 android:backgroundTint="#fff"
                 android:orientation="vertical">
 

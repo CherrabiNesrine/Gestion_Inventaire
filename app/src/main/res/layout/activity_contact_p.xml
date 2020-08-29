@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:layout_height="match_parent"
+    android:background="@mipmap/background"
     tools:context=".ContactP">
 
 
@@ -407,7 +408,7 @@ android:lines="2"
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/link"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_margin="20dp"
                     android:enabled="false"
                     android:hint="linkedIn "

@@ -19,17 +19,18 @@
             android:layout_marginTop="250dp"
             android:background="@drawable/rr"
             android:elevation="17dp"
+            android:layout_marginRight="30dp"
             android:hint="Last Name"
             android:paddingLeft="15dp"
             android:textColorHint="#C6C6C6" />
 
-        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/prenom" android:layout_marginTop="310dp" android:layout_marginLeft="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="First Name" android:elevation="17dp"/>
+        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/prenom" android:layout_marginTop="310dp" android:layout_marginLeft="30dp" android:layout_marginRight="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="First Name" android:elevation="17dp"/>
 
-        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/username" android:layout_marginTop="430dp" android:layout_marginLeft="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="User Name" android:elevation="17dp" android:drawableRight="@drawable/u" android:paddingRight="20dp"/>
+        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/username" android:layout_marginTop="430dp" android:layout_marginLeft="30dp" android:layout_marginRight="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="User Name" android:elevation="17dp" android:drawableRight="@drawable/u" android:paddingRight="20dp"/>
 
-        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/hhh" android:layout_marginTop="370dp" android:layout_marginLeft="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="Indentifier " android:elevation="17dp" />
+        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/hhh"  android:layout_marginTop="370dp" android:layout_marginLeft="30dp" android:layout_marginRight="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="Indentifier " android:elevation="17dp" />
 
-        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/password" android:layout_marginTop="490dp" android:layout_marginLeft="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="Password " android:elevation="17dp" android:drawableRight="@drawable/lock" android:paddingRight="20dp"/>
+        <EditText android:layout_height="48dp" android:layout_width="358dp" android:background="@drawable/rr" android:id="@+id/password" android:layout_marginTop="490dp" android:layout_marginLeft="30dp" android:layout_marginRight="30dp" android:textColorHint="#C6C6C6" android:paddingLeft="18dp" android:hint="Password " android:elevation="17dp" android:drawableRight="@drawable/lock" android:paddingRight="20dp"/>
 
         <TextView android:layout_height="wrap_content" android:layout_width="358dp" android:id="@+id/textView" android:textSize="36dp" android:text="REGISTER" android:layout_marginTop="130dp" android:layout_marginLeft="15dp" android:textStyle="bold" android:textColor="#3879e0"/>
 

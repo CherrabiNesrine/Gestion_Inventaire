@@ -263,7 +263,7 @@ public class FactInfo extends SidebarMenu {
                         values.put("Site", SI.getText().toString());
                         values.put("tlf", phnnum.getText().toString());
                         values.put("image",Imageviewtobyte(im));
-                        db.Update("Entreprise", values, "Nom", new String[]{entreprise});
+                        db.Update("Entreprise", values, "Nom=?", new String[]{entreprise});
 
 
 
