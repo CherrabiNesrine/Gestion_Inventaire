@@ -58,12 +58,15 @@ public class magAdap extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
 
+
+
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
 
             convertView = inflater.inflate(R.layout.maglistview, null);
         }
+
 
         final EditText nom = (EditText) convertView.findViewById(R.id.Mname);
         final EditText type = (EditText) convertView.findViewById(R.id.Mtype);
@@ -86,7 +89,6 @@ public class magAdap extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 magdel.setFocusableInTouchMode(true);magdel.setFocusable(true);
-                Toast.makeText(mContext, "lol ", Toast.LENGTH_LONG).show();
 
                 DataBaseM db = new DataBaseM(mContext);
                 db.QueryData();

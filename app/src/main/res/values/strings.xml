@@ -54,6 +54,12 @@
         <item>Spare parts</item>
         <item>Raw materials</item>
     </string-array>
+    <string-array name="EtatP">
+        <item>OnHand</item>
+        <item>Sold</item>
+        <item>RCV</item>
+        <item>Damaged</item>
+    </string-array>
     <string-array name="statujur">
         <item>EI</item>
         <item>EIRL</item>
@@ -100,5 +106,51 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="NO"><font color='#FF8500'>NO</font></string>
     <string name="OK"><font color='#67B8CF'>NO</font></string>
+    <string name="SubCategory"><font color='#67B8CF'><b>SubCategory</b></font></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <array name="departments">
+
+        <item>Technical</item>
+
+        <item>Support</item>
+
+        <item>Research and Development</item>
+
+        <item>Marketing</item>
+
+        <item>Human Resource</item>
+
+    </array>
+    <string name="quantity">Quantity<font fgcolor="red">*</font></string>
+    <string name="amount">amount<font fgcolor="red">*</font></string>
+    <string name="name">Expense name<font fgcolor="red">*</font></string>
+    <string name="mag">Click to select a store name<font fgcolor="red">*</font></string>
+    <string name="deliv">Delivery method<font fgcolor="red">*</font></string>
+    <string name="ship">Shipment method<font fgcolor="red">*</font></string>
+    <string name="customer">Your customer name<font fgcolor="@red">*</font></string>
+    <string name="salecom">Click to select your sale order<font fgcolor="red">*</font></string>
+    <string name="type">payment type<font fgcolor="red">*</font></string>
+    <string name="purchasecom">Click to select your purchase order<font fgcolor="@red">*</font></string>
+    <string name="adpr">Click to select your product<font fgcolor="@red">*</font></string>
+    <string name="vendor">Your vendor name<font fgcolor="@red">*</font></string>
+
+
+    <array name="paymentmethods">
+
+        <item>credit card</item>
+
+        <item>check</item>
+
+        <item>wire transfer</item>
+
+        <item>cash</item>
+
+
+    </array>
+
 
 </resources>

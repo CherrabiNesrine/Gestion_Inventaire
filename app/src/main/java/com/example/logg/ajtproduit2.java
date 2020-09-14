@@ -213,12 +213,10 @@ public class ajtproduit2 extends SidebarMenu {
             @Override
             public void onClick(View view1) {
                 if (prix.getText().toString().trim().equalsIgnoreCase("")) {
-
                     tip1.setError("This field can not be blank");
-
-                } else if (supplier.getText().toString().isEmpty()) {
+                }/* else if (supplier.getText().toString().isEmpty()) {
                     tip2.setError("this field can not be blank ");
-                } else {
+                } */ else {
                     tip1.setError(null);
                     tip2.setError(null);
                     lay1.setVisibility(View.GONE);
@@ -234,13 +232,8 @@ public class ajtproduit2 extends SidebarMenu {
             public void onClick(View view1) {
                 if (qntete.getText().toString().trim().equalsIgnoreCase("")) {
                     tip1.setError("This field can not be blank");
-
-                } else if (customer.getText().toString().isEmpty()) {
-                    tip2.setError("this field can not be blank ");
-                } else if (customer.getText().toString().equals("")) {
-
-
-                } else {
+                }
+              else {
                     lay2.setVisibility(View.GONE);
                     lay3.setVisibility(View.VISIBLE);
                     cnst4.setVisibility(View.GONE);

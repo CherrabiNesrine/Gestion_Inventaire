@@ -37,7 +37,7 @@
                     android:text="Product's quantity "
 
                     android:textAlignment="center"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/required"
                     android:textSize="25dp"
                     android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_gravity="center"
                     android:text="@string/ask_text"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="23sp"
                     android:textAlignment="center"
                     />
@@ -73,7 +73,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
                     android:text="ADD :"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textAlignment="center"
@@ -87,8 +87,8 @@
                     android:inputType="number"
                     android:gravity="center"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded"
-                    android:backgroundTint="#4949E7"
+                    android:background="@drawable/contin"
+                    android:backgroundTint="#073a93"
                     android:elevation="4dp"
                     android:hint="new quantity"
                     android:textColorHint="#fff"
@@ -101,8 +101,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded"
-                    android:backgroundTint="#4949E7"
+                    android:background="@drawable/contin"
+                    android:backgroundTint="@color/required"
                     android:elevation="4dp"
                     android:text="ok"
                     android:textColor="#fff"

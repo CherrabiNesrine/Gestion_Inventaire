@@ -60,8 +60,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/contin"
                     android:backgroundTint="#4949E7"
+
                     android:elevation="4dp"
                     android:text="ok"
                     android:textColor="#fff"

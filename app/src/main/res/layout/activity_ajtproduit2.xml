@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
+
     tools:context=".ajtproduit2">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -88,7 +88,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
@@ -196,7 +195,7 @@
                             android:layout_height="57dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="10dp"
                             android:gravity="center"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -345,25 +344,19 @@
                         android:drawablePadding="18dp"
                         android:drawableTint="@color/colorPrimary"
                         android:editable="false"
-                        android:hint="Supplier"
+                        android:hint="provider"
                         android:dropDownHeight="match_parent"
                         android:inputType="text"
                         android:padding="10dp"
                         android:typeface="serif" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:orientation="vertical">
 
-                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cnst1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:orientation="horizontal"
                     android:visibility="gone">
@@ -708,7 +701,8 @@
                         android:layout_margin="10dp"
                         android:drawableRight="@drawable/ic_warning"
                         android:drawablePadding="18dp"
-                        android:drawableTint="#d3d3d3"
+                        android:drawableTint="@color/colorPrimary"
+
                         android:hint="minimal Quantity on stock "
                         android:inputType="number"
                         android:textColor="#000"
@@ -732,7 +726,7 @@
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
                         android:drawableRight="@drawable/ic_descr"
-                        android:drawableTint="#d3d3d3"
+                        android:drawableTint="@color/colorPrimary"
                         android:inputType="text"
                         android:lines="5"
                         android:padding="10dp"

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Produit {
-    private String Code,name,factory,description,categorie,sous,mesure,typePr,fournisseur,client,coin,coins,matiere;
+    private String Code,name,factory,description,categorie,sous,mesure,typePr,fournisseur,client,coin,coins,matiere,MAG;
     private int quantite ,qttmin;
     private double price,prixS;
     private Date Exp =new Date();
@@ -16,7 +16,7 @@ public class Produit {
     private Date dateDel;
     private byte[] image;
     public Produit() {
-        Code=name=factory=description=mesure=typePr=categorie=sous=fournisseur=client=coins=coin=matiere="";
+        Code=name=MAG=factory=description=mesure=typePr=categorie=sous=fournisseur=client=coins=coin=matiere="";
         quantite=123;
         qttmin=0;
         Fab.setYear(2000);
@@ -32,6 +32,14 @@ public class Produit {
         price=0;
         prixS=0;
 
+    }
+
+    public String getMAG() {
+        return MAG;
+    }
+
+    public void setMAG(String MAG) {
+        this.MAG = MAG;
     }
 
     public Date getDateDel() {

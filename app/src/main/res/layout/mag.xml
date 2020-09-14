@@ -117,6 +117,7 @@
                     android:layout_margin="10dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:elevation="4dp"
+                    android:background="@drawable/contin"
                     android:text="ok"
                     android:textColor="#fff" />
 

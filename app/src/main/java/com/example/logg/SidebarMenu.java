@@ -170,6 +170,12 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
 
         }
+        else if (id == R.id.Document) {
+            Toast.makeText(getApplicationContext(), "Documents", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Documents.class);
+            startActivity(intent);
+
+        }
         else if (id == R.id.fact) {
             Toast.makeText(getApplicationContext(), "Operators", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,factoriesList.class);

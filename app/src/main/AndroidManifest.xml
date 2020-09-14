@@ -8,23 +8,45 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature android:name="android.hardware.Camera" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="inventory management"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FactInfo" android:windowSoftInputMode="adjustPan|stateVisible|adjustResize"></activity>
-        <activity android:name=".ContactP" android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
+        <activity android:name=".DocumentReport"></activity>
+        <activity android:name=".ExpensesReport" />
+        <activity
+            android:name=".ProfitsEtPertes"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Inventory_Stock_Coast_Repport"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".InvMovHis"
+            android:screenOrientation="landscape" />
+        <activity android:name=".InventoryList" />
+        <activity
+            android:name=".Rapport_Item_liste"
+            android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
+        <activity
+            android:name=".Documents"
+            android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
+        <activity
+            android:name=".FactInfo"
+            android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
+        <activity
+            android:name=".ContactP"
+            android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
         <activity android:name=".clientsliste" />
         <activity
             android:name=".Miseajour"
@@ -33,7 +55,6 @@
         <activity android:name=".Trash" />
         <activity android:name=".ViewlistP" />
         <activity android:name=".BottomNav" />
-        <activity android:name=".Ajoutsuc" />
         <activity
             android:name=".ajtproduit2"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
@@ -48,11 +69,15 @@
         <activity
             android:name=".MagazinActivity"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
-        <activity android:name=".InventoryActivity" />
+        <activity
+            android:name=".InventoryActivity"
+            android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".SidebarMenu" />
+        <activity
+            android:name=".SidebarMenu"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".factoriesList"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />

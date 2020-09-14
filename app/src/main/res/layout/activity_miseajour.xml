@@ -82,6 +82,7 @@ android:textSize="20sp"
               android:elevation="4dp"
               android:text="Edit"
               android:textColor="#fff"
+
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="0.465"
@@ -111,7 +112,6 @@ android:textSize="20sp"
               android:backgroundTint="@color/required"
               android:text="Delete"
               android:textColor="#fff"
-
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="0.054"
@@ -140,7 +140,8 @@ android:textSize="20sp"
     android:layout_height="match_parent"
     >
 
-
+        <!--   android:outlineProvider="bounds"
+                   android:elevation="2dp" -->
         <EditText
         android:id="@+id/dsc"
         android:layout_width="match_parent"
@@ -148,8 +149,7 @@ android:textSize="20sp"
         android:layout_margin="10dp"
         android:background="@drawable/descrip"
         android:backgroundTint="#f5f5f5"
-            android:outlineProvider="bounds"
-            android:elevation="2dp"
+
         android:clickable="false"
         android:editable="false"
         android:enabled="false"
@@ -229,6 +229,7 @@ android:textSize="20sp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:textColorHint="#4169e1"
+            android:enabled="false"
             android:clickable="false"
             app:backgroundTint="#4169e1"
             android:editable="false"

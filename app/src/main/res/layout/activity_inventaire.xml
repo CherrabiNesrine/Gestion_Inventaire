@@ -2,15 +2,104 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     >
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="358dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="130dp"
-        android:text="Inventaires"
-        android:textColor="#3879e0"
-        android:textSize="36dp"
-        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="50dp"
+                android:text="Inventory reports"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginBottom="50dp"
+                android:textColor="#3879e0"
+                android:textSize="36dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="18dp"
+                android:background="@drawable/contin"
+                android:layout_marginTop="130dp"
+                android:text="Item List Report"
+
+                android:textSize="24sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textSTockCOast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="18dp"
+                android:background="@drawable/contin"
+                android:layout_marginTop="130dp"
+                android:text="Stock Coast Report"
+
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Profisetpertes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="18dp"
+                android:background="@drawable/contin"
+                android:layout_marginTop="130dp"
+                android:text="profis et pertes report"
+
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/depe"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="18dp"
+                android:background="@drawable/contin"
+                android:layout_marginTop="130dp"
+                android:text="expenses report"
+
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/DocRap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="18dp"
+                android:background="@drawable/contin"
+                android:layout_marginTop="130dp"
+                android:text="Documents Report"
+
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

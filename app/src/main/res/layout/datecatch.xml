@@ -38,6 +38,7 @@
                     android:id="@+id/lay1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="30dp"
                     android:textColorHint="@color/colorPrimary"
                     app:errorEnabled="true">
@@ -50,6 +51,7 @@
                         android:clickable="false"
                         android:cursorVisible="false"
                         android:drawableRight="@drawable/ic_calendar"
+                        android:drawableTint="@color/colorPrimary"
                         android:drawablePadding="8dp"
                         android:editable="false"
                         android:ems="10"
@@ -81,6 +83,7 @@
                         android:clickable="false"
                         android:cursorVisible="false"
                         android:drawableRight="@drawable/ic_calendar"
+                        android:drawableTint="@color/colorPrimary"
                         android:drawablePadding="8dp"
                         android:editable="false"
                         android:focusable="false"
@@ -97,9 +100,10 @@
                     android:id="@+id/kkk"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/contin"
                     android:elevation="4dp"
                     android:text="ok"
+                    android:backgroundTint="@color/required"
                     android:textColor="#fff"
                     android:layout_gravity="center"
                 />

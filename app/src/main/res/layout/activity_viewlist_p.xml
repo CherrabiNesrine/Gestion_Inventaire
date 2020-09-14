@@ -39,6 +39,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:text="PRODUCTS in WAREHOUSE"/>
     </androidx.cardview.widget.CardView>

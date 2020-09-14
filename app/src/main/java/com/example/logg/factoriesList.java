@@ -1089,6 +1089,10 @@ public class factoriesList extends SidebarMenu {
                         db.InsertDataEntreprise(Fact.getNif(), Fact.getNom(), Fact.getRg(), Fact.getSecteur(), Fact.getTaille(), Fact.getStatujur(), Fact.getComEmail(), Fact.getPhone_num(), Fact.getAddress(), Fact.getSite(), Fact.getFax(), Fact.getFactlogo());
                         db.InsertDataOperateur(Fact.getName(), Fact.getPrenom(), Fact.getNif(), Fact.getNom(), Fact.getJob(), Fact.getPhone(), Fact.getEmail(), Fact.getAdress(), Fact.getLinkedIn(), Fact.getFacebook(), Fact.getTwitter(), Fact.getImage());
                         db.InsertDataFounisseur(Fact.getName(), Fact.getPrenom());
+                        Nom.add(Fact.getName());
+                        Prenom.add(Fact.getPrenom());
+                        Entreprise.add(Fact.getNom());
+                        Images.add(Fact.getImage());
                        factoriesList.adpter.notifyDataSetChanged();
                     }
                     factoriesList.adpter.notifyDataSetChanged();

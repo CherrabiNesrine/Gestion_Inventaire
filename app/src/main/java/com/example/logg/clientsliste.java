@@ -93,7 +93,7 @@ public class clientsliste extends SidebarMenu {
             View contentView = inflater.inflate(R.layout.activity_clientsliste, null, false);
             drawer.addView(contentView, 0);
             ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("Costumers  List ");
+            actionBar.setTitle("Costumers List ");
 
 
             listView = (ListView) findViewById(R.id.lstClient);
@@ -134,7 +134,7 @@ public class clientsliste extends SidebarMenu {
                 }
             }
             else {
-                Toast.makeText(getApplicationContext(), "please add a provider", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "please add a Customer ", Toast.LENGTH_LONG).show();
             }
 
             listView.setMultiChoiceModeListener(new clientsliste.MultiChoiceModeListener());
@@ -160,311 +160,7 @@ public class clientsliste extends SidebarMenu {
                 }
             });
 
-/*addF.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view2) {
-        final AlertDialog.Builder dateAlt = new AlertDialog.Builder(clientsliste.this);
-        final View view = LayoutInflater.from(clientsliste.this).inflate(R.layout.activity_factory, null);
-        final LinearLayout layy0, layy1, layy2, layy3, layy4, layy5;
-        Button nxt1, nxt2, nxt3, nxt4, startad2, startad, bk1, bk2, bk3, bk4;
-        final EditText tauxred, oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
-        final AutoCompleteTextView secteur, taille, statujur;
-        final ImageView svr;
 
-        final RadioGroup RGC;
-        TextView operaComp,opera;
-        svr=(ImageView)findViewById(R.id.svr);
-        layy0 = (LinearLayout) view.findViewById(R.id.layy0);
-        layy1 = (LinearLayout) view.findViewById(R.id.layy1);
-        layy2 = (LinearLayout) view.findViewById(R.id.layy2);
-        layy3 = (LinearLayout) view.findViewById(R.id.layy3);
-        layy4 = (LinearLayout) view.findViewById(R.id.layy4);
-        layy5 = (LinearLayout) view.findViewById(R.id.layy5);
-        startad = (Button) view.findViewById(R.id.startad);
-        startad2 = (Button) view.findViewById(R.id.startad2);
-        nxt1 = (Button) view.findViewById(R.id.nxt1);
-        nxt2 = (Button) view.findViewById(R.id.nxt2);
-        nxt3 = (Button) view.findViewById(R.id.nxt3);
-        nxt4 = (Button) view.findViewById(R.id.nxt4);
-
-        final LinearLayout  conss1 =(LinearLayout) view.findViewById(R.id.lil);
-        tauxred=(EditText) view.findViewById(R.id.tauxred);
-
-        RGC=(RadioGroup)view.findViewById(R.id.rgc);
-
-        bk1 = (Button) view.findViewById(R.id.bk1);
-        bk2 = (Button) view.findViewById(R.id.bk2);
-        bk3 = (Button) view.findViewById(R.id.bk3);
-        bk4 = (Button) view.findViewById(R.id.bk4);
-
-        oneNom = (EditText) view.findViewById(R.id.OneNom);
-        oneprenom = (EditText) view.findViewById(R.id.onePrenom);
-        oneJob = (EditText) view.findViewById(R.id.oneJob);
-        oneAdress = (EditText) view.findViewById(R.id.oneAdress);
-        OnTlf = (EditText) view.findViewById(R.id.OnTlf);
-        oneEmail = (EditText) view.findViewById(R.id.oneEmail);
-        facebook = (EditText) view.findViewById(R.id.facebook);
-        LinkedIn = (EditText) view.findViewById(R.id.LinkedIn);
-        Twitter = (EditText) view.findViewById(R.id.Twitter);
-        entreprise = (EditText) view.findViewById(R.id.entreprise);
-        nif = (EditText) view.findViewById(R.id.nif);
-        rg = (EditText) view.findViewById(R.id.rg);
-        compaddres = (EditText) view.findViewById(R.id.CompAdrs);
-        comtlf = (EditText) view.findViewById(R.id.CompTlf);
-        compEmail = (EditText) view.findViewById(R.id.compEmail);
-        site = (EditText) view.findViewById(R.id.site);
-        fax = (EditText) view.findViewById(R.id.Fax);
-
-        secteur = (AutoCompleteTextView) view.findViewById(R.id.secteur);
-        taille = (AutoCompleteTextView) view.findViewById(R.id.taille);
-        statujur = (AutoCompleteTextView) view.findViewById(R.id.statusjuridique);
-
-        dateAlt.setView(view);
-        final AlertDialog dialog2 = dateAlt.create();
-
-        dialog2.show();
-        Snackbar.make(view, "Every time you meet * means the field can not be blank  ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-
-        opera=(TextView)view.findViewById(R.id.opera);
-        operaComp=(TextView)view.findViewById(R.id.operaCom);
-        opera.setText("Let's add a new consumer ! ");
-        operaComp.setText("Time for consumer's company !");
-
-        startad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view2) {
-                layy0.setVisibility(View.GONE);
-                layy1.setVisibility(View.VISIBLE);
-                conss1.setVisibility(View.VISIBLE);
-            }
-        });
-        nxt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view2) {
-                layy1.setVisibility(View.GONE);
-                layy2.setVisibility(View.VISIBLE);
-
-            }
-        });
-        nxt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy2.setVisibility(View.GONE);
-                if (djaz == true) {
-
-                    layy4.setVisibility(View.VISIBLE);
-                } else {
-                    layy3.setVisibility(View.VISIBLE);
-                    djaz = true;
-                }
-
-            }
-        });
-        startad2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy3.setVisibility(view.GONE);
-                layy4.setVisibility(View.VISIBLE);
-            }
-        });
-        nxt3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy4.setVisibility(View.GONE);
-                layy5.setVisibility(View.VISIBLE);
-
-            }
-        });
-        nxt4.setOnClickListener(new View.OnClickListener() { //Button OK
-            @Override
-            public void onClick(View view) {
-
-                dialog2.dismiss();
-                svr.setImageResource(R.mipmap.vv);
-                Fact.setFactlogo(Imageviewtobyte(svr));
-                Fact.setImage(Imageviewtobyte(svr));
-                Fact.setJob(oneJob.getText().toString());
-                Fact.setAdress(oneAdress.getText().toString());
-                Fact.setFacebook(facebook.getText().toString());
-                Fact.setLinkedIn(LinkedIn.getText().toString());
-                Fact.setTwitter(Twitter.getText().toString());
-                if (oneEmail.getText().toString().isEmpty()) {
-                    oneEmail.setError("please it can not be blank");
-
-
-                } else {
-                    oneEmail.setError(null);
-                    Fact.setEmail(oneEmail.getText().toString());
-
-
-                }
-                if (OnTlf.getText().toString().isEmpty()) {
-                    OnTlf.setError("please it can not be blank");
-
-
-                } else {
-                    OnTlf.setError(null);
-                    Fact.setPhone(OnTlf.getText().toString());
-                }
-                if (oneNom.getText().toString().isEmpty()) {
-                    oneNom.setError("please it can not be blank");
-
-
-                } else {
-                    oneNom.setError(null);
-                    Fact.setName(oneNom.getText().toString());
-
-                }
-                if (oneprenom.getText().toString().isEmpty()) {
-                    oneprenom.setError("please it can not be blank");
-
-
-                } else {
-                    oneprenom.setError(null);
-                    Fact.setPrenom(oneprenom.getText().toString());
-
-                }
-                if (entreprise.getText().toString().isEmpty()) {
-                    entreprise.setError("please it can not be blank");
-                } else {
-                    entreprise.setError(null);
-                    Fact.setNom(entreprise.getText().toString());
-
-                }
-                if (nif.getText().toString().toString().isEmpty()) {
-                    nif.setError("please it can not be blank ");
-                } else if (nif.getText().toString().length() != 13) {
-                    nif.setError("NIF must have 13 letters  ");
-                } else {
-                    nif.setError(null);
-                    Fact.setNif(nif.getText().toString());
-
-                }
-                if (rg.getText().toString().isEmpty()) {
-                    rg.setError("please it can not be blank ");
-                } else {
-                    rg.setError(null);
-                    Fact.setRg(rg.getText().toString());
-                }
-                if (compaddres.getText().toString().isEmpty()) {
-                    compaddres.setError("please you should know the companu address");
-                } else {
-                    compaddres.setError(null);
-                    Fact.setAddress(compaddres.getText().toString());
-                }
-                if (comtlf.getText().toString().isEmpty()) {
-                    comtlf.setError("please you should know the companu address");
-                } else {
-                    comtlf.setError(null);
-                    Fact.setPhone_num(comtlf.getText().toString());
-                }
-                if (compEmail.getText().toString().isEmpty()) {
-                    compEmail.setError("please you should know the companu address");
-                } else {
-                    compEmail.setError(null);
-                    Fact.setComEmail(compEmail.getText().toString());
-
-                }
-                RGC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        int i;
-                        i = RGC.getCheckedRadioButtonId();
-                        RadioButton TYYP = (RadioButton) findViewById(i);
-                        Fact.setType(TYYP.getText().toString());
-
-
-                    }
-                });
-                Fact.setReduction(parseDouble(tauxred.getText().toString()));
-                Fact.setSite(site.getText().toString());
-                Fact.setFax(fax.getText().toString());
-                Fact.setStatujur(statujur.getText().toString());
-                Fact.setSecteur(secteur.getText().toString());
-                Fact.setTaille(taille.getText().toString());
-
-                db.QueryData();
-                db.InsertDataEntreprise(Fact.getNif(), Fact.getNom(), Fact.getRg(), Fact.getSecteur(), Fact.getTaille(), Fact.getStatujur(), Fact.getComEmail(), Fact.getPhone_num(), Fact.getAddress(), Fact.getSite(), Fact.getFax(), Fact.getFactlogo());
-                db.InsertDataOperateur(Fact.getName(), Fact.getPrenom(), Fact.getNif(), Fact.getNom(), Fact.getJob(), Fact.getPhone(), Fact.getEmail(), Fact.getAdress(), Fact.getLinkedIn(), Fact.getFacebook(), Fact.getTwitter(), Fact.getImage());
-                db.InsertDataClient(Fact.getReduction(),Fact.getName(), Fact.getPrenom(),Fact.getType());
-
-
-            }
-        });
-        bk1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy1.setVisibility(View.GONE);
-                layy0.setVisibility(View.VISIBLE);
-
-            }
-        });
-        bk2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy2.setVisibility(View.GONE);
-                layy1.setVisibility(View.VISIBLE);
-                conss1.setVisibility(View.VISIBLE);
-
-            }
-        });
-        bk3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy4.setVisibility(View.GONE);
-                layy2.setVisibility(View.VISIBLE);
-
-            }
-        });
-        bk4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layy5.setVisibility(View.GONE);
-                layy4.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        ArrayAdapter<CharSequence> dataAdapte = ArrayAdapter.createFromResource(getApplicationContext(), R.array.statujur, simple_list_item_1);
-        dataAdapte.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        statujur.setAdapter(dataAdapte);
-        statujur.setThreshold(1);
-        statujur.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                statujur.showDropDown();
-                return false;
-            }
-        });
-
-        ArrayAdapter<CharSequence> dataAdapte1 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.Secteur, simple_list_item_1);
-        dataAdapte1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        secteur.setAdapter(dataAdapte1);
-        secteur.setThreshold(1);
-        secteur.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                secteur.showDropDown();
-                return false;
-            }
-        });
-
-        ArrayAdapter<CharSequence> dataAdapte2 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.size, simple_list_item_1);
-        dataAdapte2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        taille.setAdapter(dataAdapte2);
-        taille.setThreshold(1);
-        taille.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                taille.showDropDown();
-                return false;
-            }
-        });
-
-    }
-});
-*/
     }
     public class MultiChoiceModeListener implements
             ListView.MultiChoiceModeListener {
@@ -1139,7 +835,11 @@ public class clientsliste extends SidebarMenu {
                         db.InsertDataEntreprise(Fact.getNif(), Fact.getNom(), Fact.getRg(), Fact.getSecteur(), Fact.getTaille(), Fact.getStatujur(), Fact.getComEmail(), Fact.getPhone_num(), Fact.getAddress(), Fact.getSite(), Fact.getFax(), Fact.getFactlogo());
                         db.InsertDataOperateur(Fact.getName(), Fact.getPrenom(), Fact.getNif(), Fact.getNom(), Fact.getJob(), Fact.getPhone(), Fact.getEmail(), Fact.getAdress(), Fact.getLinkedIn(), Fact.getFacebook(), Fact.getTwitter(), Fact.getImage());
                         db.InsertDataClient(Fact.getReduction(), Fact.getName(), Fact.getPrenom(), Fact.getType());
-
+                        Nom.add(Fact.getName());
+                        Prenom.add(Fact.getPrenom());
+                        Entreprise.add(Fact.getNom());
+                        TYPPE.add(Fact.getType());
+                        Images.add(Fact.getImage());
                         adpter.notifyDataSetChanged();
                     }
                 }

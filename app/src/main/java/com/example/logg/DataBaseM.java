@@ -11,6 +11,7 @@ package com.example.logg;
         import android.database.sqlite.SQLiteStatement;
 
         import java.net.IDN;
+        import java.util.ArrayList;
         import java.util.Date;
         import androidx.annotation.Nullable;
 
@@ -32,12 +33,16 @@ public class DataBaseM extends SQLiteOpenHelper {
     public static final String Table_name_Facture="Facture";
     public static final String Table_name_factAchat="factureAchat";
     public static final String Table_name_factVente="factureVente";
+    public static final String Table_name_takenproduct="takenproduct";
+    public static final String Table_commandes_prod= "student_subject";
+
     public static final String Table_name_Magasin="mag";
     public static final String Table_name_inventaire="inventaire";
     public static final String Table_name_Rapport="Rapport";
     public static final String Table_name_depenses="depense";
     public static final String Table_name_Entreprise="Entreprise";
     public static final String Table_name_Historique="historique";
+    public static final String Table_name_Transfert="transfert";
 
 
 //---------------------------------------------------------
@@ -56,6 +61,9 @@ public class DataBaseM extends SQLiteOpenHelper {
 
     public static final String KEY_IMG = "image";
 
+    public static final String STUDENT_ID_FK = "student_id";
+    public static final String SUBJECT_ID_FK = "subject_id";
+    public static final String STUDENT_SUB_CONSTRAINT = "student_sub_unique";
 
 
 
@@ -80,10 +88,16 @@ public class DataBaseM extends SQLiteOpenHelper {
 //-----------------------------------------------------------------------------------------
 
     public DataBaseM(@Nullable Context context) {
-        super(context,DataBase_name, null, 17);
+        super(context,DataBase_name, null, 20);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + Table_name_factVente + "(idfv integer PRIMARY KEY AUTOINCREMENT, commandevente varchar, typefv varchar,totalfv number,termsfv varchar,DateCreafv varchar,FOREIGN KEY (commandevente) REFERENCES "+Table_name_comVente+ "(idCV))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + Table_name_factAchat + "(idfa integer PRIMARY KEY AUTOINCREMENT, commandeachat varchar, typefa varchar,totalfa number,termsfa varchar,DateCreafa varchar,FOREIGN KEY (commandeachat) REFERENCES "+Table_name_comAchat+ "(idCA))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + Table_name_takenproduct + "(IDh integer  PRIMARY KEY,IDT varchar,quantityT number, unitT varchar ,IDd integer)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + Table_name_depenses + "(IDD integer PRIMARY KEY AUTOINCREMENT, nomD varchar, magD varchar , amountD number, arD varchar , DateCreaD varchar , detailsD varchar,FOREIGN KEY (magD) REFERENCES "+Table_name_Magasin+ "(nomMAg))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comVente+"(idCV integer PRIMARY KEY AUTOINCREMENT , DescriptionV varchar ,costumer varchar,notesV varchar ,termsV varchar ,DateCreaV varchar,DateExp varchar)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comAchat+"(idCA integer PRIMARY KEY AUTOINCREMENT , DescriptionA varchar ,vendor varchar ,notesA varchar ,termsA varchar ,DateCreaA varchar,DateLiv varchar)");
 
     }
     public void QueryData(){
@@ -101,15 +115,370 @@ public class DataBaseM extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_factVente+"(idfVente integer PRIMARY KEY AUTOINCREMENT ,idcv integer ,FOREIGN KEY (idcv) REFERENCES "+Table_name_comVente+"(idCV))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comAchat+"(idCA integer PRIMARY KEY AUTOINCREMENT , datelaivraison date ,idc integer,idfour integer ,FOREIGN KEY (idc) REFERENCES "+Table_name_COM+"(idcom),FOREIGN KEY (idfour) REFERENCES " +Table_name_FOU+"(idFour))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comVente+"(idCV integer PRIMARY KEY AUTOINCREMENT , dateExp date ,methodeLaiv varchar,idc integer,idclient integer,FOREIGN KEY (idc) REFERENCES "+Table_name_COM+"(idcom),FOREIGN KEY (idclient) REFERENCES " +Table_name_client+"(idclient))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_inventaire+"(RefInv varchar PRIMARY KEY ,DateInv date,idMaag varchar,FOREIGN KEY (idMaag) REFERENCES "+Table_name_Magasin+"(nomMAg))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_inventaire+"(RefInv varchar PRIMARY KEY ,DateInv date,tYPiNV varchar2,status Varchar2)");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Rapport+"(idRap varchar PRIMARY KEY ,DateRap date,StatutInv varchar2,refinv varchar,FOREIGN KEY (refinv) REFERENCES "+Table_name_inventaire+"(RefInv))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_depenses+"(iddep integer PRIMARY KEY AUTOINCREMENT  ,NomDep Varchar ,DateDEP date, montant number ,nomMag varchar,fact BLOG,FOREIGN KEY (nomMag) REFERENCES "+Table_name_Magasin+"(nomMAg))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Historique+"(code varchar(14),QNTT number, date Date,op varchar , PRIMARY KEY (code,date,op),FOREIGN KEY (code) references "+Table_name+"(ID))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Transfert+"(Id integer PRIMARY KEY AUTOINCREMENT,code varchar(14),QNTT number, date Date,wareh1 varchar ,wareh2 varchar,etatP varchar)");
 
     }
 
+    //add a new expense
+    public void addTakenproduct(String IDT,double quantityT,String unitT,int IDd) {
+        SQLiteDatabase Database = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("IDT",IDT);
+        values.put("quantityT",quantityT);
+        values.put("unitT",unitT);
+        values.put("IDd",IDd);
+
+        Database.insert(Table_name_takenproduct, null , values);
+        Database.close();
+    }
+    //get all expenses
+   /* public ArrayList<TakenProductData> getTakenProduct() {
+        ArrayList<TakenProductData> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_takenproduct;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                TakenProductData P = new TakenProductData();
+                P.setID(cursor.getString(0));
+                P.setCode(cursor.getString(1));
+                P.setQuantity(cursor.getInt(2));
+                P.setUnit(cursor.getString(3));
+                P.setIdd(cursor.getInt(4));
 
 
+                arrayList.add(P);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+    //delete one expense
+    public void deleteTakenProduct(String IDh) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(Table_name_takenproduct, "IDh=" + IDh, null);
+        sqLiteDatabase.close();
+    }
+    //update one expense
+    public void updateTakenProduct(String IDT,double quantityT,String unitT,int IDd,String IDh) {
+        SQLiteDatabase Database = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("IDT",IDT);
+        values.put("quantityT",quantityT);
+        values.put("unitT",unitT);
+        values.put("IDd",IDd);
+        Database.update(Table_name_takenproduct,values, "IDh=" + IDh, null);
+        Database.close();
+    }
+*/
+    //------------------------------------------------expenses-----------------------------------------------------------
+    //add a new expense
+    public void addDepense(String nomD,String magD,Double amountD,String arD,String DateCreaD,String detailsD) {
+        SQLiteDatabase Database = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("nomD",nomD);
+        values.put("magD",magD);
+        values.put("amountD",amountD);
+        values.put("arD",arD);
+        values.put("DateCreaD",DateCreaD);
+        values.put("detailsD",detailsD);
+
+        Database.insert(Table_name_depenses, null , values);
+        Database.close();
+    }
+    //get all expenses
+   /* public ArrayList<DepenseData> getDepense() {
+        ArrayList<DepenseData> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_depenses;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                DepenseData de = new DepenseData();
+                de.setID(cursor.getString(0));
+                de.setNOM(cursor.getString(1));
+                de.setMAGASIN(cursor.getString(2));
+                de.setTOTAL(cursor.getDouble(3));
+                de.setAR(cursor.getString(4));
+                de.setDateCrea(cursor.getString(5));
+                de.setDESCRIPTION(cursor.getString(6));
+                arrayList.add(de);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+    //delete one expense
+    public void deleteExp(String ID) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(Table_name_depenses, "ID=" + ID, null);
+        sqLiteDatabase.close();
+    }
+    //update one expense
+    public void updateDepense(String nomD,String magD,Double amountD,String arD,String DateCreaD,String detailsD,String IDD) {
+        SQLiteDatabase Database = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("nomD",nomD);
+        values.put("magD",magD);
+        values.put("amountD",amountD);
+        values.put("arD",arD);
+        values.put("DateCreaD",DateCreaD);
+        values.put("detailsD",detailsD);
+        Database.update(Table_name_depenses,values, "IDD=" + IDD, null);
+        Database.close();
+    }
+    //------------------------------------------orders----------------------------------------------
+    //add purchase order
+    public void addCommandeAchat( String DescriptionA,String vendor,String notesA,String termsA,String DateCreaA,String DateLiv) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("DescriptionA", DescriptionA);
+        values.put("vendor", vendor);
+        values.put("notesA", notesA);
+        values.put("termsA", termsA);
+        values.put("DateCreaA", DateCreaA);
+        values.put("DateLiv", DateLiv);
+        sqLiteDatabase.insert(Table_name_comAchat, null , values);
+        sqLiteDatabase.close();
+    }
+
+
+    //get purchase orders
+ /*   public ArrayList<CommandeAchatData> getCommandeAchat() {
+        ArrayList<CommandeAchatData> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_comAchat;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                CommandeAchatData dataAchat = new CommandeAchatData();
+                dataAchat.setID(cursor.getString(0));
+                dataAchat.setShipmentpreference(cursor.getString(1));
+                dataAchat.setVendor(cursor.getString(2));
+                dataAchat.setNotes(cursor.getString(3));
+                dataAchat.setTerms(cursor.getString(4));
+                dataAchat.setDateCrea(cursor.getString(5));
+                dataAchat.setDateLiv(cursor.getString(6));
+
+                arrayList.add(dataAchat);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+    //delete a purchase order
+    public void deleteCommandeAchat(String idCA) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        //deleting row
+        sqLiteDatabase.delete(Table_name_comAchat, "idCA=" + idCA, null);
+        sqLiteDatabase.close();
+    }
+    //update a purchase order
+    public void updateCommandeAchat( String DescriptionA,String vendor,String notesA,String termsA,String DateLiv,String idCA) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("DescriptionA", DescriptionA);
+        values.put("vendor", vendor);
+        values.put("notesA", notesA);
+        values.put("termsA", termsA);
+        values.put("DateLiv", DateLiv);
+        //updating row
+        sqLiteDatabase.update(Table_name_comAchat, values, "idCA=" + idCA, null);
+        sqLiteDatabase.close();
+    }
+    //--------------------------------------------sale orders------------------------------------
+    //add sale order
+    public void addCommandeVente(String DescriptionV,String costumer,String notesV,String termsV,String DateCreaV,String DateExp) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("DescriptionV", DescriptionV);
+        values.put("costumer", costumer);
+        values.put("notesV", notesV);
+        values.put("termsV", termsV);
+        values.put("DateCreaV", DateCreaV);
+        values.put("DateExp", DateExp);
+        sqLiteDatabase.insert(Table_name_comVente, null , values);
+        sqLiteDatabase.close();
+    }
+    //get sale orders
+  /*  public ArrayList<CommandeVenteData> getCommandeVente() {
+        ArrayList<CommandeVenteData> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_comVente;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                CommandeVenteData dataAchat = new CommandeVenteData();
+                dataAchat.setID(cursor.getString(0));
+                dataAchat.setMethodLiv(cursor.getString(1));
+                dataAchat.setCustomer(cursor.getString(2));
+                dataAchat.setCustomerNotes(cursor.getString(3));
+                dataAchat.setTerms(cursor.getString(4));
+                dataAchat.setDateCrea(cursor.getString(5));
+                dataAchat.setDateLiv(cursor.getString(6));
+
+                arrayList.add(dataAchat);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+    //delete a sale order
+    public void deleteCommandeVente(String idCV) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        //deleting row
+        sqLiteDatabase.delete(Table_name_comVente, "idCV=" + idCV, null);
+        sqLiteDatabase.close();
+    }
+    //update a sale order
+    public void updateCommandeVente( String DescriptionV,String costumer,String notesV,String termsV,String DateExp,String idCV) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("DescriptionV", DescriptionV);
+        values.put("costumer", costumer);
+        values.put("notesV", notesV);
+        values.put("termsV", termsV);
+        values.put("DateExp", DateExp);
+        //updating row
+        sqLiteDatabase.update(Table_name_comVente, values, "idCV=" + idCV, null);
+        sqLiteDatabase.close();
+    }
+
+
+    //--------------------------------------------sale bills------------------------------------
+
+    //add the new note
+    public void addFactureVente(String commandevente, String typefv,double totalfv,String termsfv,String DateCreafv) {
+        SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("commandevente", commandevente);
+        values.put("typefv", typefv);
+        values.put("totalfv", totalfv);
+        values.put("termsfv", termsfv);
+        values.put("DateCreafv", DateCreafv);
+
+
+        //inserting new row
+        sqLiteDatabase.insert(Table_name_factVente, null , values);
+        //close database connection
+        sqLiteDatabase.close();
+    }
+
+    //get the all notes
+    public ArrayList<FactureVenteData> getFactureVente() {
+        ArrayList<FactureVenteData> arrayList = new ArrayList<>();
+
+        // select all query
+        String select_query= "SELECT *FROM " + Table_name_factVente;
+
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                FactureVenteData datavente = new FactureVenteData();
+                datavente.setID(cursor.getString(0));
+                datavente.setCommandeVente(cursor.getString(1));
+                datavente.setTypePayement(cursor.getString(2));
+                datavente.setTotal(cursor.getDouble(3));
+                datavente.setTerms(cursor.getString(4));
+                datavente.setDateCrea(cursor.getString(5));
+
+                arrayList.add(datavente);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+
+    //delete the note
+    public void deleteFactureVente(String idfv) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //deleting row
+        sqLiteDatabase.delete(Table_name_factVente, "idfv=" + idfv, null);
+        sqLiteDatabase.close();
+    }
+
+    //update the note
+    public void updateFactureVente(String commandevente, String typefv,double totalfv,String termsfv,String idfv) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("commandevente", commandevente);
+        values.put("typefv", typefv);
+        values.put("totalfv", totalfv);
+        values.put("termsfv", termsfv);
+        //updating row
+        sqLiteDatabase.update(Table_name_factVente, values, "idfv=" + idfv, null);
+        sqLiteDatabase.close();
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //add the new note
+    public void addFactureAchat(String commandeachat, String typefa,double totalfa,String termsfa,String DateCreafa) {
+        SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("commandeachat", commandeachat);
+        values.put("typefa", typefa);
+        values.put("totalfa", totalfa);
+        values.put("Termsfa", termsfa);
+        values.put("DateCreafa", DateCreafa);
+
+
+        //inserting new row
+        sqLiteDatabase.insert(Table_name_factAchat, null , values);
+        //close database connection
+        sqLiteDatabase.close();
+    }
+
+    //get the all notes
+    public ArrayList<FactureAchatData> getFactureAchat() {
+        ArrayList<FactureAchatData> arrayList = new ArrayList<>();
+
+        // select all query
+        String select_query= "SELECT *FROM " + Table_name_factAchat;
+
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                FactureAchatData dataAchat = new FactureAchatData();
+                dataAchat.setID(cursor.getString(0));
+                dataAchat.setCommandeAchat(cursor.getString(1));
+                dataAchat.setTypePayement(cursor.getString(2));
+                dataAchat.setTotal(cursor.getDouble(3));
+                dataAchat.setTerms(cursor.getString(4));
+                dataAchat.setDateCrea(cursor.getString(5));
+
+                arrayList.add(dataAchat);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+
+    //delete the note
+    public void deleteFactureAchat(String idfa) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //deleting row
+        sqLiteDatabase.delete(Table_name_factAchat, "idfa=" + idfa, null);
+        sqLiteDatabase.close();
+    }
+
+    //update the note
+    public void updateFactureAchat(String commandeachat, String typefa,double totalfa,String termsfa,String idfa) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put("commandeachat", commandeachat);
+        values.put("typefa", typefa);
+        values.put("totalfa", totalfa);
+        values.put("termsfa", termsfa);
+        //updating row
+        sqLiteDatabase.update(Table_name_factAchat, values, "idfa=" + idfa, null);
+        sqLiteDatabase.close();
+    }
+
+*/
     public void QueryData(String sql){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sql);
@@ -400,7 +769,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.bindString(3,mesuremag);
         statement.executeInsert();
     }
-    public void InsertDataINV( String RefInv ,Date DateInv ,String StatutInv ,String idMaag){
+    public void InsertDataINV( String RefInv ,Date DateInv ,String StatutInv ,String status){
         SQLiteDatabase db= getWritableDatabase();
         String sql="INSERT INTO "+Table_name_inventaire+" VALUES (  ?, ?, ?, ?)";
         SQLiteStatement statement= db.compileStatement(sql);
@@ -408,7 +777,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.bindString(1,RefInv);
         statement.bindString(2,sdf.format(DateInv));
         statement.bindString(3,StatutInv);
-        statement.bindString(4, idMaag);
+        statement.bindString(4, status);
         statement.executeInsert();
     }public void InsertDataRapport(String idRap,Date DateRap ,String refinv){
         SQLiteDatabase db= getWritableDatabase();
@@ -460,6 +829,18 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.bindString(3,sdf.format(date));
         statement.bindString(4, operation);
         statement.executeInsert();
+    }  public void InsertDataTranfert(String code,long QNTT ,Date date ,String wareh1,String wareh2,String etatP ){
+        SQLiteDatabase db= getWritableDatabase();
+        String sql="INSERT INTO "+Table_name_Transfert+" VALUES ( NULL, ?, ?, ?, ?, ?,?)";
+        SQLiteStatement statement= db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1,code);
+        statement.bindLong(2,QNTT);
+        statement.bindString(3,sdf.format(date));
+        statement.bindString(4, wareh1);
+        statement.bindString(5, wareh2);
+        statement.bindString(6, etatP);
+        statement.executeInsert();
     }
 
 
@@ -471,19 +852,8 @@ public class DataBaseM extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /*db.execSQL("DROP TABLE IF EXISTS "+Table_name_Magasin);
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Magasin+"(nomMAg varchar PRIMARY KEY ,typemag varchar,mesuremag varchar)");
-*/
-        db.execSQL("DROP TABLE IF EXISTS "+Table_name_O);
-        db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"(nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(13) ,entreprise varchar(20) not null,job varchar,TelOperateur varchar(14),email varchar2,address varchar2,Linkedin varchar,facebook varchar2,twitter varchar,logoImg BLOG,Primary key (nomOp,prenomOp ),Foreign key (matrFiscal) references "+Table_name_Entreprise+"(NIF),Foreign Key (entreprise) references "+Table_name_Entreprise+"(Nom))");
-        db.execSQL("DROP TABLE IF EXISTS "+Table_name_FOU);
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_FOU+"(idFour integer PRIMARY KEY AUTOINCREMENT,Nom varchar(12),Prenom varchar(12),FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp"+"),FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp)"+")");
-        db.execSQL("DROP TABLE IF EXISTS "+Table_name_client);
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_client+"(idclient integer PRIMARY KEY AUTOINCREMENT,reduction number(2,2),Nom varchar(12), Prenom varchar(12),type varchar,FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp) ,FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp))");
-
-
-        db.execSQL("DROP TABLE IF EXISTS "+Table_name_Entreprise);
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Entreprise+"(NIF varchar(13)PRIMARY KEY,Nom varchar(20),RG varchar(20),secteur varchar(50),taille integer ,statujur varchar(60),email varchar,tlf varchar,Address varchar,Site varchar,Fax varchar, image BLOG)");
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_Transfert);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Transfert+"(Id integer PRIMARY KEY AUTOINCREMENT,code varchar(14),QNTT number, date Date,wareh1 varchar ,wareh2 varchar,etatP varchar)");
 
     }
 }

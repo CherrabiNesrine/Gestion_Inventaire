@@ -348,12 +348,17 @@ public class MagazinActivity extends SidebarMenu {
                         mag.setUnitMag(MES.getText().toString());
                         db.QueryData();
                         String nom = mag.getNomMag();
+                        NOM.add(nom);
                         String type = mag.getTypMag();
+                        Type.add(type);
                         String unit = mag.getUnitMag();
+                        UNIT.add(unit);
                         db.InsertDataMag(nom, type, unit);
-                        Toast.makeText(getApplicationContext(), "successed!", Toast.LENGTH_LONG);
-                        MagazinActivity.adpter.notifyDataSetChanged();
                         adpter.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(), "successed!", Toast.LENGTH_LONG);
+
+
+
                         dialog2.dismiss();
                     }
                 }

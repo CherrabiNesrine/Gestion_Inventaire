@@ -28,6 +28,10 @@
             android:title="Operators "
             android:icon="@drawable/ic_usercs" />
         <item
+            android:id="@+id/Document"
+            android:title="Documents "
+            android:icon="@drawable/ic_descr" />
+        <item
             android:id="@+id/Apropos"
             android:title="About"
             android:icon="@mipmap/abt"
