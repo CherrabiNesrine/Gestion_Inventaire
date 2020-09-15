@@ -182,6 +182,13 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
 
         }
+
+        else if (id == R.id.Expenses) {
+            Toast.makeText(getApplicationContext(), "Expenses", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,DepenseMain.class);
+            startActivity(intent);
+
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

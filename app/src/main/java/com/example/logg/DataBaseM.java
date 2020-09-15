@@ -22,7 +22,7 @@ package com.example.logg;
 
 public class DataBaseM extends SQLiteOpenHelper {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    public static final String DataBase_name ="Magasin.sqlite";
+    public static final String DataBase_name ="Magasinn.sqlite";
     public static final String Table_name="prod";
     public static final String Table_name_O="OPERATEUR";
     public static final String Table_name_COM="Commande";
@@ -34,7 +34,7 @@ public class DataBaseM extends SQLiteOpenHelper {
     public static final String Table_name_factAchat="factureAchat";
     public static final String Table_name_factVente="factureVente";
     public static final String Table_name_takenproduct="takenproduct";
-    public static final String Table_commandes_prod= "student_subject";
+
 
     public static final String Table_name_Magasin="mag";
     public static final String Table_name_inventaire="inventaire";
@@ -60,17 +60,6 @@ public class DataBaseM extends SQLiteOpenHelper {
     public static final String Table_Column_4_username = "username";
 
     public static final String KEY_IMG = "image";
-
-    public static final String STUDENT_ID_FK = "student_id";
-    public static final String SUBJECT_ID_FK = "subject_id";
-    public static final String STUDENT_SUB_CONSTRAINT = "student_sub_unique";
-
-
-
-
-
-
-
 
 
 
@@ -122,57 +111,8 @@ public class DataBaseM extends SQLiteOpenHelper {
 
     }
 
-    //add a new expense
-    public void addTakenproduct(String IDT,double quantityT,String unitT,int IDd) {
-        SQLiteDatabase Database = getWritableDatabase();
-        ContentValues values =  new ContentValues();
-        values.put("IDT",IDT);
-        values.put("quantityT",quantityT);
-        values.put("unitT",unitT);
-        values.put("IDd",IDd);
-
-        Database.insert(Table_name_takenproduct, null , values);
-        Database.close();
-    }
-    //get all expenses
-   /* public ArrayList<TakenProductData> getTakenProduct() {
-        ArrayList<TakenProductData> arrayList = new ArrayList<>();
-        String select_query= "SELECT *FROM " + Table_name_takenproduct;
-        SQLiteDatabase db = this .getWritableDatabase();
-        Cursor cursor = db.rawQuery(select_query, null);
-        if (cursor.moveToFirst()) {
-            do {
-                TakenProductData P = new TakenProductData();
-                P.setID(cursor.getString(0));
-                P.setCode(cursor.getString(1));
-                P.setQuantity(cursor.getInt(2));
-                P.setUnit(cursor.getString(3));
-                P.setIdd(cursor.getInt(4));
 
 
-                arrayList.add(P);
-            }while (cursor.moveToNext());
-        }
-        return arrayList;
-    }
-    //delete one expense
-    public void deleteTakenProduct(String IDh) {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.delete(Table_name_takenproduct, "IDh=" + IDh, null);
-        sqLiteDatabase.close();
-    }
-    //update one expense
-    public void updateTakenProduct(String IDT,double quantityT,String unitT,int IDd,String IDh) {
-        SQLiteDatabase Database = getWritableDatabase();
-        ContentValues values =  new ContentValues();
-        values.put("IDT",IDT);
-        values.put("quantityT",quantityT);
-        values.put("unitT",unitT);
-        values.put("IDd",IDd);
-        Database.update(Table_name_takenproduct,values, "IDh=" + IDh, null);
-        Database.close();
-    }
-*/
     //------------------------------------------------expenses-----------------------------------------------------------
     //add a new expense
     public void addDepense(String nomD,String magD,Double amountD,String arD,String DateCreaD,String detailsD) {
@@ -189,7 +129,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         Database.close();
     }
     //get all expenses
-   /* public ArrayList<DepenseData> getDepense() {
+    public ArrayList<DepenseData> getDepense() {
         ArrayList<DepenseData> arrayList = new ArrayList<>();
         String select_query= "SELECT *FROM " + Table_name_depenses;
         SQLiteDatabase db = this .getWritableDatabase();
@@ -210,9 +150,9 @@ public class DataBaseM extends SQLiteOpenHelper {
         return arrayList;
     }
     //delete one expense
-    public void deleteExp(String ID) {
+    public void deleteExp(String IDD) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.delete(Table_name_depenses, "ID=" + ID, null);
+        sqLiteDatabase.delete(Table_name_depenses, "IDD=" + IDD, null);
         sqLiteDatabase.close();
     }
     //update one expense
@@ -676,6 +616,27 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.executeInsert();
 
 
+    }
+
+
+
+    //get purchase orders
+    public ArrayList<Magasin> getMag() {
+        ArrayList<Magasin> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_Magasin;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Magasin maagasin = new Magasin();
+                maagasin.setNomMag(cursor.getString(0));
+                maagasin.setTypMag(cursor.getString(1));
+                maagasin.setUnitMag(cursor.getString(2));
+
+                arrayList.add(maagasin);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
     }
     public void InsertDatacommande( Long qntcom,Date datCom){
         SQLiteDatabase db= getWritableDatabase();
