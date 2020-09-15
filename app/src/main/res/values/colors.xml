@@ -10,6 +10,10 @@
     <color name="accepted">#4CAF50</color>
     <color name="required">#FF8500</color>
     <color name="erreur">#FF0000</color>
+    <color name="white">#ffffff</color>
+    <color name="background">#ececec</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
 
 <color name="profilePrimaryDark">#FF0000</color>
     <color name="profileAccentColor">#F7F7F7</color>
