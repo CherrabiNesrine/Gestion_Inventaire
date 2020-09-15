@@ -1,0 +1,165 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:layout_margin="15dp">
+
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+		android:background="@color/white"
+		android:layout_gravity="center"
+		android:padding="10dp"
+		>
+
+		<TextView
+			android:id="@+id/Titre"
+			android:layout_width="280dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Enter an expense"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="20dp"
+			android:textColor="@color/colorPrimary"
+			android:textSize="28sp"
+			android:textStyle="bold" />
+
+
+	
+	        <EditText
+	            android:id="@+id/amount"
+	            android:layout_width="match_parent"
+				android:layout_height="60dp"
+	            android:inputType="numberDecimal"
+	            android:layout_centerVertical="true"
+	            android:layout_alignParentLeft="true"
+				android:paddingLeft="15dp"
+	            android:hint= "@string/amount"
+				android:background="@android:drawable/dialog_holo_light_frame"
+               />
+
+			<Spinner
+				android:id="@+id/type"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5sp"
+				android:entries="@array/coins"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+	        <EditText
+		        android:id="@+id/nom"
+		        android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:ems="10"
+				android:paddingLeft="15dp"
+				android:paddingRight="15dp"
+				android:layout_marginTop="5sp"
+		        android:layout_centerVertical="true"
+				android:drawableRight="@drawable/ic_dollar"
+				android:drawableTint="@color/colorAccent"
+				android:background="@android:drawable/dialog_holo_light_frame"
+				android:hint="@string/name"
+		        android:textAppearance="@style/TextAppearance.AppCompat.Medium"></EditText>
+
+			<TextView
+				android:id="@+id/mag"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:ems="10"
+				android:drawableRight="@drawable/ic_boxes"
+				android:drawableTint="@color/colorAccent"
+				android:layout_centerVertical="true"
+				android:layout_marginTop="5sp"
+				android:paddingLeft="15dp"
+				android:paddingRight="15dp"
+				android:background="@android:drawable/dialog_holo_light_frame"
+				android:hint="@string/mag"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+		<EditText
+			android:id="@+id/description"
+			android:layout_width="match_parent"
+			android:layout_height="120dp"
+			android:background="@android:drawable/dialog_holo_light_frame"
+			android:ems="10"
+			android:textAlignment="center"
+			android:inputType="textMultiLine"
+			android:hint="details"
+			android:layout_marginTop="5sp"/>
+		>
+
+
+
+		<LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+			android:layout_margin="15dp"
+			android:layout_gravity="center"
+	        android:gravity="center_vertical" >
+	        
+	        <TextView
+		        android:id="@+id/textView3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Date"
+
+		        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+	        
+	        <ImageButton 
+	            android:id="@+id/imageButton3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            style="@style/MN.Widget.ImageButton"
+	            android:src="@drawable/arrow_left"
+                />
+	        
+	        <TextView
+	            android:id="@+id/dateView"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:clickable="true"
+	            android:background="@drawable/statelist_normal"
+	            android:padding="10dp"
+	            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+	        
+	        <ImageButton 
+	            android:id="@+id/imageButton4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            style="@style/MN.Widget.ImageButton"
+	            android:src="@drawable/arrow_right"
+                />
+
+	    </LinearLayout>
+		 <RelativeLayout
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/cancel"
+			android:layout_width="150dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:layout_margin="10dp"
+			android:background="@color/colorPrimary"
+			android:text="Cancel"
+			android:textColor="@color/white"/>
+
+		<Button
+			android:id="@+id/submit"
+			android:layout_width="150dp"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:background="@color/required"
+			android:layout_margin="10dp"
+			android:text="Add"
+			android:drawableRight="@drawable/ic_check"
+			android:drawableTint="@color/white"
+			android:textColor="@color/white" />
+	</RelativeLayout>
+	</LinearLayout>
+
+
+</ScrollView>
