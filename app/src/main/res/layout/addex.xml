@@ -57,7 +57,7 @@
 				android:paddingRight="15dp"
 				android:layout_marginTop="5sp"
 		        android:layout_centerVertical="true"
-				android:drawableRight="@drawable/ic_dollar"
+				android:drawableRight="@drawable/ic_doll"
 				android:drawableTint="@color/colorAccent"
 				android:background="@android:drawable/dialog_holo_light_frame"
 				android:hint="@string/name"

@@ -94,8 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:text="HELLO"
-                    android:textColor="#000"
-                    android:textSize="25dp"
+                    android:textSize="19dp"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_below="@+id/hello"
@@ -124,8 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:text="Contact :"
-                    android:textColor="#000"
-                    android:textSize="24sp"
+
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +155,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_emaill"
-                        android:drawableTint="@color/colorAccent"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +171,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_phonee"
-                        android:drawableTint="@color/colorAccent"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="2dp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -190,7 +189,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_web_site_c"
-                        android:drawableTint="@color/colorAccent"
+                        android:drawableTint="@color/colorPrimary"
                         android:elevation="2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -205,6 +204,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -217,7 +217,8 @@
                     android:enabled="false"
                     android:hint="Fiscal identification number "
                     android:padding="18dp"
-                    
+
+
                     android:textStyle="bold" />
 
 
@@ -225,6 +226,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -237,7 +239,8 @@
                     android:enabled="false"
                     android:hint="Trade register "
                     android:padding="18dp"
-                    
+
+
                     android:textStyle="bold" />
 
 
@@ -245,6 +248,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -257,7 +261,8 @@
                    android:enabled="false"
                     android:hint="Factory size"
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 
@@ -265,6 +270,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -277,7 +283,8 @@
                    android:enabled="false"
                     android:hint="Activity Sector"
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 
@@ -285,6 +292,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -297,7 +305,8 @@
                    android:enabled="false"
                     android:hint="Address "
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 
@@ -305,6 +314,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -317,7 +327,8 @@
                    android:enabled="false"
                     android:hint="Phone number "
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 
@@ -325,6 +336,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -337,7 +349,8 @@
                    android:enabled="false"
                     android:hint="Site "
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 
@@ -345,6 +358,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -355,6 +369,8 @@
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                    android:enabled="false"
+                    android:textColorHint="@color/colorPrimary"
+
                     android:hint="Email "
                     android:padding="18dp"
                     
@@ -365,6 +381,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -377,7 +394,8 @@
                    android:enabled="false"
                     android:hint="Fax "
                     android:padding="18dp"
-                    
+                    android:textColorHint="@color/colorPrimary"
+
                     android:textStyle="bold" />
 
 

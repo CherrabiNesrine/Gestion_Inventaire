@@ -48,7 +48,7 @@ android:orientation="vertical">
         android:layout_height="300dp"
         android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/empty"
+        android:src="@mipmap/notfound"
         android:visibility="gone"
         android:scaleType="fitXY"/>
     <TextView

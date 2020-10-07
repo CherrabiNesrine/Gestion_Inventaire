@@ -33,24 +33,30 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:orientation="vertical"
-                android:layout_marginLeft="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.462"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.25">
-
+                <TextView
+                    android:id="@+id/wareh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="h1,h2"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
                 <TextView
                     android:id="@+id/codeDoc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:paddingTop="5dp"
                     android:text="123456789097"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="#000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -60,9 +66,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="12/07/2000"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="16dp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.382"
@@ -70,13 +74,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.125" />
 
-                <TextView
-                    android:id="@+id/wareh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:text="From here to here "
-                    android:textSize="14sp" />
+
             </LinearLayout>
 
 

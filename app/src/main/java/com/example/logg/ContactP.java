@@ -92,7 +92,6 @@ public class ContactP extends SidebarMenu {
         im = (ImageView) findViewById(R.id.hello);
         luser = (LinearLayout) findViewById(R.id.luser);
         typeuser = (EditText) findViewById(R.id.typUsr);
-        red = (EditText) findViewById(R.id.red);
         address = (EditText) findViewById(R.id.Address);
         phnnum = (EditText) findViewById(R.id.PhnNum);
         face = (EditText) findViewById(R.id.face);
@@ -116,12 +115,11 @@ public class ContactP extends SidebarMenu {
 
 
         db.QueryData();
-        Cursor[] cursors = {db.getData("select * from client where Nom ='" + Nom + "' and Prenom= '" + prenom + "'")};
+        Cursor[] cursors = {db.getData("select * from client where Nom ='"+ Nom +"'and Prenom='" + prenom +"'")};
         while (cursors[0].moveToNext()) {
+
             luser.setVisibility(View.VISIBLE);
             typeuser.setText(cursors[0].getString(3));
-            red.setText(cursors[0].getString(0));
-
         }
         Cursor[] cursors1 = {db.getData("select * from OPERATEUR where  nomOp ='" + Nom + "' and prenomOp= '" + prenom + "'")};
 

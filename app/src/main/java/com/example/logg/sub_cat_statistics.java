@@ -121,6 +121,7 @@ int debut;
 
         }
         pie.data(dataEntries);
+        pie.animation(true);
         anyChartView.setChart(pie);
         pie.title("category in inventory duration ");
     }

@@ -78,7 +78,6 @@
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".SidebarMenu"
             android:screenOrientation="landscape" />

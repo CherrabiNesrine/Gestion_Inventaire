@@ -122,11 +122,13 @@ public class Transfers extends Fragment {
                 while (cursor2[0].moveToNext()) {
                     byte[] image = cursor2[0].getBlob(21);
                     Images.add(image);
+                    wrh1.add(warh1);
+                    wrh2.add(warh2);
+                    CODE.add(code);
+                    dates.add(dattte);
+                    adpter.notifyDataSetChanged();
                 }
-                wrh1.add(warh1);
-                wrh2.add(warh2);
-                CODE.add(code);
-                adpter.notifyDataSetChanged();
+
             }
         }
         Button btn = (Button)rootView.findViewById(R.id.trnsfADD);
@@ -167,7 +169,6 @@ public class Transfers extends Fragment {
 
 
                     CODE.add(code);
-
                     MAG1.add(mag1);
                 }
 
@@ -265,6 +266,10 @@ public class Transfers extends Fragment {
                                 lay3.setError("warehouse type not match ");
                             } else if (!prd.getText().toString().isEmpty()) {
                                 db.InsertDataTranfert(prd.getText().toString(), Long.parseLong(qnt.getText().toString()), TRNFR, warehouse1, Warehouse2,Etat);
+                                CODE.add(prd.getText().toString());
+                                wrh1.add(warehouse1);
+                                wrh2.add(Warehouse2);
+                                dates.add(sdf.format(TRNFR));
                                 adpter.notifyDataSetChanged();
                                 dialog2.dismiss();
                                 adpter.notifyDataSetChanged();

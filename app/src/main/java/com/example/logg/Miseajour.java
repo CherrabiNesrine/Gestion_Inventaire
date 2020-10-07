@@ -306,7 +306,7 @@ public class Miseajour extends SidebarMenu {
                     op1.setText("close");
                     lay1.setVisibility(View.VISIBLE);
                     b = true;
-                    op1.getBackground().setColorFilter(op1.getContext().getResources().getColor(R.color.colorvertbleu), PorterDuff.Mode.MULTIPLY);
+                    op1.getBackground().setColorFilter(op1.getContext().getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
 
 
                 }
@@ -330,7 +330,7 @@ public class Miseajour extends SidebarMenu {
                     lay2.setVisibility(View.VISIBLE);
                     b = true;
                     op2.setText("close");
-                    op2.getBackground().setColorFilter(op2.getContext().getResources().getColor(R.color.colorvertbleu), PorterDuff.Mode.MULTIPLY);
+                    op2.getBackground().setColorFilter(op2.getContext().getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
 
                 }
 
@@ -354,7 +354,7 @@ public class Miseajour extends SidebarMenu {
                     lay3.setVisibility(View.VISIBLE);
                     b = true;
                     op3.setText("close");
-                    op3.getBackground().setColorFilter(op3.getContext().getResources().getColor(R.color.colorvertbleu), PorterDuff.Mode.MULTIPLY);
+                    op3.getBackground().setColorFilter(op3.getContext().getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
 
                 }
 
@@ -628,7 +628,6 @@ public class Miseajour extends SidebarMenu {
                                                     if (pr.getText().toString().isEmpty()) {
                                                         pri.setError("this field can not be blank ");
                                                     } else {
-                                                        Toast.makeText(getApplicationContext(), "right way ", Toast.LENGTH_LONG).show();
 
 
                                                         g = g + nv;
@@ -637,10 +636,7 @@ public class Miseajour extends SidebarMenu {
                                                         values1.put("qntt", g);
                                                         values1.put("prix", Double.parseDouble(pr.getText().toString()));
                                                         db.Update("sold", values1, "Id=? and DateE=?", new String[]{code, sdf.format(d2)});
-                                                        Cursor cur2 = db.getData("SELECT * from sold where Id='" + code + "' and DateE='" + sdf.format(d2) + "'");
-                                                        while (cur2.moveToNext()) {
-                                                            Toast.makeText(getApplicationContext(), cur2.getLong(2) + "Rani f first way g = " + g, Toast.LENGTH_LONG).show();
-                                                        }
+
                                                         prixS.setEnabled(true);
                                                         prixS.setText(pr.getText().toString());
                                                         prixS.setEnabled(false);
@@ -651,18 +647,13 @@ public class Miseajour extends SidebarMenu {
                                             } else {
 
 
-                                                Toast.makeText(getApplicationContext(), "second way ", Toast.LENGTH_LONG).show();
 
-                                                Toast.makeText(getApplicationContext(), nv + "nv=", Toast.LENGTH_LONG).show();
                                                 db.InsertDataSold(code, d2, nv, prix);
                                                 prixS.setEnabled(true);
                                                 prixS.setText(pr.getText().toString());
                                                 prixS.setEnabled(false);
 
-                                                Cursor cur2 = db.getData("SELECT * from sold where Id='" + code + "' and DateE='" + sdf.format(d2) + "'");
-                                                while (cur2.moveToNext()) {
-                                                    Toast.makeText(getApplicationContext(), cur2.getLong(2) + " Rani f la boucle ta3 second way" + nv + cur2.getColumnName(2), Toast.LENGTH_LONG).show();
-                                                }
+
                                                 dialog.dismiss();
                                             }
                                             if(Long.parseLong(qttmin.getText().toString())<l){
@@ -819,25 +810,19 @@ public class Miseajour extends SidebarMenu {
                                     qtt = c.getLong(2);
                                 }
                                 long g = qtt + Long.parseLong(dqntt.getText().toString());
-                                Toast.makeText(getApplicationContext(), String.valueOf(g) + " qntt=" + qtt, Toast.LENGTH_LONG).show();
                                 ContentValues values1 = new ContentValues();
                                 values1.put("qntt", g);
                                 db.Update("sold", values1, "Id=? and DateE=?", new String[]{code, sdf.format(d)});
                                 Cursor cur2 = db.getData("SELECT * from sold where Id='" + code + "'");
                                 while (cur2.moveToNext()) {
-                                    Toast.makeText(getApplicationContext(), cur2.getLong(2) + "cur2 second way + g=" + g, Toast.LENGTH_LONG).show();
                                 }
                             } else {
                                 Toast.makeText(getApplicationContext(), "here i am deleting ", Toast.LENGTH_LONG).show();
 
-                                Toast.makeText(getApplicationContext(), dqntt.getText().toString(), Toast.LENGTH_LONG).show();
                                 try {
                                     db.InsertDataSold(code, d, Long.parseLong(dqntt.getText().toString()), Double.parseDouble(prixS.getText().toString()));
                                     Toast.makeText(getApplicationContext(), "Item sold  ", Toast.LENGTH_LONG).show();
-                                    Cursor cur2 = db.getData("SELECT * from sold where Id='" + code + "'");
-                                    while (cur2.moveToNext()) {
-                                        Toast.makeText(getApplicationContext(), cur2.getLong(2) + "cur2 itemsold", Toast.LENGTH_LONG).show();
-                                    }
+
                                 } catch (Exception e) {
                                 }
                             }

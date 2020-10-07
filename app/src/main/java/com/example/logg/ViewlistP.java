@@ -228,7 +228,9 @@ public class ViewlistP extends SidebarMenu {
                             ContentValues values = new ContentValues();
                             values.put("dateDel", sdf.format(d));
                             for (int i = 0; i < DelItem.size(); i++) {
-                                db.Update("prod", values, "ID=?", new String[]{DelItem.get(i)});
+                                db.Delete("purchase","Id=?",new String[]{DelItem.get(i)});
+                                db.Delete("sold","Id=?",new String[]{DelItem.get(i)});
+                                db.Delete("prod","ID=?",new String[]{DelItem.get(i)});
                                 NOM.remove(i);
                                 CODE.remove(i);
                                 Images.remove(i);

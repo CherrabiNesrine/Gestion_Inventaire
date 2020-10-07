@@ -35,7 +35,6 @@ byte[] image = null;
         magazin=(RelativeLayout) findViewById(R.id.stores);
         product=(RelativeLayout) findViewById(R.id.product);
         inventory=(RelativeLayout) findViewById(R.id.inventory);
-        settings=(RelativeLayout) findViewById(R.id.Settings);
         logout=(RelativeLayout)findViewById(R.id.logout);
         about=(RelativeLayout)findViewById(R.id.about);
         Commande=(RelativeLayout)findViewById(R.id.Commande);
@@ -87,15 +86,6 @@ byte[] image = null;
 
 
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(HomeActivity.this,"Settings", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-
-            }
-        });
 
         depense.setOnClickListener(new View.OnClickListener() {
             @Override

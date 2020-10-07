@@ -43,6 +43,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static java.lang.Integer.lowestOneBit;
 import static java.lang.Integer.parseInt;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -58,10 +59,10 @@ public class AjtProduit extends SidebarMenu {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     DataBaseM db;
     String code;
-    Cursor cursor=null;
-    String nomm="";
-    String typee="";
-    String unitt="";
+    Cursor cursor = null;
+    String nomm = "";
+    String typee = "";
+    String unitt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class AjtProduit extends SidebarMenu {
 //recupriate the pervious page attribute
         if (intent != null) {
 
-            if (intent.hasExtra("Nom")){
+            if (intent.hasExtra("Nom")) {
                 nomm = intent.getStringExtra("Nom");
 
             }
@@ -92,14 +93,7 @@ public class AjtProduit extends SidebarMenu {
         actionBar.setTitle("add product");
 
 
-
-
-
-Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).show();
-
-
-
-
+        Toast.makeText(getApplicationContext(), "you are in " + nomm, Toast.LENGTH_LONG).show();
 
 
         surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
@@ -154,7 +148,7 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
                             Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
                             textView.setText(qrCode.valueAt(0).displayValue);
-                             code = textView.getText().toString();
+                            code = textView.getText().toString();
 
 
                             Next.setVisibility(View.VISIBLE);
@@ -176,10 +170,10 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_view: {
-                        Intent intent = new Intent (AjtProduit.this,ViewlistP.class);
-                        intent.putExtra("Nom",nomm);
-                        intent.putExtra("type",typee);
-                        intent.putExtra("unit",unitt);
+                        Intent intent = new Intent(AjtProduit.this, ViewlistP.class);
+                        intent.putExtra("Nom", nomm);
+                        intent.putExtra("type", typee);
+                        intent.putExtra("unit", unitt);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
@@ -194,14 +188,14 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
             @Override
             public void onClick(View v) {
                 db.QueryData();
-                try{
-                cursor = db.getData("SELECT * FROM prod WHERE ID ="+code);}
-                catch (Exception e){
+                try {
+                    cursor = db.getData("SELECT * FROM prod WHERE ID ='" + code + "'");
+                } catch (Exception e) {
                     final AlertDialog.Builder dateAlt = new AlertDialog.Builder(AjtProduit.this);
-                    final View view= LayoutInflater.from(AjtProduit.this).inflate(R.layout.ipic_ask,null);
-                    TextView title = (TextView)view.findViewById(R.id.ertitle);
-                    TextView message=(TextView)view.findViewById(R.id.messageer);
-                    Button acc=(Button)view.findViewById(R.id.btn_acc);
+                    final View view = LayoutInflater.from(AjtProduit.this).inflate(R.layout.ipic_ask, null);
+                    TextView title = (TextView) view.findViewById(R.id.ertitle);
+                    TextView message = (TextView) view.findViewById(R.id.messageer);
+                    Button acc = (Button) view.findViewById(R.id.btn_acc);
 
                     title.setText("Error");
                     message.setText("BARCODE OR QR CODE NOT OR RECOGNISED ");
@@ -216,20 +210,29 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
                     });
 
 
-
                 }
                 ///////////////////////////////////////////////////////
-                if (cursor != null) {
+
+                if (cursor == null || cursor.getCount() <= 0) {
+                    Intent intent = new Intent(AjtProduit.this, ajtproduit2.class);
+                    intent.putExtra("hello", textView.getText().toString());
+                    intent.putExtra("Nom", nomm);
+                    intent.putExtra("type", typee);
+                    intent.putExtra("unit", unitt);
+
+
+                    startActivity(intent);
+                } else {
                     if (cursor.moveToNext()) {
                         final AlertDialog.Builder dateAlt = new AlertDialog.Builder(AjtProduit.this);
-                        final View view= LayoutInflater.from(AjtProduit.this).inflate(R.layout.camera,null);
-                        TextView message=(TextView)view.findViewById(R.id.qntttm);
-                        acc=(EditText) view.findViewById(R.id.btn_accqun);
-                        EditText  prix = (EditText)view.findViewById(R.id.btn_accPrix);
-                        TextView close =(TextView)view.findViewById(R.id.btn_close_alr);
-                        Button nacc=(Button)view.findViewById(R.id.btn_okk);
-                        TextInputLayout p =(TextInputLayout)view.findViewById(R.id.p);
-                        TextInputLayout q =(TextInputLayout)view.findViewById(R.id.q);
+                        final View view = LayoutInflater.from(AjtProduit.this).inflate(R.layout.camera, null);
+                        TextView message = (TextView) view.findViewById(R.id.qntttm);
+                        acc = (EditText) view.findViewById(R.id.btn_accqun);
+                        EditText prix = (EditText) view.findViewById(R.id.btn_accPrix);
+                        TextView close = (TextView) view.findViewById(R.id.btn_close_alr);
+                        Button nacc = (Button) view.findViewById(R.id.btn_okk);
+                        TextInputLayout p = (TextInputLayout) view.findViewById(R.id.p);
+                        TextInputLayout q = (TextInputLayout) view.findViewById(R.id.q);
                         message.setText("products exists  ");
                         dateAlt.setView(view);
                         final AlertDialog dialog = dateAlt.create();
@@ -260,9 +263,9 @@ Toast.makeText(getApplicationContext(),"you are in "+nomm,Toast.LENGTH_LONG).sho
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-                           if(prix.getText().toString().isEmpty()){
-p.setError("this field can not be blank ");
-                           }
+                                if (prix.getText().toString().isEmpty()) {
+                                    p.setError("this field can not be blank ");
+                                }
                             }
                         });
                         acc.addTextChangedListener(new TextWatcher() {
@@ -278,9 +281,9 @@ p.setError("this field can not be blank ");
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-if(acc.getText().toString().isEmpty()){
-    q.setError("this field can not be blank ");
-}
+                                if (acc.getText().toString().isEmpty()) {
+                                    q.setError("this field can not be blank ");
+                                }
                             }
                         });
                         nacc.setOnClickListener(new View.OnClickListener() {
@@ -291,9 +294,34 @@ if(acc.getText().toString().isEmpty()){
                                     Date f = new Date();
 
                                     try {
-                                        f= sdf.parse(sdf.format(f));
-                                        db.InsertDataPurshase(code,f,nv,Double.parseDouble(prix.getText().toString()));
-                                    } catch (ParseException e) {
+                                       String ff  = sdf.format(f);
+                                        long ik=0;
+                                        Cursor cs = db.getData("select * from prod where ID='"+code+"'");
+                                        while (cs.moveToNext()){
+                                            ik=cs.getLong(7);
+                                        }
+                                        Cursor cs1 = db.getData("select * from purchase where Id='"+code+"' and DateE='"+ff+"'");
+                                       if(cs1==null || cs1.getCount()<=0){
+                                           db.InsertDataPurshase(code, f, nv, Double.parseDouble(prix.getText().toString()));
+                                           ik=ik+nv;
+                                           ContentValues vls1 = new ContentValues();
+                                           vls1.put("quantite",ik);
+                                           db.Update("prod",vls1,"ID=?",new String[]{code});
+
+                                       }
+                                       else{
+                                           long kl=0;
+                                           while (cs1.moveToNext()){
+                                               kl=cs1.getLong(2);
+                                           }
+                                           kl=kl+nv;
+                                           ContentValues vls = new ContentValues();
+                                           vls.put("QNTT",kl);
+                                           db.Update("purchase",vls,"Id=?",new String[]{code});
+                                       }
+
+                                        db.InsertDataPurshase(code, f, nv, Double.parseDouble(prix.getText().toString()));
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                     db.QueryData();
@@ -302,29 +330,27 @@ if(acc.getText().toString().isEmpty()){
                                     nv = nv + Qntt;
                                     ContentValues values = new ContentValues();
                                     values.put("quantite", nv);
-                                    db.Update(DataBaseM.Table_name,values, "ID=?", new String[]{code});
+                                    db.Update(DataBaseM.Table_name, values, "ID=?", new String[]{code});
                                     dialog.dismiss();
-                                    Intent intent = new Intent(AjtProduit.this,ViewlistP.class);
+                                    Intent intent = new Intent(AjtProduit.this, ViewlistP.class);
                                     intent.putExtra("hello", textView.getText().toString());
                                     intent.putExtra("Nom", nomm);
-                                    intent.putExtra("type",typee);
-                                    intent.putExtra("unit",unitt);
+                                    intent.putExtra("type", typee);
+                                    intent.putExtra("unit", unitt);
                                     startActivity(intent);
-                                }
-                                else {
+                                } else {
                                     int nv = 0;
                                     int Qntt = cursor.getInt(8);
                                     nv = nv + Qntt;
                                     ContentValues values = new ContentValues();
                                     values.put("quantite", nv);
-                                    db.Update(DataBaseM.Table_name,values, "ID=?", new String[]{code});
+                                    db.Update(DataBaseM.Table_name, values, "ID=?", new String[]{code});
                                     dialog.dismiss();
-                                    Intent intent = new Intent(AjtProduit.this,ViewlistP.class);
+                                    Intent intent = new Intent(AjtProduit.this, ViewlistP.class);
                                     intent.putExtra("hello", textView.getText().toString());
                                     intent.putExtra("Nom", nomm);
-                                    intent.putExtra("type",typee);
-                                    intent.putExtra("unit",unitt);
-                                    Toast.makeText(getApplicationContext(),unitt,Toast.LENGTH_LONG).show();
+                                    intent.putExtra("type", typee);
+                                    intent.putExtra("unit", unitt);
 
                                     startActivity(intent);
                                 }
@@ -333,29 +359,17 @@ if(acc.getText().toString().isEmpty()){
                             }
                         });
 
-                    }
-                    else{
+                    } else {
                         Intent intent = new Intent(AjtProduit.this, ajtproduit2.class);
                         intent.putExtra("hello", textView.getText().toString());
                         intent.putExtra("Nom", nomm);
-                        intent.putExtra("type",typee);
-                        intent.putExtra("unit",unitt);
+                        intent.putExtra("type", typee);
+                        intent.putExtra("unit", unitt);
 
                         startActivity(intent);
                     }
 
 
-                }
-
-                else {
-                    Intent intent = new Intent(AjtProduit.this, ajtproduit2.class);
-                    intent.putExtra("hello", textView.getText().toString());
-                    intent.putExtra("Nom", nomm);
-                    intent.putExtra("type",typee);
-                    intent.putExtra("unit",unitt);
-
-
-                    startActivity(intent);
                 }
 
 

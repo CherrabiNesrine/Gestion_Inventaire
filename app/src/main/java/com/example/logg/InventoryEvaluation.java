@@ -288,10 +288,10 @@ public class InventoryEvaluation extends SidebarMenu {
                                 if (fgd2.getMonth() + 1 == i) {
                                     total_in_month = total_in_month + cuor[0].getLong(2);
                                 }
-                                array_total_in_duration.add(total_in_month);
+
                             }
                         }
-
+                        array_total_in_duration.add(total_in_month);
                         TextView t2v = new TextView(this);
                         t2v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,
                                 TableRow.LayoutParams.MATCH_PARENT));

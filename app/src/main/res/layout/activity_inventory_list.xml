@@ -15,8 +15,7 @@
         android:layout_marginVertical="8dp"
         android:horizontalSpacing="8dp"
         android:stretchMode="columnWidth"
-        android:divider="#f5f5f5"
-        android:dividerHeight="10.0sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

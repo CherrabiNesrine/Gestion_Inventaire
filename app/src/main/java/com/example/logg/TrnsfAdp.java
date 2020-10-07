@@ -67,7 +67,7 @@ public class TrnsfAdp extends BaseAdapter {
 
         final String CODE = code.getText().toString();
 
-        warehouse1.setText("FROM : "+ItWare1.get(position)+" TO : "+ItWare2.get(position));
+        warehouse1.setText(ItWare1.get(position)+","+ItWare2.get(position));
 
         code.setText(Itcode.get(position));
         if (imageId.size()!=0) {

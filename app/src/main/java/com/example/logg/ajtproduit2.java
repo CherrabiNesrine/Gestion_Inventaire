@@ -162,7 +162,6 @@ public class ajtproduit2 extends SidebarMenu {
         op3 = (Button) findViewById(R.id.op3);
         opba4 = (Button) findViewById(R.id.opba4);
         image = (ImageView) findViewById(R.id.imgv);
-        image.setImageResource(R.mipmap.vv);
         rgt = (RadioGroup) findViewById(R.id.rgt);
         RGd = (RadioGroup) findViewById(R.id.RGd);
         Unit = (AutoCompleteTextView) findViewById(R.id.unit);
@@ -894,17 +893,18 @@ Unit.setText(p.getmesure());
                             if (oneprenom.getText().toString().isEmpty()) {
                                 in2.setError("this field can not be blank ");
                             } else if (!oneNom.getText().toString().isEmpty() && !oneprenom.getText().toString().isEmpty()) {
-                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp=" + oneNom.getText().toString() + " and prenomOp =" + "'" + oneprenom.getText().toString() + "'")};
-                                if (cursor[0] != null) {
-                                    customer.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
+                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp='"+oneNom.getText().toString()+"'"+"and prenomOp = '" + oneprenom.getText().toString()+"'")};
+                                if(cursor[0]==null || cursor[0].getCount()<=0) {
+                                    layy1.setVisibility(View.GONE);
+                                    layy2.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    supplier.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
                                     dialog2.dismiss();
                                     Toast.makeText(getApplicationContext(), "this person  Already  exists ", Toast.LENGTH_LONG).show();
 
                                 }
-                                else {
-                                    layy1.setVisibility(View.GONE);
-                                    layy2.setVisibility(View.VISIBLE);
-                                }
+
                             }
                         }
                     });
@@ -1180,7 +1180,7 @@ Unit.setText(p.getmesure());
                     final EditText  oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
                     final AutoCompleteTextView secteur, taille, statujur;
                     final TextInputLayout in1, in2, in3, in4, in5, in6, in7, in8, in9, in10;
-                    final RadioGroup RGC;
+
                     TextView operaComp, opera;
                     layy0 = (LinearLayout) view.findViewById(R.id.layy0);
                     layy1 = (LinearLayout) view.findViewById(R.id.layy1);
@@ -1206,7 +1206,7 @@ Unit.setText(p.getmesure());
                     in10 = (TextInputLayout) view.findViewById(R.id.in10);
                     final LinearLayout conss1 = (LinearLayout) view.findViewById(R.id.lil);
 
-                    RGC = (RadioGroup) view.findViewById(R.id.rgc);
+                   RadioGroup RGC = (RadioGroup)view.findViewById(R.id.rgc);
 
                     bk1 = (Button) view.findViewById(R.id.bk1);
                     bk2 = (Button) view.findViewById(R.id.bk2);
@@ -1249,17 +1249,7 @@ Unit.setText(p.getmesure());
 
 
 
-                    RGC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-                            int i;
-                            i = RGC.getCheckedRadioButtonId();
-                            RadioButton catt = (RadioButton) findViewById(i);
-                            Fact.setType(catt.getText().toString());
 
-
-                        }
-                    });
                     oneNom.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1351,6 +1341,7 @@ Unit.setText(p.getmesure());
 
                         }
                     });
+
 
                     entreprise.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -1503,18 +1494,21 @@ Unit.setText(p.getmesure());
 
                             if (oneprenom.getText().toString().isEmpty()) {
                                 in2.setError("this field can not be blank ");
-                            } else if (!oneNom.getText().toString().isEmpty() && !oneprenom.getText().toString().isEmpty()) {
-                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp=" + oneNom.getText().toString() + " and prenomOp =" + "'" + oneprenom.getText().toString() + "'")};
-                                if (cursor[0] != null) {
-                                    customer.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
-                                    dialog2.dismiss();
-                                    Toast.makeText(getApplicationContext(), "this person  Already  exists ", Toast.LENGTH_LONG).show();
-
-                                } else {
+                            }
+                            else if (!oneNom.getText().toString().isEmpty() && !oneprenom.getText().toString().isEmpty()) {
+                                Cursor[] cursor = new Cursor[]{db.getData("SELECT * FROM OPERATEUR where nomOp= '" +oneNom.getText().toString()+"' and prenomOp =" + "'" + oneprenom.getText().toString() + "'")};
+                                if(cursor[0]==null || cursor[0].getCount()<=0) {
 
 
                                     layy1.setVisibility(View.GONE);
                                     layy2.setVisibility(View.VISIBLE);
+                                }
+
+                                else {
+                                    customer.setText(oneNom.getText().toString() + " " + oneprenom.getText().toString());
+                                    dialog2.dismiss();
+                                    Toast.makeText(getApplicationContext(), "this person  Already  exists ", Toast.LENGTH_LONG).show();
+
                                 }
                             }
                         }
