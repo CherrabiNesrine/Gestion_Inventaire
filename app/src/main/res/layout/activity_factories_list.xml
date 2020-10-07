@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#fff"
     tools:context=".factoriesList">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,12 +37,38 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <ListView
             android:id="@+id/lstfact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#fff"></ListView>
+            android:layout_marginVertical="8dp"
+            android:horizontalSpacing="8dp"
+            android:stretchMode="columnWidth"
+            android:layout_margin="6dp"
+            android:backgroundTint="#fff"/>
+            <ImageView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="20dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/faq"
+                android:visibility="gone"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/emptyTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No item found "
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
 
 
     </ScrollView>

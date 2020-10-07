@@ -9,37 +9,41 @@
         <item
             android:id="@+id/profile"
             android:title="Profile"
-            android:icon="@drawable/u"/>
+            android:icon="@drawable/ic_prof"/>
         <item
             android:id="@+id/Produit"
-            android:title="Add a product"
-            android:icon="@mipmap/pro"/>
+            android:title="product"
+            android:icon="@drawable/ic_bo"/>
         <item
             android:id="@+id/Inventaire"
             android:title="Inventory"
-            android:icon="@mipmap/invent"/>
+            android:icon="@drawable/ic_inventory"/>
         <item
             android:id="@+id/Magazins"
-            android:title="Magazins"
-            android:icon="@mipmap/house"
+            android:title="warehouses"
+            android:icon="@drawable/ic_wareh"
             />
         <item
             android:id="@+id/fact"
             android:title="Operators "
-            android:icon="@drawable/ic_usercs" />
+            android:icon="@drawable/ic_oper" />
+        <item android:title="Expenses "
+            android:icon="@drawable/ic_doll"
+            android:id="@+id/Expenses"/>
         <item
             android:id="@+id/Document"
             android:title="Documents "
-            android:icon="@drawable/ic_descr" />
+            android:icon="@drawable/ic_documents" />
         <item
             android:id="@+id/Apropos"
             android:title="About"
-            android:icon="@mipmap/abt"
+            android:icon="@drawable/ic_information"
             />
         <item
         android:id="@+id/logout"
         android:title="logout"
-        android:icon="@mipmap/logout" />
+        android:icon="@drawable/ic_exit" />
+
     </group>
 
 

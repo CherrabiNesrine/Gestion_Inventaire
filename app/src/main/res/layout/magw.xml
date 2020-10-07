@@ -61,7 +61,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/contin"
-                    android:backgroundTint="#4949E7"
+                    android:backgroundTint="@color/colorPrimary"
 
                     android:elevation="4dp"
                     android:text="ok"

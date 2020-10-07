@@ -47,10 +47,9 @@
                     android:id="@+id/opera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="let's Add a new operator !"
+                    android:text=" Let's Add a new operator !"
                     android:textSize="24sp"
                     android:textColor="#000"
-                    android:textStyle="normal"
                     android:textAlignment="center"/>
                 <Button
                     android:id="@+id/startad"
@@ -98,7 +97,7 @@
                         android:layout_margin="10dp"
                         android:hint=" First Name * "
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -120,7 +119,7 @@
                         android:hint="Family Name *"
                         android:layout_margin="10dp"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
                     android:id="@+id/lil"
@@ -145,7 +144,7 @@
                             android:textColor="#feb552"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            android:typeface="serif"
+                           
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -178,7 +177,7 @@
                                 android:elevation="4dp"
                           android:layout_marginRight="5dp"
                                 android:text="individual"
-                                android:typeface="serif" />
+                                />
 
                             <RadioButton
                                 android:id="@+id/asso"
@@ -188,35 +187,13 @@
                                 android:backgroundTint="#fff"
                                 android:elevation="4dp"
                                 android:text="Business"
-                                android:typeface="serif" />
+                                />
 
 
                         </RadioGroup>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-android:id="@+id/taux"
-                        android:hint="reduction rate"
-                        app:errorEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tauxred"
-                            android:layout_width="match_parent"
-                            android:layout_height="52dp"
-                            android:layout_margin="10dp"
-                            android:layout_gravity="center"
-                            android:drawableRight="@drawable/ic_portfolio"
-                            android:drawablePadding="8dp"
-                            android:drawableTint="@color/colorPrimary"
-                            android:ems="10"
-
-                            android:inputType="numberDecimal"
-                            android:typeface="serif" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
 
                 </LinearLayout>
@@ -242,7 +219,7 @@ android:id="@+id/taux"
                         android:ems="10"
                         android:hint="Job"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -265,7 +242,7 @@ android:id="@+id/taux"
                         android:layout_margin="10dp"
                         android:hint=" Provider Address"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -348,7 +325,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="Phone Number * "
                         android:inputType="phone"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -370,7 +347,7 @@ android:id="@+id/in3"
                         android:hint="Email * "
                         android:layout_margin="10dp"
                         android:inputType="textWebEmailAddress"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -392,7 +369,7 @@ android:id="@+id/in3"
                         android:hint="Facebook"
                         android:layout_margin="10dp"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -413,7 +390,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="LinkedIn "
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -434,7 +411,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="Twitter"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -561,7 +538,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="Company  Name * "
                         android:inputType="textPersonName"
-                        android:typeface="serif"
+                       
 
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -585,7 +562,7 @@ android:id="@+id/in3"
                         android:ems="10"
                         android:hint="tax identification number (NIF) *"
                         android:inputType="number"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -609,7 +586,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:inputType="number"
                         android:lines="2"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -629,7 +606,7 @@ android:id="@+id/in3"
                         android:hint="Activity Sector"
                         android:layout_margin="10dp"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -652,7 +629,7 @@ android:id="@+id/in3"
                         android:hint="Factory size"
 
                         android:inputType="textEmailAddress"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -674,7 +651,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="legal status"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -760,7 +737,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="Company Address"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -783,7 +760,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint=" Company Phone Number * "
                         android:inputType="phone"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -806,7 +783,7 @@ android:id="@+id/in3"
                         android:hint=" Company Email * "
                         android:layout_margin="10dp"
                         android:inputType="textWebEmailAddress"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -829,7 +806,7 @@ android:id="@+id/in3"
                         android:hint="webSite"
                         android:layout_margin="10dp"
                         android:inputType="text"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -852,7 +829,7 @@ android:id="@+id/in3"
                         android:layout_margin="10dp"
                         android:hint="Fax"
                         android:inputType="number"
-                        android:typeface="serif" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

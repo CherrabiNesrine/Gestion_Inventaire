@@ -148,7 +148,8 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
         } else if (id == R.id.Inventaire) {
             Toast.makeText(getApplicationContext(), "Inventory", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, InventoryActivity.class);
+            Intent intent = new Intent(this, InventoryList.class);
+            intent.putExtra("check","care");
             startActivity(intent);
         } else if (id == R.id.Magazins) {
             Toast.makeText(getApplicationContext(), "Magazins", Toast.LENGTH_SHORT).show();
@@ -179,6 +180,12 @@ public class SidebarMenu extends AppCompatActivity implements NavigationView.OnN
         else if (id == R.id.fact) {
             Toast.makeText(getApplicationContext(), "Operators", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,factoriesList.class);
+            startActivity(intent);
+
+        }
+        else if (id == R.id.Expenses) {
+            Toast.makeText(getApplicationContext(), "Expenses", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,DepenseMain.class);
             startActivity(intent);
 
         }

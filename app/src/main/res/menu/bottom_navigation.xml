@@ -2,6 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nav_add" android:icon="@drawable/ic_add" android:title="New" />
     <item android:id="@+id/nav_view" android:icon="@drawable/ic_boxes" android:title="View"/>
-    <item android:id="@+id/nav_trash" android:icon="@drawable/ic_send_to_trash" android:title="Trash"/>
 
 </menu>

@@ -16,7 +16,7 @@ public class Produit {
     private Date dateDel;
     private byte[] image;
     public Produit() {
-        Code=name=MAG=factory=description=mesure=typePr=categorie=sous=fournisseur=client=coins=coin=matiere="";
+        Code=name=MAG=factory=description=mesure=typePr=categorie=sous=fournisseur=client=matiere="";
         quantite=123;
         qttmin=0;
         Fab.setYear(2000);
@@ -31,6 +31,7 @@ public class Produit {
          dateDel = new Date();
         price=0;
         prixS=0;
+        coins=coin="Algerian dinar";
 
     }
 

@@ -93,20 +93,8 @@ public class magAdap extends BaseAdapter {
                 DataBaseM db = new DataBaseM(mContext);
                 db.QueryData();
                 Cursor cursor = db.getData("SELECT * FROM prod where idmag ='" +Mnom.get(position)+"'");
-                Toast.makeText(mContext, NOOm +"kch", Toast.LENGTH_LONG).show();
 
-                if (((cursor != null) && (cursor.getCount() > 0))) {
-
-                    Toast.makeText(mContext, "No sorry we can't their is products in this warehouse ", Toast.LENGTH_LONG).show();
-                    magdel.setFocusableInTouchMode(false);magdel.setFocusable(false);
-
-                }
-                else{
-
-
-                    Toast.makeText(mContext, "lol we can  ", Toast.LENGTH_LONG).show();
-
-
+                if (((cursor == null) && (cursor.getCount() <= 0))) {
 
 
                     final AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
@@ -119,14 +107,17 @@ public class magAdap extends BaseAdapter {
 
                             DataBaseM db =new DataBaseM(mContext);
                             db.Delete("mag","nomMAg=?",new String[]{Mnom.get(position)});
-
+                            Mnom.remove(position);
+                            MTYPE.remove(position);
+                            MUNIT.remove(position);
+                            notifyDataSetChanged();
                             magdel.setFocusableInTouchMode(false);magdel.setFocusable(false);
 
                         }
                     });
                     alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(mContext, "here we are ", Toast.LENGTH_SHORT).show();
+
 
                             alertDialog.dismiss();
 
@@ -144,6 +135,20 @@ public class magAdap extends BaseAdapter {
 
                     alertDialog.show();
 
+
+
+
+
+
+
+                }
+                else{
+
+
+
+                    Toast.makeText(mContext, "No sorry we can't their is products in this warehouse ", Toast.LENGTH_LONG).show();
+                    magdel.setFocusableInTouchMode(false);
+                    magdel.setFocusable(false);
 
 
 

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -91,31 +92,42 @@ public class Transfers extends Fragment {
         final View rootView= inflater.inflate(R.layout.fragment_transfers, container, false);
         final ArrayList<String> wrh1=new ArrayList<>();
         final ArrayList<String> wrh2=new ArrayList<>();
+        final ArrayList<String> dates=new ArrayList<>();
         final ArrayList<String> CODE=new ArrayList<>();
         final ArrayList<byte[]> Images=new ArrayList<>();
-
+        ImageView imv ;
+        TextView empt;
         ListView listView = (ListView)rootView.findViewById(R.id.lstDocSale);
-        final TrnsfAdp adpter = new TrnsfAdp(rootView.getContext(), wrh1,wrh2,CODE ,Images);
+        final TrnsfAdp adpter = new TrnsfAdp(rootView.getContext(), wrh1,wrh2,CODE ,Images,dates);
         listView.setAdapter(adpter);
         final DataBaseM db= new DataBaseM(rootView.getContext());
         db.QueryData();
 
         Cursor cursor = db.getData("SELECT * FROM transfert ");
-        while (cursor.moveToNext()) {
-            String code = cursor.getString(0);
-            String warh1 = cursor.getString(3);
-            String warh2 = cursor.getString(4);
-            Cursor[]  cursor2 = {db.getData("SELECT * FROM prod where ID= "+code)};
-            while (cursor2[0].moveToNext()){
-                byte[] image = cursor2[0].getBlob(21);
-                Images.add(image);
+        if (cursor==null || cursor.getCount()<=0){
+            imv =(ImageView)rootView.findViewById(R.id.empty);
+            empt =(TextView)rootView.findViewById(R.id.emptyTxt);
+            imv.setVisibility(View.VISIBLE);
+            empt.setVisibility(View.VISIBLE);
+            empt.setText("No forwards operation  found ");
+            listView.setVisibility(View.GONE);
+        }
+        else {
+            while (cursor.moveToNext()) {
+                String code = cursor.getString(1);
+                String warh1 = cursor.getString(4);
+                String warh2 = cursor.getString(5);
+                String dattte= cursor.getString(3);
+                Cursor[] cursor2 = {db.getData("SELECT * FROM prod where ID='"+code+"'")};
+                while (cursor2[0].moveToNext()) {
+                    byte[] image = cursor2[0].getBlob(21);
+                    Images.add(image);
+                }
+                wrh1.add(warh1);
+                wrh2.add(warh2);
+                CODE.add(code);
+                adpter.notifyDataSetChanged();
             }
-
-
-            wrh1.add(warh1);
-            wrh2.add(warh2);
-            CODE.add(code);
-            adpter.notifyDataSetChanged();
         }
         Button btn = (Button)rootView.findViewById(R.id.trnsfADD);
 
@@ -147,7 +159,8 @@ public class Transfers extends Fragment {
                 final ArrayList<String> MAG1 = new ArrayList<>();
                 final ArrayList<String> MAG2 = new ArrayList<>();
                 db.QueryData();
-                Cursor cursor = db.getData("SELECT * FROM prod ");
+                Cursor cursor = db.getData("SELECT * FROM prod where dateDel = '01/01/2000' ");
+
                 while(cursor.moveToNext()){
                     String code= cursor.getString(0);
                     String mag1=cursor.getString(16);
@@ -254,6 +267,7 @@ public class Transfers extends Fragment {
                                 db.InsertDataTranfert(prd.getText().toString(), Long.parseLong(qnt.getText().toString()), TRNFR, warehouse1, Warehouse2,Etat);
                                 adpter.notifyDataSetChanged();
                                 dialog2.dismiss();
+                                adpter.notifyDataSetChanged();
 
                                 Toast.makeText(rootView.getContext(), "done", Toast.LENGTH_LONG).show();
                             }

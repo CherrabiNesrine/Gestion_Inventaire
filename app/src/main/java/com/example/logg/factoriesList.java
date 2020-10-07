@@ -80,6 +80,8 @@ public class factoriesList extends SidebarMenu {
     static FournisseurADP adpter = null;
     ListView listView;
     Button addF;
+    ImageView imv ;
+    TextView empt;
     private ArrayList<String> selectedStrings;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<String> DelItemN = new ArrayList<>();
@@ -115,8 +117,15 @@ public class factoriesList extends SidebarMenu {
 
 
         Cursor cursor = db.getData("SELECT * FROM fournisseur");
+        if (cursor == null || cursor.getCount() <= 0) {
+            imv = (ImageView) findViewById(R.id.empty);
+            empt = (TextView) findViewById(R.id.emptyTxt);
+            imv.setVisibility(View.VISIBLE);
+            empt.setVisibility(View.VISIBLE);
+            empt.setText("No factory found ");
+            listView.setVisibility(View.GONE);
+        } else {
 
-        if (cursor != null) {
             while (cursor.moveToNext()) {
 
                 String nom = cursor.getString(1);
@@ -129,16 +138,14 @@ public class factoriesList extends SidebarMenu {
                 final Cursor[] cursor1 = {db.getData("select * from OPERATEUR where nomOp = '" + nom + "' and  prenomOp = '" + prenom + "'")};
                 while (cursor1[0].moveToNext()) {
                     byte[] image = cursor1[0].getBlob(11);
-                    String entrep= cursor1[0].getString(3);
+                    String entrep = cursor1[0].getString(3);
                     Images.add(image);
                     Entreprise.add(entrep);
                 }
                 adpter.notifyDataSetChanged();
             }
         }
-        else {
-            Toast.makeText(getApplicationContext(), "please add a provider", Toast.LENGTH_LONG).show();
-        }
+
 
         listView.setMultiChoiceModeListener(new MultiChoiceModeListener());
 
@@ -496,7 +503,6 @@ public class factoriesList extends SidebarMenu {
                     TextView message = (TextView) view.findViewById(R.id.messageerdel);
                     Button acc = (Button) view.findViewById(R.id.btn_accc);
                     Button nacc = (Button) view.findViewById(R.id.cancel);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
                     title.setText("");
                     message.setText("Do you really want to delete this provider ");
                     dateAlt.setView(view);
@@ -1304,9 +1310,7 @@ public class factoriesList extends SidebarMenu {
                     TextView message = (TextView) view.findViewById(R.id.messageer);
                     Button acc = (Button) view.findViewById(R.id.btn_acc);
                     Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
                     title.setText("OPEN");
-                    img.setImageResource(R.drawable.ic_action_cameraa);
                     message.setText("do you want to open camera or gallery  ");
                     dateAlt.setView(view);
                     acc.setText("CAMERA");

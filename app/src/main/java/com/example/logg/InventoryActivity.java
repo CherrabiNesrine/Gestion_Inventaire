@@ -10,13 +10,25 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 
 public class InventoryActivity extends SidebarMenu {
-TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
+TextView textListItem,stockCoast,  Profisetpertes,depense,Docum,invMovHis;
+String dtinv="01/01/2000";
+String duration="12";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("duration")) {
+                duration = intent.getStringExtra("duration");
+            }
+            if (intent.hasExtra("Date")){
+                dtinv=intent.getStringExtra("Date");
+            }
+        }
+        //inflate your activity layout here!
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_inventaire, null, false);
         drawer.addView(contentView, 0);
         ActionBar actionBar = getSupportActionBar();
@@ -26,6 +38,8 @@ TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(InventoryActivity.this,Rapport_Item_liste.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
                 startActivity(intent);
             }
         });
@@ -34,6 +48,8 @@ TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InventoryActivity.this,Inventory_Stock_Coast_Repport.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
                 startActivity(intent);
             }
         });
@@ -44,6 +60,8 @@ TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InventoryActivity.this,ProfitsEtPertes.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
                 startActivity(intent);
             }
         });
@@ -53,6 +71,8 @@ TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InventoryActivity.this,ExpensesReport.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
                 startActivity(intent);
             }
         });
@@ -61,6 +81,19 @@ TextView textListItem,stockCoast,  Profisetpertes,depense,Docum;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InventoryActivity.this,DocumentReport.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
+                startActivity(intent);
+            }
+        });
+
+       invMovHis =(TextView)findViewById(R.id.InvHisRap);
+        invMovHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InventoryActivity.this,InventoryMain.class);
+                intent.putExtra("Date", dtinv);
+                intent.putExtra("duration", duration);
                 startActivity(intent);
             }
         });

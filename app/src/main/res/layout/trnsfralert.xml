@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
@@ -19,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Forward products :"
+                android:textColor="#000"
                 android:textSize="30dp"
                 android:textStyle="bold" />
             <TextView
@@ -29,110 +31,117 @@
                 android:layout_marginLeft="2dp"
                 android:text="Date : 01/01/2021"
                 android:textSize="24dp"
-                android:textStyle="bold" />
-
+                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
+                android:layout_margin="20dp"
+                android:background="@drawable/contin"
+                android:backgroundTint="#ffffff"
+                android:orientation="vertical">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/trlay1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/colorPrimary"
+                        >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/prd"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="@color/colorPrimary"
+
+                            android:dropDownHeight="wrap_content"
+                            android:hint="Products"
+                            android:textColorHint="@color/colorPrimary" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        app:errorEnabled="true"
+                        android:id="@+id/trlayqnt"
+                        android:textColorHint="@color/colorPrimary"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/prdQnt"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:hint="Quantity"
+
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="From :"
+                    android:layout_margin="20dp"
+                    android:textSize="18dp"
+
+                    />
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/trlay1"
-                    android:layout_width="200dp"
+                    android:id="@+id/trlay2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
                     android:textColorHint="@color/colorPrimary"
                     >
-
-                    <AutoCompleteTextView
-                        android:id="@+id/prd"
-                        android:layout_width="119dp"
+                    <MultiAutoCompleteTextView
+                        android:id="@+id/wareH1"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:hint="warehouse 1 "
+                        android:backgroundTint="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="To :"
+                    android:layout_margin="20dp"
+                    android:textSize="18dp"
+
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/trlay3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    android:textColorHint="@color/colorPrimary"
+                    >
+                    <AutoCompleteTextView
+                        android:id="@+id/wareH2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:dropDownHeight="wrap_content"
+                        android:hint="warehouse 2"
                         android:layout_margin="10dp"
                         android:backgroundTint="@color/colorPrimary"
-
-                        android:dropDownHeight="wrap_content"
-                        android:hint="Products"
-                        android:textColorHint="@color/colorPrimary" />
+                        android:textColorHint="@color/colorPrimary"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <Spinner
+                    android:id="@+id/etatP"
+                    android:layout_marginTop="30dp"
                     android:layout_width="match_parent"
-                    app:errorEnabled="true"
-                    android:id="@+id/trlayqnt"
-                    android:textColorHint="@color/colorPrimary"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textAlignment="center"
+                    />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/prdQnt"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:hint="Quantity"
 
-                        android:inputType="number" />
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="From :"
-                android:layout_margin="20dp"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                />
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/trlay2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:textColorHint="@color/colorPrimary"
-                >
-                <MultiAutoCompleteTextView
-                    android:id="@+id/wareH1"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="warehouse 1 "
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="To :"
-                android:layout_margin="20dp"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                />
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/trlay3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:textColorHint="@color/colorPrimary"
-                >
-                <AutoCompleteTextView
-                    android:id="@+id/wareH2"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:dropDownHeight="wrap_content"
-                    android:hint="warehouse 2"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Spinner
-                android:id="@+id/etatP"
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                />
             <Button
                 android:id="@+id/btnOK"
                 android:layout_width="90dp"
@@ -140,9 +149,10 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="ok"
-                android:textColor="#fff"
                 android:background="@drawable/contin"
-                android:backgroundTint="@color/required"/>
+                android:layout_marginBottom="20dp"
+                android:textColor="#fff"
+                android:backgroundTint="@color/colorPrimary"/>
         </LinearLayout>
     </ScrollView>
 

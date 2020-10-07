@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class purchases extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -76,22 +80,44 @@ public class purchases extends Fragment {
         final View rootView= inflater.inflate(R.layout.fragment_purchases, container, false);
         final ArrayList<String> NOM=new ArrayList<>();
         final ArrayList<String> CODE=new ArrayList<>();
+        final ArrayList<Long> QNTT=new ArrayList<>();
         final ArrayList<byte[]> Images=new ArrayList<>();
+        ImageView imv ;
+        TextView empt;
+        ArrayList<String> dateeE=new ArrayList<>();
         DcAdapter adpter = null;
         ListView listView = (ListView)rootView.findViewById(R.id.lstDocSale);
-        adpter = new DcAdapter(rootView.getContext(), NOM ,CODE ,Images);
+        adpter = new DcAdapter(rootView.getContext(), NOM ,CODE ,Images,1,dateeE);
         listView.setAdapter(adpter);
         DataBaseM db= new DataBaseM(rootView.getContext());
         db.QueryData();
-        Cursor cursor = db.getData("SELECT * FROM prod where client ="+null+" AND dateDel = '01/01/2000'");
-        while (cursor.moveToNext()) {
-            String code = cursor.getString(0);
-            String nom = cursor.getString(1);
-            byte[] image = cursor.getBlob(21);
-            NOM.add(nom);
-            CODE.add(code);
-            Images.add(image);
-            adpter.notifyDataSetChanged();
+        Cursor cursor = db.getData("SELECT * FROM purchase");
+        if (cursor==null || cursor.getCount()<=0){
+            imv =(ImageView)rootView.findViewById(R.id.empty);
+            empt =(TextView)rootView.findViewById(R.id.emptyTxt);
+            imv.setVisibility(View.VISIBLE);
+            empt.setVisibility(View.VISIBLE);
+            empt.setText("no purchase operation found ");
+            listView.setVisibility(View.GONE);
+        }
+        else {
+
+            while (cursor.moveToNext()) {
+                String code = cursor.getString(0);
+                long qntt = cursor.getLong(2);
+                QNTT.add(qntt);
+                Cursor cus = db.getData("SELECT * from prod where typePr ='Goods' AND ID='" + code + "'");
+                while (cus.moveToNext()) {
+                    String nom = cus.getString(1);
+                    byte[] image = cus.getBlob(21);
+
+                    NOM.add(nom);
+                    CODE.add(code);
+                    Images.add(image);
+                    dateeE.add(cus.getString(10));
+                    adpter.notifyDataSetChanged();
+                }
+            }
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -100,6 +126,10 @@ public class purchases extends Fragment {
                 intent.putExtra("Nomm", NOM.get(i));
                 intent.putExtra("code",CODE.get(i));
                 intent.putExtra("img",Images.get(i));
+                intent.putExtra("where","purshace");
+                intent.putExtra("qntt",String.valueOf(QNTT.get(i)));
+
+
 
                 startActivity(intent);
             }

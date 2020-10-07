@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.logg">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,17 +23,22 @@
         android:label="inventory management"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".DocumentReport"></activity>
+        android:theme="@style/AppTheme"
+        tools:replace="icon, label">
+        <activity android:name=".soldInMonth"></activity>
+        <activity android:name=".statisticsList" />
+        <activity android:name=".Sold_Purchase_statistics" />
+        <activity android:name=".sub_cat_statistics" />
+        <activity android:name=".InventoryEvaluation" />
+        <activity android:name=".InventoryMain" />
+        <activity android:name=".InvMovHis" />
+        <activity android:name=".DocumentReport" />
         <activity android:name=".ExpensesReport" />
         <activity
             android:name=".ProfitsEtPertes"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Inventory_Stock_Coast_Repport"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".InvMovHis"
             android:screenOrientation="landscape" />
         <activity android:name=".InventoryList" />
         <activity
@@ -52,7 +58,6 @@
             android:name=".Miseajour"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
         <activity android:name=".Photo" />
-        <activity android:name=".Trash" />
         <activity android:name=".ViewlistP" />
         <activity android:name=".BottomNav" />
         <activity
@@ -62,7 +67,6 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".Rapport" />
         <activity
             android:name=".EditProfile"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
@@ -78,6 +82,7 @@
         <activity
             android:name=".SidebarMenu"
             android:screenOrientation="landscape" />
+        <activity android:name=".DepenseMain" />
         <activity
             android:name=".factoriesList"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustResize" />
@@ -88,6 +93,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.logg.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

@@ -37,7 +37,7 @@
         android:id="@+id/hello"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="center"
+        android:scaleType="fitXY"
         android:src="@mipmap/hommejpg"
 
          />
@@ -54,7 +54,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@color/colorAccent"
         android:drawableLeft="@drawable/ic_mode_edit_black_24dp" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:drawableLeft="@drawable/ic_camera_alt_black_24dp"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@color/colorAccent"
         android:visibility="invisible" />
     <TextView
         android:id="@+id/gobac"
@@ -78,7 +78,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
-        android:drawableTint="@color/colorPrimaryDark" />
+        android:drawableTint="@color/colorAccent" />
 
     <TextView
         android:id="@+id/donne"
@@ -92,7 +92,7 @@
         android:layout_marginRight="28dp"
         android:drawableLeft="@drawable/ic_check"
         android:visibility="invisible"
-        android:drawableTint="@color/colorPrimaryDark" />
+        android:drawableTint="@color/colorAccent" />
 
 
     <TextView
@@ -104,6 +104,7 @@
         android:textStyle="bold"
         android:text="hello world"
         android:gravity="center"
+        android:textColor="#000"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
@@ -120,14 +121,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_margin="20dp"
-                android:layout_height="200dp">
+                android:layout_height="150dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Contact :"
                     android:textStyle="bold"
-
+                    android:textColor="#000"
+                    android:layout_marginBottom="5dp"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +150,7 @@
                     android:backgroundTint="#fff"
                     android:drawableLeft="@drawable/ic_twitter"
 
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.046"
@@ -165,7 +167,7 @@
                     android:background="@drawable/altrnbutton"
                     android:backgroundTint="#fff"
                     android:drawableLeft="@drawable/ic_emaill"
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.347"
@@ -179,7 +181,7 @@
                     android:background="@drawable/altrnbutton"
                     android:drawableLeft="@drawable/ic_face"
                     android:backgroundTint="#fff"
-android:drawableTint="@color/colorPrimaryDark"
+android:drawableTint="@color/colorAccent"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -195,7 +197,7 @@ android:drawableTint="@color/colorPrimaryDark"
                     android:background="@drawable/altrnbutton"
                     android:backgroundTint="#fff"
                     android:drawableLeft="@drawable/ic_phonee"
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorAccent"
                     android:elevation="2dp"
 
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -215,7 +217,7 @@ android:drawableTint="@color/colorPrimaryDark"
                     android:elevation="2dp"
                     android:backgroundTint="#fff"
                     android:drawableLeft="@drawable/ic_linkedin"
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -230,7 +232,7 @@ android:drawableTint="@color/colorPrimaryDark"
                     android:drawableLeft="@drawable/ic_whatsapp"
 
 android:backgroundTint="#fff"
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.827"
@@ -263,7 +265,7 @@ android:elevation="2dp"
                 android:paddingLeft="18dp"
                 android:focusable="false"
                 android:drawableRight="@drawable/ic_chevron_right"
-                android:drawableTint="@color/colorPrimaryDark"
+                android:drawableTint="@color/colorAccent"
                 android:textStyle="bold"
                 android:background="@drawable/contin"
                 android:backgroundTint="#f5f5f5"
@@ -287,7 +289,7 @@ android:elevation="2dp"
             android:hint="Costumer Type"
             android:padding="18dp"
             android:textStyle="bold"
-            android:textColor="#d3d3d3"
+            android:textColor="#f5f5f5"
             android:background="@drawable/contin"
             android:backgroundTint="#f5f5f5"
             />
@@ -306,7 +308,7 @@ android:elevation="2dp"
             android:hint="Reduction "
             android:padding="18dp"
             android:textStyle="bold"
-            android:textColor="#d3d3d3"
+            android:textColor="#f5f5f5"
             android:background="@drawable/contin"
             android:backgroundTint="#f5f5f5"
             />
@@ -331,7 +333,7 @@ android:elevation="2dp"
                     android:padding="18dp"
 android:lines="2"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />
@@ -351,7 +353,7 @@ android:lines="2"
                     android:hint="Phone number "
                     android:padding="18dp"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />
@@ -372,7 +374,7 @@ android:lines="2"
                     android:lines="3"
                     android:padding="18dp"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />
@@ -392,7 +394,7 @@ android:lines="2"
                     android:hint="Email "
                     android:padding="18dp"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />
@@ -413,7 +415,7 @@ android:lines="2"
                     android:hint="linkedIn "
                     android:padding="18dp"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />
@@ -435,7 +437,7 @@ android:lines="2"
                     android:hint="Twitter "
                     android:padding="18dp"
                     android:textStyle="bold"
-                    android:textColor="#d3d3d3"
+                    android:textColor="#f5f5f5"
                     android:background="@drawable/contin"
                     android:backgroundTint="#f5f5f5"
                     />

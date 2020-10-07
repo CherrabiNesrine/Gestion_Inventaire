@@ -73,6 +73,8 @@ public class clientsliste extends SidebarMenu {
     ArrayList<byte[]> Images = new ArrayList<>();
     static clientslisteAdp adpter = null;
     ListView listView;
+    ImageView imv ;
+    TextView empt;
     Button addF;
     private ArrayList<String> selectedStrings;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -107,36 +109,40 @@ public class clientsliste extends SidebarMenu {
 
             Cursor cursor = db.getData("SELECT * FROM client");
 
-            if (cursor != null) {
-                while (cursor.moveToNext()) {
+        if (cursor==null || cursor.getCount()<=0){
+            imv =(ImageView)findViewById(R.id.empty);
+            empt =(TextView)findViewById(R.id.emptyTxt);
+            imv.setVisibility(View.VISIBLE);
+            empt.setVisibility(View.VISIBLE);
+            empt.setText("no customer found  ");
+            listView.setVisibility(View.GONE);
+        }
+        else {
+            while (cursor.moveToNext()) {
 
-                    String nom = cursor.getString(2);
+                String nom = cursor.getString(2);
 
-                    String prenom = cursor.getString(3);
+                String prenom = cursor.getString(3);
 
-                    String typpe= cursor.getString(4);
+                String typpe = cursor.getString(4);
 
 
+                Nom.add(nom);
+                Prenom.add(prenom);
+                TYPPE.add(typpe);
 
-                    Nom.add(nom);
-                    Prenom.add(prenom);
-                    TYPPE.add(typpe);
+                final Cursor[] cursor1 = {db.getData("select * from OPERATEUR where nomOp = '" + nom + "' and  prenomOp = '" + prenom + "'")};
+                while (cursor1[0].moveToNext()) {
+                    byte[] image = cursor1[0].getBlob(11);
+                    Images.add(image);
+                    String entre = cursor1[0].getString(3);
+                    Entreprise.add(entre);
 
-                    final Cursor[] cursor1 = {db.getData("select * from OPERATEUR where nomOp = '" + nom + "' and  prenomOp = '" + prenom + "'")};
-                    while (cursor1[0].moveToNext()) {
-                        byte[] image = cursor1[0].getBlob(11);
-                        Images.add(image);
-                        String entre=cursor1[0].getString(3);
-                        Entreprise.add(entre);
-
-                    }
-                    adpter.notifyDataSetChanged();
                 }
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "please add a Customer ", Toast.LENGTH_LONG).show();
+                adpter.notifyDataSetChanged();
             }
 
+        }
             listView.setMultiChoiceModeListener(new clientsliste.MultiChoiceModeListener());
 
             navigationView = (BottomNavigationView) findViewById(R.id.Bottom_nav);
@@ -191,7 +197,6 @@ public class clientsliste extends SidebarMenu {
                     TextView message = (TextView) view.findViewById(R.id.messageerdel);
                     Button acc = (Button) view.findViewById(R.id.btn_accc);
                     Button nacc = (Button) view.findViewById(R.id.cancel);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
                     title.setText("");
                     message.setText("Do you really want to delete this provider ");
                     dateAlt.setView(view);
@@ -320,7 +325,7 @@ public class clientsliste extends SidebarMenu {
             nxt4 = (Button) view.findViewById(R.id.nxt4);
 
             final LinearLayout  conss1 =(LinearLayout) view.findViewById(R.id.lil);
-            tauxred=(EditText) view.findViewById(R.id.tauxred);
+
 
             RGC=(RadioGroup)view.findViewById(R.id.rgc);
 
@@ -362,7 +367,6 @@ public class clientsliste extends SidebarMenu {
             in8 = (TextInputLayout) view.findViewById(R.id.in8);
             in9 = (TextInputLayout) view.findViewById(R.id.in9);
             in10 = (TextInputLayout) view.findViewById(R.id.in10);
-            taux = (TextInputLayout) view.findViewById(R.id.taux);
 
 
             dateAlt.setView(view);
@@ -600,30 +604,7 @@ public class clientsliste extends SidebarMenu {
 
                 }
             });
-            tauxred.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    int x = (int) floor(parseDouble(tauxred.getText().toString()));
-                    String x2= ""+x;
-                    if(x2.trim().length()>2){
-                        taux.setError("this should be a percentage exemple : 00.00");
-                    }
-                    else{
-                        taux.setError(null);
-                    }
-
-                }
-            });
 
             startad.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -824,7 +805,6 @@ public class clientsliste extends SidebarMenu {
                         svr.setImageResource(R.mipmap.vv);
                         Fact.setFactlogo(Imageviewtobyte(svr));
                         Fact.setImage(Imageviewtobyte(svr));
-                        Fact.setReduction(parseDouble(tauxred.getText().toString()));
                         Fact.setSite(site.getText().toString());
                         Fact.setFax(fax.getText().toString());
                         Fact.setStatujur(statujur.getText().toString());
@@ -982,11 +962,10 @@ public class clientsliste extends SidebarMenu {
             EditText nom = (EditText) convertView.findViewById(R.id.Mname);
             image = (ImageView) convertView.findViewById(R.id.Ma);
             EditText entreprises = (EditText) convertView.findViewById(R.id.Mfact);
-            TextView typeT=(TextView)convertView.findViewById(R.id.tgone);
             EditText type=(EditText)convertView.findViewById(R.id.cons);
             final Button mdel=(Button)convertView.findViewById(R.id.mdel);
             final Button mcons=(Button)convertView.findViewById(R.id.mcons);
-             typeT.setVisibility(View.VISIBLE);
+
              type.setVisibility(View.VISIBLE);
 mcons.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -1074,9 +1053,7 @@ mcons.setOnClickListener(new View.OnClickListener() {
                     TextView message = (TextView) view.findViewById(R.id.messageer);
                     Button acc = (Button) view.findViewById(R.id.btn_acc);
                     Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
                     title.setText("OPEN");
-                    img.setImageResource(R.drawable.ic_action_cameraa);
                     message.setText("do you want to open camera or gallery  ");
                     dateAlt.setView(view);
                     acc.setText("CAMERA");

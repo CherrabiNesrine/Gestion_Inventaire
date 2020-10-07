@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -68,7 +69,7 @@ public class ajtproduit2 extends SidebarMenu {
     EditText nom, qntete, prix, prixS, Exp, FAB, qttmin, desc;
     DataBaseM bd;
     Button add, op1, op2, op3, opba4;
-    TextInputLayout textInputLayout2, textInputLayout3, tip1, tip2, tip3, tip4;
+    TextInputLayout textInputLayout2,textInputLayout4, textInputLayout3, tip1, tip2, tip3, tip4,cus;
     LinearLayout lay1, lay2, lay3, lay4;
     ConstraintLayout cnst1, cnst2, cnst3, cnst4;
     Button opba, opba2, opba3;
@@ -167,10 +168,12 @@ public class ajtproduit2 extends SidebarMenu {
         Unit = (AutoCompleteTextView) findViewById(R.id.unit);
         textInputLayout2 = (TextInputLayout) findViewById(R.id.textInputLayout2);
         textInputLayout3 = (TextInputLayout) findViewById(R.id.textInputLayout3);
+        textInputLayout4 = (TextInputLayout) findViewById(R.id.textInputLayout4);
         tip1 = (TextInputLayout) findViewById(R.id.tip1);
         tip2 = (TextInputLayout) findViewById(R.id.tip2);
         tip3 = (TextInputLayout) findViewById(R.id.tip3);
         tip4 = (TextInputLayout) findViewById(R.id.tip4);
+        cus = (TextInputLayout) findViewById(R.id.cus);
         desc = (EditText) findViewById(R.id.desc);
         /////////////////////////////
 
@@ -230,10 +233,21 @@ public class ajtproduit2 extends SidebarMenu {
         op3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                if (qntete.getText().toString().trim().equalsIgnoreCase("")) {
-                    tip1.setError("This field can not be blank");
+                if (!prixS.getText().toString().trim().equalsIgnoreCase("")) {
+                    if(customer.getText().toString().isEmpty()){
+                      cus.setError("this field can not be blank ");
+                    }
+                    else{
+                        cus.setError(null);
+                        lay2.setVisibility(View.GONE);
+                        lay3.setVisibility(View.VISIBLE);
+                        cnst4.setVisibility(View.GONE);
+                        cnst2.setVisibility(View.VISIBLE);
+                    }
+
                 }
               else {
+                  cus.setError(null);
                     lay2.setVisibility(View.GONE);
                     lay3.setVisibility(View.VISIBLE);
                     cnst4.setVisibility(View.GONE);
@@ -396,7 +410,7 @@ public class ajtproduit2 extends SidebarMenu {
         });
 
         //-----------------------------------UNIT---------------------------
-        ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.unit, simple_list_item_1);
+       /* ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.unit, simple_list_item_1);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         Unit.setThreshold(0);
         Unit.setAdapter(dataAdapter);
@@ -409,7 +423,7 @@ public class ajtproduit2 extends SidebarMenu {
                 return false;
             }
         });*/
-
+Unit.setText(p.getmesure());
 //------------------------------------------- COINS AND SCOINS ---------------------------------------
         ArrayAdapter<CharSequence> dataAdapter2 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.coins, simple_list_item_1);
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -466,18 +480,50 @@ public class ajtproduit2 extends SidebarMenu {
                 ArrayAdapter<CharSequence> dataAdapter5 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.listNcons, simple_list_item_1);
                 dataAdapter5.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                 Scategorie.setThreshold(1);
+                Scategorie.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Scategorie.showDropDown();
+                        return false;
+                    }
+                });
                 Scategorie.setAdapter(dataAdapter5);
             } else if (cat.equals("Spare parts")) {
                 ArrayAdapter<CharSequence> dataAdapter5 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SpareLit, simple_list_item_1);
                 dataAdapter5.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                 Scategorie.setThreshold(1);
+                Scategorie.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Scategorie.showDropDown();
+                        return false;
+                    }
+                });
                 Scategorie.setAdapter(dataAdapter5);
             } else if (cat.equals("Raw materials")) {
+                ArrayAdapter<CharSequence> dataAdapter5 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SpareLit, simple_list_item_1);
+                dataAdapter5.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                Scategorie.setThreshold(1);
+                Scategorie.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Scategorie.showDropDown();
+                        return false;
+                    }
+                });
+                Scategorie.setAdapter(dataAdapter5);
 
             } else {
                 ArrayAdapter<CharSequence> dataAdapter5 = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SpareLit, simple_list_item_1);
                 dataAdapter5.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                 Scategorie.setThreshold(1);
+                Scategorie.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Scategorie.showDropDown();
+                        return false;
+                    }
+                });
                 Scategorie.setAdapter(dataAdapter5);
             }
         } else {
@@ -1131,9 +1177,9 @@ public class ajtproduit2 extends SidebarMenu {
                     final View view = LayoutInflater.from(ajtproduit2.this).inflate(R.layout.activity_factory, null);
                     final LinearLayout layy0, layy1, layy2, layy3, layy4, layy5;
                     Button nxt1, nxt2, nxt3, nxt4, startad2, startad, bk1, bk2, bk3, bk4;
-                    final EditText tauxred, oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
+                    final EditText  oneNom, oneprenom, oneJob, oneAdress, OnTlf, oneEmail, facebook, LinkedIn, Twitter, entreprise, nif, rg, compaddres, comtlf, compEmail, site, fax;
                     final AutoCompleteTextView secteur, taille, statujur;
-                    final TextInputLayout in1, in2, in3, in4, in5, in6, in7, in8, in9, in10,taux;
+                    final TextInputLayout in1, in2, in3, in4, in5, in6, in7, in8, in9, in10;
                     final RadioGroup RGC;
                     TextView operaComp, opera;
                     layy0 = (LinearLayout) view.findViewById(R.id.layy0);
@@ -1158,9 +1204,7 @@ public class ajtproduit2 extends SidebarMenu {
                     in8 = (TextInputLayout) view.findViewById(R.id.in8);
                     in9 = (TextInputLayout) view.findViewById(R.id.in9);
                     in10 = (TextInputLayout) view.findViewById(R.id.in10);
-                    taux = (TextInputLayout) view.findViewById(R.id.taux);
                     final LinearLayout conss1 = (LinearLayout) view.findViewById(R.id.lil);
-                    tauxred = (EditText) view.findViewById(R.id.tauxred);
 
                     RGC = (RadioGroup) view.findViewById(R.id.rgc);
 
@@ -1440,30 +1484,7 @@ public class ajtproduit2 extends SidebarMenu {
 
                         }
                     });
-                    tauxred.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable editable) {
-                            int x = (int) floor(parseDouble(tauxred.getText().toString()));
-                            String x2= ""+x;
-                            if(x2.trim().length()>2){
-                                taux.setError("this should be a percentage exemple : 00.00");
-                            }
-                            else{
-                                taux.setError(null);
-                            }
-
-                        }
-                    });
                     startad.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view2) {
@@ -1667,7 +1688,6 @@ public class ajtproduit2 extends SidebarMenu {
 
                                     }
                                 });
-                                Fact.setReduction(parseDouble(tauxred.getText().toString()));
                                 Fact.setSite(site.getText().toString());
                                 Fact.setFax(fax.getText().toString());
                                 Fact.setStatujur(statujur.getText().toString());
@@ -1772,9 +1792,7 @@ public class ajtproduit2 extends SidebarMenu {
                 TextView message = (TextView) view.findViewById(R.id.messageer);
                 Button acc = (Button) view.findViewById(R.id.btn_acc);
                 Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                ImageView img = (ImageView) view.findViewById(R.id.help);
                 title.setText("OPEN");
-                img.setImageResource(R.drawable.ic_action_cameraa);
                 message.setText("do you want to open camera or gallery  ");
                 dateAlt.setView(view);
                 acc.setText("CAMERA");
@@ -1866,18 +1884,14 @@ public class ajtproduit2 extends SidebarMenu {
                     case R.id.nav_view: {
                         Intent intent = new Intent(ajtproduit2.this, ViewlistP.class);
                         intent.putExtra("Nom", nomm);
+                        intent.putExtra("type",typee);
+                        intent.putExtra("unit",unitt);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     }
 
-                    case R.id.nav_trash: {
-                        Intent intent = new Intent(ajtproduit2.this, Trash.class);
-                        intent.putExtra("Nom", nomm);
-                        startActivity(intent);
-                        overridePendingTransition(0, 0);
-                        return true;
-                    }
+
                 }
                 return false;
             }
@@ -1920,7 +1934,6 @@ public class ajtproduit2 extends SidebarMenu {
                     TextView message = (TextView) view.findViewById(R.id.messageern);
                     Button acc = (Button) view.findViewById(R.id.btn_acc);
                     Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                    ImageView img = (ImageView) view.findViewById(R.id.help);
                     title.setText("Empty Fileds");
                     message.setText("Please  fill all fields ! ");
                     dateAlt.setView(view);
@@ -1947,13 +1960,34 @@ public class ajtproduit2 extends SidebarMenu {
                     p.setCoins(scoins.getText().toString());
                     p.setCategorie(Categorie.getText().toString());
                     p.setSous(Scategorie.getText().toString());
-                    p.setPrixS(parseDouble(prixS.getText().toString()));
+                    if(!prixS.getText().toString().isEmpty()){
+                    p.setPrixS(parseDouble(prixS.getText().toString()));}
                     p.setDescription(desc.getText().toString());
-                    p.setQttmin(Integer.parseInt(qttmin.getText().toString()));
+                    if(!qttmin.getText().toString().isEmpty()) {
+                        p.setQttmin(Integer.parseInt(qttmin.getText().toString()));
+                    }
                     Date ENTTR = new Date();
-                    bd.InsertDataProduit(p.getCode(), p.getName(), p.getFab(), p.getExp(), p.getCategorie(), p.getSous(), p.getMatiere(), p.getQuantite(), p.getPrice(), p.getTypePr(), ENTTR, p.getCoin(), p.getCoins(), p.getmesure(), p.getPrixS(), p.getDescription(), p.getFournisseur(), p.getClient(), nomm, p.getQttmin(), p.getDateDel(), bytes);
+                    if(!p.getClient().isEmpty()){
+                        p.setDateDel(ENTTR);
+                    }
+                    try {
+                      Toast.makeText(getApplicationContext(),p.getQuantite()+"",Toast.LENGTH_LONG).show();
+                        bd.InsertDataProduit(p.getCode(), p.getName(), p.getFab(), p.getExp(), p.getCategorie(), p.getSous(), p.getMatiere(), p.getQuantite(), p.getPrice(), p.getTypePr(), ENTTR, p.getCoin(), p.getCoins(), p.getmesure(), p.getPrixS(), p.getDescription(), p.getFournisseur(), p.getClient(), nomm, p.getQttmin(), p.getDateDel(), bytes);
+                        if (p.getTypePr().equals("Goods")) {
+                            db.InsertDataPurshase(p.getCode(), ENTTR, p.getQuantite(), p.getPrice());
 
-                    Toast.makeText(getApplicationContext(), "ADDING DONE ", Toast.LENGTH_LONG).show();
+
+                        }
+                        if (p.getPrixS() != 0 && p.getTypePr().equals("Goods")) {
+                            db.InsertDataSold(p.getCode(), ENTTR, p.getQuantite(), p.getPrixS());
+                        }
+                    }
+                    catch(Exception e ){
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"code or name already exists",Toast.LENGTH_LONG).show();
+
+                    }
+
 
                 }
             }
@@ -2036,5 +2070,16 @@ public class ajtproduit2 extends SidebarMenu {
 
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent=new Intent(ajtproduit2.this,AjtProduit.class);
+            intent.putExtra("Nom", nomm);
+            intent.putExtra("type",typee);
+            intent.putExtra("unit",unitt);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

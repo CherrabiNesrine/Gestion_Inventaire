@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class Sales extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,23 +82,50 @@ public class Sales extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_sales, container, false);
         final ArrayList<String> NOM=new ArrayList<>();
         final ArrayList<String> CODE=new ArrayList<>();
+        final ArrayList<Long> QNTT=new ArrayList<>();
         final ArrayList<byte[]> Images=new ArrayList<>();
+        ArrayList<String> dateeE=new ArrayList<>();
          DcAdapter adpter = null;
         ListView listView = (ListView)rootView.findViewById(R.id.lstDocSale);
-        adpter = new DcAdapter(rootView.getContext(), NOM ,CODE ,Images);
+        ImageView imv ;
+        TextView empt;
+        adpter = new DcAdapter(rootView.getContext(), NOM ,CODE ,Images,0,dateeE);
        listView.setAdapter(adpter);
         DataBaseM db= new DataBaseM(rootView.getContext());
         db.QueryData();
-        Cursor cursor = db.getData("SELECT * FROM prod where fournisseur <> "+null+" AND dateDel = '01/01/2000'");
-        while (cursor.moveToNext()) {
-                String code = cursor.getString(0);
-                String nom = cursor.getString(1);
-                byte[] image = cursor.getBlob(21);
-                NOM.add(nom);
-                CODE.add(code);
-                Images.add(image);
-                adpter.notifyDataSetChanged();
+
+        Cursor cus =db.getData("select * from sold ");
+        if (cus==null || cus.getCount()<=0){
+            imv =(ImageView)rootView.findViewById(R.id.empty);
+            empt =(TextView)rootView.findViewById(R.id.emptyTxt);
+            imv.setVisibility(View.VISIBLE);
+            empt.setVisibility(View.VISIBLE);
+            empt.setText("no sale operation found ");
+            listView.setVisibility(View.GONE);
         }
+        else {
+            while (cus.moveToNext()) {
+                String code = cus.getString(0);
+                long qntt = cus.getLong(2);
+                QNTT.add(qntt);
+                Cursor c = db.getData("select * from prod where ID = '" + code + "'");
+                while (c.moveToNext()) {
+                    String nom = c.getString(1);
+                    byte[] image = c.getBlob(21);
+                    dateeE.add(c.getString(10));
+                    Images.add(image);
+                    NOM.add(nom);
+                    CODE.add(code);
+                    adpter.notifyDataSetChanged();
+                }
+
+
+            }
+
+        }
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -102,6 +133,8 @@ public class Sales extends Fragment {
                 intent.putExtra("Nomm", NOM.get(i));
                 intent.putExtra("code",CODE.get(i));
                 intent.putExtra("img",Images.get(i));
+                intent.putExtra("where","sales");
+                intent.putExtra("qntt",String.valueOf(QNTT.get(i)));
 
                 startActivity(intent);
             }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TrnsfAdp extends BaseAdapter {
     private Context mContext;
@@ -22,14 +23,17 @@ public class TrnsfAdp extends BaseAdapter {
     private final ArrayList<String> ItWare2;
     private final ArrayList<String> Itcode;
     private final ArrayList<byte[]> imageId;
+    private final ArrayList<String> dates;
 
 
-    public TrnsfAdp(Context c,  ArrayList<String> ItWare1 , ArrayList<String> ItWare2, ArrayList<String> Itcode ,ArrayList<byte[]> imageId) {
+    public TrnsfAdp(Context c, ArrayList<String> ItWare1 , ArrayList<String> ItWare2, ArrayList<String> Itcode , ArrayList<byte[]> imageId, ArrayList<String> dates) {
         mContext = c;
         this.ItWare1 = ItWare1;
         this.ItWare2 = ItWare2;
         this.Itcode=Itcode;
         this.imageId = imageId;
+        this.dates=dates;
+
     }
 
 
@@ -57,18 +61,19 @@ public class TrnsfAdp extends BaseAdapter {
         }
 
         final TextView code= (TextView) convertView.findViewById(R.id.codeDoc);
-        final TextView warehouse1= (TextView) convertView.findViewById(R.id.wrh1);
-        final TextView warehouse2= (TextView) convertView.findViewById(R.id.wrh2);
-        Spinner etatP = (Spinner) convertView.findViewById(R.id.etatP);
+        final TextView Date= (TextView) convertView.findViewById(R.id.datetrn);
+        final TextView warehouse1= (TextView) convertView.findViewById(R.id.wareh);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageDoc);
 
         final String CODE = code.getText().toString();
 
-        warehouse1.setText(ItWare1.get(position));
-        warehouse2.setText(ItWare2.get(position));
+        warehouse1.setText("FROM : "+ItWare1.get(position)+" TO : "+ItWare2.get(position));
+
         code.setText(Itcode.get(position));
-        Bitmap bmp= BitmapFactory.decodeByteArray(imageId.get(position),0,imageId.get(position).length);
-        imageView .setImageBitmap(bmp);
+        if (imageId.size()!=0) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(imageId.get(position), 0, imageId.get(position).length);
+            imageView.setImageBitmap(bmp);
+        }
         return convertView;
 
 

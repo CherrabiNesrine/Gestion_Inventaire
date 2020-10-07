@@ -17,13 +17,62 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:layout_gravity="center"/>
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:id="@+id/DateRapport"/>
+        android:layout_margin="20dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Date"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/DateRapport"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ScrollView
         android:id="@+id/scrollView1"

@@ -67,8 +67,8 @@ byte[] image = null;
         inventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomeActivity.this,"stores", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(HomeActivity.this, InventoryActivity.class));
+                Toast.makeText(HomeActivity.this,"Inventories", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(HomeActivity.this, InventoryList.class));
 
             }
         });
@@ -100,8 +100,10 @@ byte[] image = null;
         depense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomeActivity.this,"", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+
+                        Toast.makeText(HomeActivity.this,"Expenses", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(HomeActivity.this, DepenseMain.class));
+
 
 
             }

@@ -357,9 +357,8 @@ public class ContactP extends SidebarMenu {
                 TextView message = (TextView) view.findViewById(R.id.messageer);
                 Button acc = (Button) view.findViewById(R.id.btn_acc);
                 Button nacc = (Button) view.findViewById(R.id.btn_nacc);
-                ImageView img = (ImageView) view.findViewById(R.id.help);
+
                 title.setText("OPEN");
-                img.setImageResource(R.drawable.ic_action_cameraa);
                 message.setText("do you want to open camera or gallery  ");
                 dateAlt.setView(view);
                 acc.setText("CAMERA");

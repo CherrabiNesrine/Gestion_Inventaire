@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_margin="20dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <RelativeLayout
+                android:id="@+id/re"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/colorPrimaryDark">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_dollar"
+                    android:tint="@color/white"
+                    android:layout_alignParentRight="true"
+                    ></ImageView>
+
+                <TextView
+                    android:id="@+id/ExpenseID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text=" Expense ID : "
+                    android:layout_marginTop="50sp"
+                    android:layout_marginBottom="25sp"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+
+
+                <TextView
+                    android:id="@+id/nom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:layout_below="@id/ExpenseID"
+                    android:text=" Expense name : "
+
+                    android:layout_marginBottom="25sp"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/ware"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Magazin name : "
+                    android:layout_below="@id/nom"
+                    android:layout_marginBottom="25sp"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ware"
+                    android:text=" Amount : "
+                    android:layout_marginBottom="50sp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/DateCrea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/re"
+                android:layout_marginBottom="25sp"
+                android:text=" Date : "
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" details : "
+                android:layout_below="@id/DateCrea"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+
+            <Button
+                android:id="@+id/OK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details"
+                android:layout_marginTop="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimaryDark"
+                android:text="OK"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -37,6 +37,8 @@ public class DataBaseM extends SQLiteOpenHelper {
     public static final String Table_commandes_prod= "student_subject";
 
     public static final String Table_name_Magasin="mag";
+    public static final String Table_name_Sold="sold";
+    public static final String Table_name_Purchase="purchase";
     public static final String Table_name_inventaire="inventaire";
     public static final String Table_name_Rapport="Rapport";
     public static final String Table_name_depenses="depense";
@@ -88,7 +90,7 @@ public class DataBaseM extends SQLiteOpenHelper {
 //-----------------------------------------------------------------------------------------
 
     public DataBaseM(@Nullable Context context) {
-        super(context,DataBase_name, null, 20);
+        super(context,DataBase_name, null, 31);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -105,7 +107,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Entreprise+"(NIF varchar(13)PRIMARY KEY,Nom varchar(20),RG varchar(20),secteur varchar(50),taille integer ,statujur varchar(60),email varchar,tlf varchar,Address varchar,Site varchar,Fax varchar, image BLOG)");
         db.execSQL("CREATE TABLE IF NOT EXISTS mag (nomMAg varchar PRIMARY KEY ,typemag varchar,mesuremag varchar)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" + Table_Column_ID + " INTEGER PRIMARY KEY, " + Table_Column_1_Name + " VARCHAR, " + Table_Column_2_Prenom + " VARCHAR, " + Table_Column_3_Password + " VARCHAR  ," + Table_Column_4_username + " VARCHAR ," + KEY_IMG + " blob)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name+"(ID varchar(14)PRIMARY KEY,Nom varchar(20),dateF Date ,datE Date , categorie varchar,sousCategorie varchar,matiere varchar,quantite number,prix number,typePr varchar,DateENtr Date,coin varchar,coins varchar,unit varchar,pricS number,discription text,fournisseur varchar,client varchar,idmag varchar,QNTT number,dateDel date,image BLOG, FOREIGN KEY (idmag) REFERENCES "+Table_name_Magasin+"(nomMAg) )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name+"(ID varchar(14)PRIMARY KEY,Nom varchar(20) unique,dateF Date ,datE Date , categorie varchar,sousCategorie varchar,matiere varchar,quantite number,prix number,typePr varchar,DateENtr Date,coin varchar,coins varchar,unit varchar,pricS number,discription text,fournisseur varchar,client varchar,idmag varchar,QNTT number,dateDel date,image BLOG, FOREIGN KEY (idmag) REFERENCES "+Table_name_Magasin+"(nomMAg) )");
         db.execSQL("CREATE TABLE iF NOT EXISTS "+Table_name_O+"( nomOp varchar(12),prenomOp varchar(12),matrFiscal varchar(13) ,entreprise varchar(20) not null,job varchar,TelOperateur varchar(14),email varchar2,address varchar2,Linkedin varchar,facebook varchar2,twitter varchar,logoImg BLOG,Primary key (nomOp,prenomOp ),Foreign key (matrFiscal) references "+Table_name_Entreprise+"(NIF),Foreign Key (entreprise) references "+Table_name_Entreprise+"(Nom))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_COM+"(idcom integer PRIMARY KEY AUTOINCREMENT,QntCom number,datCom date,idop integer,codePR varchar(13),FOREIGN KEY (codePR) REFERENCES "+Table_name+"(ID))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_client+"(idclient integer PRIMARY KEY AUTOINCREMENT,reduction number(2,2),Nom varchar(12), Prenom varchar(12),type varchar,FOREIGN KEY (Nom) references "+Table_name_O+"(nomOp) ,FOREIGN KEY (prenom) references "+Table_name_O+"(prenomOp))");
@@ -115,10 +117,12 @@ public class DataBaseM extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_factVente+"(idfVente integer PRIMARY KEY AUTOINCREMENT ,idcv integer ,FOREIGN KEY (idcv) REFERENCES "+Table_name_comVente+"(idCV))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comAchat+"(idCA integer PRIMARY KEY AUTOINCREMENT , datelaivraison date ,idc integer,idfour integer ,FOREIGN KEY (idc) REFERENCES "+Table_name_COM+"(idcom),FOREIGN KEY (idfour) REFERENCES " +Table_name_FOU+"(idFour))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_comVente+"(idCV integer PRIMARY KEY AUTOINCREMENT , dateExp date ,methodeLaiv varchar,idc integer,idclient integer,FOREIGN KEY (idc) REFERENCES "+Table_name_COM+"(idcom),FOREIGN KEY (idclient) REFERENCES " +Table_name_client+"(idclient))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_inventaire+"(RefInv varchar PRIMARY KEY ,DateInv date,tYPiNV varchar2,status Varchar2)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_inventaire+"(RefInv varchar PRIMARY KEY ,DateInv date,tYPiNV varchar2,status Varchar2,duration varchar)");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Rapport+"(idRap varchar PRIMARY KEY ,DateRap date,StatutInv varchar2,refinv varchar,FOREIGN KEY (refinv) REFERENCES "+Table_name_inventaire+"(RefInv))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Historique+"(code varchar(14),QNTT number, date Date,op varchar , PRIMARY KEY (code,date,op),FOREIGN KEY (code) references "+Table_name+"(ID))");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Transfert+"(Id integer PRIMARY KEY AUTOINCREMENT,code varchar(14),QNTT number, date Date,wareh1 varchar ,wareh2 varchar,etatP varchar)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Sold+"(Id varchar(14),DateE date,qntt number,prix number,PRIMARY KEY (Id,DateE),Foreign key (Id) references "+Table_name+"(ID))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Purchase+"(Id varchar(14),DateE date,qntt number,prix number,PRIMARY KEY (Id,DateE),Foreign key (Id) references "+Table_name+"(ID))");
 
     }
 
@@ -135,7 +139,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         Database.close();
     }
     //get all expenses
-   /* public ArrayList<TakenProductData> getTakenProduct() {
+    /*public ArrayList<TakenProductData> getTakenProduct() {
         ArrayList<TakenProductData> arrayList = new ArrayList<>();
         String select_query= "SELECT *FROM " + Table_name_takenproduct;
         SQLiteDatabase db = this .getWritableDatabase();
@@ -154,7 +158,7 @@ public class DataBaseM extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return arrayList;
-    }
+    }*/
     //delete one expense
     public void deleteTakenProduct(String IDh) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -172,7 +176,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         Database.update(Table_name_takenproduct,values, "IDh=" + IDh, null);
         Database.close();
     }
-*/
+
     //------------------------------------------------expenses-----------------------------------------------------------
     //add a new expense
     public void addDepense(String nomD,String magD,Double amountD,String arD,String DateCreaD,String detailsD) {
@@ -189,7 +193,7 @@ public class DataBaseM extends SQLiteOpenHelper {
         Database.close();
     }
     //get all expenses
-   /* public ArrayList<DepenseData> getDepense() {
+    public ArrayList<DepenseData> getDepense() {
         ArrayList<DepenseData> arrayList = new ArrayList<>();
         String select_query= "SELECT *FROM " + Table_name_depenses;
         SQLiteDatabase db = this .getWritableDatabase();
@@ -769,15 +773,16 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.bindString(3,mesuremag);
         statement.executeInsert();
     }
-    public void InsertDataINV( String RefInv ,Date DateInv ,String StatutInv ,String status){
+    public void InsertDataINV( String RefInv ,Date DateInv ,String type ,String status,String duration){
         SQLiteDatabase db= getWritableDatabase();
-        String sql="INSERT INTO "+Table_name_inventaire+" VALUES (  ?, ?, ?, ?)";
+        String sql="INSERT INTO "+Table_name_inventaire+" VALUES (  ?, ?, ?, ?, ?)";
         SQLiteStatement statement= db.compileStatement(sql);
         statement.clearBindings();
         statement.bindString(1,RefInv);
         statement.bindString(2,sdf.format(DateInv));
-        statement.bindString(3,StatutInv);
+        statement.bindString(3,type);
         statement.bindString(4, status);
+        statement.bindString(5, duration);
         statement.executeInsert();
     }public void InsertDataRapport(String idRap,Date DateRap ,String refinv){
         SQLiteDatabase db= getWritableDatabase();
@@ -842,6 +847,30 @@ public class DataBaseM extends SQLiteOpenHelper {
         statement.bindString(6, etatP);
         statement.executeInsert();
     }
+    public void InsertDataSold(String code,Date date,long QNTT ,double prix ){
+        SQLiteDatabase db= getWritableDatabase();
+        String sql="INSERT INTO "+Table_name_Sold+" VALUES (  ?, ?,?,?)";
+        SQLiteStatement statement= db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1,code);
+        statement.bindString(2,sdf.format(date));
+        statement.bindLong(3,QNTT);
+        statement.bindDouble(4,prix);
+
+        statement.executeInsert();
+    }
+    public void InsertDataPurshase(String code,Date date,long QNTT,double Prix  ){
+        SQLiteDatabase db= getWritableDatabase();
+        String sql="INSERT INTO "+Table_name_Purchase+" VALUES (  ?, ?,?,?)";
+        SQLiteStatement statement= db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1,code);
+        statement.bindString(2,sdf.format(date));
+        statement.bindLong(3,QNTT);
+        statement.bindDouble(4,Prix);
+
+        statement.executeInsert();
+    }
 
 
 
@@ -854,7 +883,36 @@ public class DataBaseM extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+Table_name_Transfert);
         db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Transfert+"(Id integer PRIMARY KEY AUTOINCREMENT,code varchar(14),QNTT number, date Date,wareh1 varchar ,wareh2 varchar,etatP varchar)");
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name+"(ID varchar(14)PRIMARY KEY,Nom varchar(20) unique,dateF Date ,datE Date , categorie varchar,sousCategorie varchar,matiere varchar,quantite number,prix number,typePr varchar,DateENtr Date,coin varchar,coins varchar,unit varchar,pricS number,discription text,fournisseur varchar,client varchar,idmag varchar,QNTT number,dateDel date,image BLOG, FOREIGN KEY (idmag) REFERENCES "+Table_name_Magasin+"(nomMAg) )");
+
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_Purchase);
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Purchase+"(Id varchar(14),DateE date,qntt number,prix number,PRIMARY KEY (Id,DateE),Foreign key (Id) references "+Table_name+"(ID))");
+        db.execSQL("DROP TABLE IF EXISTS "+Table_name_Sold);
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+Table_name_Sold+"(Id varchar(14),DateE date,qntt number,prix number,PRIMARY KEY (Id,DateE),Foreign key (Id) references "+Table_name+"(ID))");
 
     }
+
+    public ArrayList<Magasin> getMag() {
+
+
+        ArrayList<Magasin> arrayList = new ArrayList<>();
+        String select_query= "SELECT *FROM " + Table_name_Magasin;
+        SQLiteDatabase db = this .getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Magasin maagasin = new Magasin();
+                maagasin.setNomMag(cursor.getString(0));
+                maagasin.setTypMag(cursor.getString(1));
+                maagasin.setUnitMag(cursor.getString(2));
+                arrayList.add(maagasin);
+            }while (cursor.moveToNext());
+        }
+        return arrayList;
+    }
+
 }
 

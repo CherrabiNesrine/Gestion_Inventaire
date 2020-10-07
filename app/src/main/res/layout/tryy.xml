@@ -20,7 +20,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
-            android:background="#0A1B48" />
+            android:background="@color/colorPrimary"
+            />
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
@@ -29,7 +30,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:text="Inventory Management"
-            android:textSize="30sp"
+            android:textSize="25sp"
             app:fontFamily="@font/baloo"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:textSize="16dp"
             android:text="Start a new activity"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,14 +52,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_deliv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:srcCompat="@mipmap/produit" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -87,18 +88,18 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/bus"
                         android:layout_centerHorizontal="true"
+                        android:text="Products"
                         android:layout_marginTop="10dp"
-                        android:text="Add a product"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/bus"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/pro" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_bo" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -121,30 +122,19 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Inventory"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/rapport" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_inventory"
+                        />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="175dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLay">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -165,51 +155,21 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Stores"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/bus1"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/warehouse" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/Settings">
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/train"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:text="Settings"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
-
-                    <ImageView
-                        android:id="@+id/train"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/settings" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_wareh" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/linearLay"
@@ -231,6 +191,39 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/Bills">
+
+                    <TextView
+                        android:id="@+id/bill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bills"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Orders"
+                        android:textSize="14sp"
+                       />
+
+                    <ImageView
+                        android:id="@+id/bills"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_orde" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:id="@+id/Commande">
 
                     <TextView
@@ -240,19 +233,20 @@
                         android:layout_below="@id/bus2"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Orders"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:text="Bills"
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/bus2"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/list" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_bill" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -273,18 +267,20 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Expenses"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/train1"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/coin" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_expenses" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -295,7 +291,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLay">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Settings">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/train"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Settings"
+                        android:textSize="14sp"
+                       />
+
+                    <ImageView
+                        android:id="@+id/train"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_settings" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -316,16 +345,16 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="About"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/cycle"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/abt" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_information" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -347,16 +376,16 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:text="Logout"
-                        android:textSize="20sp"
-                        app:fontFamily="serif" />
+                        android:textSize="14sp"
+                       />
 
                     <ImageView
                         android:id="@+id/airplane"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@mipmap/logout" />
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_exit" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 

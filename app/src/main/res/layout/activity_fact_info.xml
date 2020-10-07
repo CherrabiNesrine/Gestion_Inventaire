@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
     tools:context=".FactInfo">
 
 
@@ -35,7 +34,7 @@
                     android:id="@+id/hello"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="center"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/mag" />
                 <TextView
                     android:id="@+id/edtO"
@@ -50,7 +49,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="27dp"
                     android:layout_marginRight="27dp"
-                    android:drawableTint="@color/colorvertbleu"
+                    android:drawableTint="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_mode_edit_black_24dp" />
                 <TextView
                     android:id="@+id/cam"
@@ -64,7 +63,7 @@
                     android:layout_marginEnd="28dp"
                     android:layout_marginRight="28dp"
                     android:drawableLeft="@drawable/ic_camera_alt_black_24dp"
-                    android:drawableTint="@color/colorvertbleu"
+                    android:drawableTint="@color/colorAccent"
                     android:visibility="invisible" />
                 <TextView
                     android:id="@+id/donne"
@@ -78,7 +77,7 @@
                     android:layout_marginRight="28dp"
                     android:drawableLeft="@drawable/ic_check"
                     android:visibility="invisible"
-                    android:drawableTint="@color/colorvertbleu" />
+                    android:drawableTint="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/goback"
@@ -87,7 +86,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="30dp"
                     android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
-                    android:drawableTint="@color/colorvertbleu" />
+                    android:drawableTint="@color/colorAccent" />
 
 
                 <TextView
@@ -95,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:text="HELLO"
+                    android:textColor="#000"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -115,7 +115,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_margin="20dp">
 
                 <TextView
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:text="Contact :"
-
+                    android:textColor="#000"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -137,13 +137,15 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
                     android:layout_marginLeft="60dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginRight="60dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.408"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
 
                     <Button
                         android:id="@+id/btnEm"
@@ -154,7 +156,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_emaill"
-                        android:drawableTint="@color/colorvertbleu"
+                        android:drawableTint="@color/colorAccent"
                         android:elevation="2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +172,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_phonee"
-                        android:drawableTint="@color/colorvertbleu"
+                        android:drawableTint="@color/colorAccent"
                         android:elevation="2dp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,7 +190,7 @@
                         android:background="@drawable/altrnbutton"
                         android:backgroundTint="#fff"
                         android:drawableLeft="@drawable/ic_web_site_c"
-                        android:drawableTint="@color/colorvertbleu"
+                        android:drawableTint="@color/colorAccent"
                         android:elevation="2dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

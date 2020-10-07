@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#fff"
+    android:orientation="vertical"
     tools:context=".ViewlistP">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/Bottom_nav"
@@ -24,42 +25,43 @@
         app:menu="@menu/bottom_navigation" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/chb"
-        android:layout_width="match_parent"
-        android:layout_height="164dp"
-        android:backgroundTint="#f5f5f5"
-        android:layout_margin="20dp"
-        android:outlineProvider="bounds"
-        android:elevation="10dp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:text="PRODUCTS in WAREHOUSE"/>
-    </androidx.cardview.widget.CardView>
-
-
-    <GridView
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:orientation="vertical">
+    <ListView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:horizontalSpacing="5dp"
         android:verticalSpacing="5dp"
-        android:layout_below="@+id/chb"
         android:background="@drawable/contin"
         app:backgroundTint="#f5f5f5"
         android:numColumns="2"
         android:stretchMode="columnWidth"
         android:textAlignment="center">
 
-    </GridView>
+    </ListView>
+    <ImageView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/empty"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/emptyTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No item found "
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        />
+</LinearLayout>
+
 
 
 

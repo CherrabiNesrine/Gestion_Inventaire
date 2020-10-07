@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3879e0</color>
-    <color name="colorPrimaryDark">#073a93</color>
-    <color name="colorAccent">#3879e0</color>
+    <color name="colorPrimary">#2c75ff</color>
+    <color name="colorPrimaryDark">#87CEFA</color>
+    <color name="colorAccent">#77b5fe</color>
     <color name="colorviolet">#ad9cda</color>
     <color name="colorvertbleu">#67b8cf</color>
     <color name="colororange">#f6cb4d</color>
@@ -10,8 +10,13 @@
     <color name="accepted">#4CAF50</color>
     <color name="required">#FF8500</color>
     <color name="erreur">#FF0000</color>
+    <color name="background">#ececec</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="white">#FFFFFF</color>
 
-<color name="profilePrimaryDark">#FF0000</color>
+
+    <color name="profilePrimaryDark">#FF0000</color>
     <color name="profileAccentColor">#F7F7F7</color>
 
     <color name="whiteTextColor">#fff</color>

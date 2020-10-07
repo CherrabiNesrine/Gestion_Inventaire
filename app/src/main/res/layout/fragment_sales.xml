@@ -3,16 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
     tools:context=".Sales">
 
 
     <!-- TODO: Update blank fragment layout -->
-   <ListView
-       android:id="@+id/lstDocSale"
-       android:stretchMode="columnWidth"
-       android:textAlignment="center"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <ListView
+        android:id="@+id/lstDocSale"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:horizontalSpacing="8dp"
+        android:stretchMode="columnWidth"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <ImageView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/notfound"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+    <TextView
+        android:id="@+id/emptyTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No item found "
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        />
+</LinearLayout>
+
+
 
 </RelativeLayout>

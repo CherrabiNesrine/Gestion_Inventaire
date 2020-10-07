@@ -19,6 +19,31 @@
         <item>Direct materials</item>
         <item>Indirect materials</item>
     </string-array>
+    <string-array name="TypeInventaire">
+        <item>Annual</item>
+        <item>permanent</item>
+        <item>rolling</item>
+    </string-array>
+    <string-array name="StatusInventaire">
+        <item>In progress..</item>
+        <item>Pending..</item>
+        <item>Validated</item>
+        <item>In validation</item>
+    </string-array>
+    <string-array name="dureeInv">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
     <string-array name="DirectRaw">
         <item>Wood</item>
         <item>Metals </item>
@@ -33,8 +58,7 @@
     </string-array>
     <string-array name="coins">
         <item>Algerian dinar </item>
-        <item>euro</item>
-        <item>dollar</item>
+
     </string-array>
     <string-array name="unit">
         <item>ea</item>

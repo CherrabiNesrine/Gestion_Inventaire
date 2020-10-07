@@ -22,6 +22,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ import static android.R.layout.simple_list_item_1;
 
 
 public class MagazinActivity extends SidebarMenu {
-    Button addmag, magedi, magdel;
+
     DataBaseM db;
     Magasin mag = new Magasin();
     ListView listView;
@@ -50,9 +51,10 @@ public class MagazinActivity extends SidebarMenu {
     ArrayList<String> NOM = new ArrayList<>();
     ArrayList<String> Type = new ArrayList<>();
     ArrayList<String> UNIT = new ArrayList<>();
-    Magasin M = new Magasin();
     String checkk = "";
     String show = "";
+    ImageView imv ;
+    TextView empt;
     BottomNavigationView navigationView;
 
     @Override
@@ -133,22 +135,26 @@ public class MagazinActivity extends SidebarMenu {
 
             Cursor cursor = db.getData("SELECT * FROM mag ");
             MAGZ.clear();
-            while (cursor.moveToNext()) {
-                String nom = cursor.getString(0);
-                String types = cursor.getString(1);
-                String units = cursor.getString(2);
-
-                NOM.add(nom);
-                Type.add(types);
-                UNIT.add(units);
-           /* if (NOM.size()!=0){
-                txt.setText("PRODUCT'S LIST "); }
-            else{
-                txt.setVisibility(View.VISIBLE);
-                txt.setText("Nothing to show ");
+            if (cursor==null || cursor.getCount()<=0){
+                imv =(ImageView)findViewById(R.id.empty);
+                empt =(TextView)findViewById(R.id.emptyTxt);
+                imv.setVisibility(View.VISIBLE);
+                empt.setVisibility(View.VISIBLE);
+                empt.setText("No wareHouse found ");
+                listView.setVisibility(View.GONE);
             }
-            */
-                adpter.notifyDataSetChanged();
+            else {
+                while (cursor.moveToNext()) {
+                    String nom = cursor.getString(0);
+                    String types = cursor.getString(1);
+                    String units = cursor.getString(2);
+
+                    NOM.add(nom);
+                    Type.add(types);
+                    UNIT.add(units);
+
+                    adpter.notifyDataSetChanged();
+                }
             }
 
 
@@ -342,7 +348,7 @@ public class MagazinActivity extends SidebarMenu {
                         lay6.setError("this filed can not be blank !");
                     } else if (TYP.getText().toString().isEmpty()) {
                         lay7.setError("this field can not be blank !");
-                    } else {
+                    } else if( !idMAG.getText().toString().isEmpty() && !MES.getText().toString().isEmpty() && !TYP.getText().toString().isEmpty()) {
                         mag.setNomMag(idMAG.getText().toString());
                         mag.setTypMag(TYP.getText().toString());
                         mag.setUnitMag(MES.getText().toString());
@@ -353,9 +359,14 @@ public class MagazinActivity extends SidebarMenu {
                         Type.add(type);
                         String unit = mag.getUnitMag();
                         UNIT.add(unit);
+                        try{
                         db.InsertDataMag(nom, type, unit);
                         adpter.notifyDataSetChanged();
-                        Toast.makeText(getApplicationContext(), "successed!", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "successed!", Toast.LENGTH_LONG);}
+                        catch (Exception e){
+                            Toast.makeText(getApplicationContext()," this name of warehouse already exist",Toast.LENGTH_LONG).show();
+                        }
+
 
 
 

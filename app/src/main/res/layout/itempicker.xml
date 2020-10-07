@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/contin"
+            android:backgroundTint="#fff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Itclo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="7dp"
+                    android:drawableRight="@drawable/ic_close"
+
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select item"
+                    android:layout_margin="10dp"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="please choose the item you want  evaluate   "
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <Spinner
+                    android:id="@+id/itspi"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    />
+
+                <Button
+                    android:id="@+id/itOk"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="4dp"
+
+                    android:text="ok"
+                    android:textColor="#fff"
+
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
